@@ -1,0 +1,30 @@
+header {
+    border-bottom: 5px solid black;
+}
+
+nav {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav__item {
+    transition: all 0.3s ease;
+    margin: 0px;
+    padding: 12px 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: gray;
+    }
+
+    &.profile {
+        margin-left: auto;
+    }
+
+    &.combobox {
+        /* TODO открытие плавное комбобокса */
+        /* transition: all 0.3s ease; */
+    }
+}

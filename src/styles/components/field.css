@@ -1,0 +1,52 @@
+.field {
+    position: relative;
+    margin-bottom: 25px;
+}
+
+.field__input {
+    border: 1px solid black;
+    border-radius: 4px;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    min-width: 14rem;
+}
+
+.field__label {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    transition: all 0.3s ease;
+    color: #999;
+    pointer-events: none;
+}
+
+.field__input:focus {
+    border: 2px solid black;
+    outline: none;
+}
+
+.field__input:focus+.field__label,
+.field__input:not(:placeholder-shown)+.field__label {
+    top: -8px;
+    left: 9px;
+    font-size: 13px;
+    padding: 0px 3px;
+    background-color: white;
+}
+
+.field__input.is-invalid {
+    border: 2px solid red;
+}
+
+.field__error {
+    position: absolute;
+    top: 100%;
+    left: 10px;
+    font-size: 12px;
+    color: red;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    /* max-width: 100%; */
+}
