@@ -2,7 +2,9 @@ import UserProfile from '../components/UserProfile'
 
 const Profile = () => {
     return (
-        <UserProfile />
+        <>
+            <UserProfile />
+        </>
     )
 }
 

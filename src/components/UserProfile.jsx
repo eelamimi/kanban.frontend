@@ -1,17 +1,22 @@
-import { Link } from 'react-router'
-import avatar from '../assets/img/real_avatar.jpg'
+import baseAvatar from '../assets/img/real_avatar.jpg'
+import { useContext } from 'react';
+import { UserInfoContext } from '../context/UserInfo/UserInfoContext';
+import { formatDate } from '../utils/dataFormatter';
 
 const UserProfile = () => {
-    const firstName = 'Александр'
-    const secondName = 'Петров'
-    const email = 'b.gleba77@gmail.com'
-    const createdAt = '24 марта 2026 г.'
+    const {
+        firstName,
+        secondName,
+        email,
+        avatar,
+        createdAt
+    } = useContext(UserInfoContext)
 
     return (
         <div className="userProfile__card">
-            <img className="userProfile__avatar" src={avatar} alt="Фото профиля" />
+            <img className="userProfile__avatar" src={avatar !== '' ? avatar : baseAvatar} alt="Фото профиля" />
             <div className="userProfile__info">
-                <div class="userProfile__fullName">
+                <div className="userProfile__fullName">
                     {`${firstName} ${secondName}`}
                 </div>
                 <div className="userProfile__row">
@@ -20,7 +25,7 @@ const UserProfile = () => {
                 </div>
                 <div className="userProfile__row">
                     <div className="userProfile__label">Дата регистрации:</div>
-                    <span>{createdAt}</span>
+                    <span>{formatDate(createdAt)}</span>
                 </div>
             </div>
         </div >
