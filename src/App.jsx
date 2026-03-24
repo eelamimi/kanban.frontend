@@ -3,8 +3,8 @@ import Registry from './pages/Registry'
 import Login from './pages/Login'
 import Layout from './components/Layout'
 import Profile from './pages/Profile'
-import { useAuthCheck } from './hook/useAuthCheck'
-import ProtectedRoute from './components/ProtectedRoute'
+// import { useAuthCheck } from './hook/useAuthCheck'
+// import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   // useAuthCheck()
