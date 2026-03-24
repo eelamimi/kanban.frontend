@@ -1,9 +1,12 @@
 import { Outlet } from 'react-router';
 import NavItem from './NavItem';
+import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
 
 const Layout = () => {
+
+
     return (
-        <>
+        <UserInfoProvider>
             <header>
                 <nav>
                     <NavItem className='combobox'>Projects</NavItem>
@@ -16,7 +19,7 @@ const Layout = () => {
             <main>
                 <Outlet />
             </main>
-        </>
+        </UserInfoProvider>
     )
 };
 
