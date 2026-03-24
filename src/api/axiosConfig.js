@@ -11,7 +11,7 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const token = localStorage.getItem('token')
+        const { token } = AuthService.getUserInfo()
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
         }
@@ -28,6 +28,7 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         if (error.response?.status === 401) {
+            console.log("un authorize")
             AuthService.clearUserInfo()
             AuthService.redirectToLogin()
         }
