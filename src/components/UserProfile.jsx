@@ -1,7 +1,9 @@
-import baseAvatar from '../assets/img/500x500.jpg'
+import baseAvatar from '../assets/img/default_avatar.jpg'
 import { useContext } from 'react';
 import { UserInfoContext } from '../context/UserInfo/UserInfoContext';
 import { formatDate } from '../utils/dataFormatter';
+import { Link } from 'react-router';
+import Button from './Button';
 
 const UserProfile = () => {
     const {
@@ -9,7 +11,9 @@ const UserProfile = () => {
         secondName,
         email,
         avatar,
-        createdAt
+        createdAt,
+        teams,
+        isLoadingTeams
     } = useContext(UserInfoContext)
 
     return (
@@ -43,10 +47,15 @@ const UserProfile = () => {
             </div>
             <div className='userProfile__section'>
                 <div className='userProfile__h1'>Команды</div>
-                <div className='userProfile__row team'>
-                    <div>Команда1</div>
-                    <div>Администратор</div>
+                <div className="userProfile__teams-list">
+                    {teams.map((team, index) => (
+                        <div key={index} className="userProfile__team-item">
+                            <Link className="userProfile__team-name">{team.name}</Link>
+                            <div className="userProfile__team-role">{team.role}</div>
+                        </div>
+                    ))}
                 </div>
+                <Button className='userProfile__button'>Создать команду</Button>
             </div>
         </>
     );

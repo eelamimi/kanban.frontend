@@ -1,3 +1,4 @@
+import { useTeams } from '../../hook/useTeams'
 import useUserInfo from '../../hook/useUserInfo'
 import { UserInfoContext } from './UserInfoContext'
 
@@ -13,6 +14,11 @@ const UserInfoProvider = ({ children }) => {
         createdAt
     } = useUserInfo()
 
+    const {
+        teams,
+        isLoadingTeams
+    } = useTeams()
+
     return (
         <UserInfoContext.Provider
             value={{
@@ -24,7 +30,9 @@ const UserInfoProvider = ({ children }) => {
                 setEmail,
                 avatar,
                 setAvatar,
-                createdAt
+                createdAt,
+                teams,
+                isLoadingTeams
             }}
         >
             {children}

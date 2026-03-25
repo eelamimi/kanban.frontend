@@ -3,6 +3,7 @@ import authAPI from '../api/authAPI'
 class AuthService {
     static TOKEN_KEY = import.meta.env.VITE_TOKEN_KEY
     static USER_ID_KEY = import.meta.env.VITE_USER_ID
+    static USER_PROFILE_ID_KEY = import.meta.env.VITE_USER_PROFILE_ID
     static CHECK_INTERVAL = 60 * 60 * 1000
     static checkIntervalId = null
 
@@ -10,23 +11,26 @@ class AuthService {
         return {
             token: localStorage.getItem(this.TOKEN_KEY),
             userId: localStorage.getItem(this.USER_ID_KEY),
+            userProfileId: localStorage.getItem(this.USER_PROFILE_ID_KEY)
         }
     }
 
-    static setUserInfo({ token, userId }) {
+    static setUserInfo({ token, userId, userProfileId }) {
         localStorage.setItem(this.TOKEN_KEY, token)
         localStorage.setItem(this.USER_ID_KEY, userId)
+        localStorage.setItem(this.USER_PROFILE_ID_KEY, userProfileId)
     }
 
     static clearUserInfo() {
         localStorage.removeItem(this.TOKEN_KEY)
         localStorage.removeItem(this.USER_ID_KEY)
+        localStorage.removeItem(this.USER_PROFILE_ID_KEY)
         this.stopPeriodicCheck()
     }
 
     static async verifyToken() {
-        const { token, userId } = this.getUserInfo()
-        if (!token || !userId)
+        const { token, userId, userProfileId } = this.getUserInfo()
+        if (!token || !userId || !userProfileId)
             return false
 
         try {
