@@ -7,23 +7,23 @@ import Profile from './pages/Profile'
 // import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
-  // useAuthCheck()
+    // useAuthCheck()
 
-  return (
-    <Routes>
-      <Route path='auth'>
-        <Route path='registry' element={<Registry />} />
-        <Route path='login' element={<Login />} />
-      </Route>
-      <Route element={<Layout />}>
-        <Route path='profile' element={
-          // <ProtectedRoute>
-          <Profile />
-          // </ProtectedRoute>
-        } />
-      </Route>
-    </Routes>
-  )
+    return (
+        <Routes>
+            <Route path='auth'>
+                <Route path='registry' element={<Registry />} />
+                <Route path='login' element={<Login />} />
+            </Route>
+            <Route element={<Layout />}>
+                <Route path='profile' element={
+                    // <ProtectedRoute>
+                    <Profile />
+                    // </ProtectedRoute>
+                } />
+            </Route>
+        </Routes>
+    )
 }
 
 export default App
