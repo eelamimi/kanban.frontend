@@ -27,4 +27,9 @@ nav {
         /* TODO открытие плавное комбобокса */
         /* transition: all 0.3s ease; */
     }
+
+    & img {
+        width: auto;
+        height: auto;
+    }
 }
