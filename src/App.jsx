@@ -1,26 +1,37 @@
 import { Routes, Route } from 'react-router'
-import Registry from './pages/Registry'
-import Login from './pages/Login'
 import Layout from './components/Layout'
-import Profile from './pages/Profile'
+import RegistryPage from './pages/RegistryPage'
+import LoginPage from './pages/LoginPage'
+import ProfilePage from './pages/ProfilePage'
+import TeamPage from './pages/TeamPage'
+import TeamsPage from './pages/TeamsPage'
 // import { useAuthCheck } from './hook/useAuthCheck'
 // import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
     // useAuthCheck()
-
     return (
         <Routes>
             <Route path='auth'>
-                <Route path='registry' element={<Registry />} />
-                <Route path='login' element={<Login />} />
+                <Route path='registry' element={<RegistryPage />} />
+                <Route path='login' element={<LoginPage />} />
             </Route>
             <Route element={<Layout />}>
-                <Route path='profile' element={
-                    // <ProtectedRoute>
-                    <Profile />
-                    // </ProtectedRoute>
-                } />
+                <Route
+                    path='profile'
+                    element={
+                        // <ProtectedRoute>
+                        <ProfilePage />
+                        // </ProtectedRoute>
+                    } />
+                <Route
+                    path='/teams'
+                    element={<TeamsPage />}
+                />
+                <Route
+                    path='/teams/:teamId'
+                    element={<TeamPage />}
+                />
             </Route>
         </Routes>
     )

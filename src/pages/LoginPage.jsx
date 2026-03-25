@@ -1,7 +1,7 @@
 import LoginForm from '../components/LoginForm'
 import { LoginProvider } from '../context/Login/LoginProvider'
 
-const Login = () => {
+const LoginPage = () => {
     return (
         <LoginProvider>
             <LoginForm />
@@ -9,4 +9,4 @@ const Login = () => {
     )
 }
 
-export default Login
+export default LoginPage

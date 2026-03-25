@@ -1,7 +1,7 @@
 import RegistryForm from '../components/RegistryForm'
 import { RegistryProvider } from '../context/Registry/RegistryProvider'
 
-const Registry = () => {
+const RegistryPage = () => {
     return (
         <RegistryProvider>
             <RegistryForm />
@@ -9,4 +9,4 @@ const Registry = () => {
     )
 }
 
-export default Registry
+export default RegistryPage
