@@ -11,9 +11,10 @@ const axiosInstance = axios.create({
 
 axiosInstance.interceptors.request.use(
     (config) => {
-        const { token } = AuthService.getUserInfo()
+        const { token, userProfileId } = AuthService.getUserInfo()
         if (token) {
             config.headers.Authorization = `Bearer ${token}`
+            config.headers.UserProfileId = userProfileId
         }
         return config
     },

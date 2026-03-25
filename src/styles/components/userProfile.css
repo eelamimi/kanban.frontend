@@ -75,7 +75,7 @@
     margin-bottom: 1.5rem;
 }
 
-.userProfile__row {
+.userProfile__field {
     display: flex;
     align-items: center;
     gap: 8px;
@@ -91,8 +91,15 @@
     display: block;
     font-size: 2rem;
     margin: 0;
+    /* padding: 8px; */
     /* margin-bottom: 1rem; */
     font-weight: bold;
+}
+
+.userProfile__team-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }
 
 .userProfile__teams-list {
@@ -102,6 +109,7 @@
 }
 
 .userProfile__team-item {
+    margin-left: 1rem;
     padding: 12px 16px;
     border-bottom: 1px solid #777;
 
@@ -125,5 +133,6 @@ a.userProfile__team-name {
 }
 
 .button.userProfile__button {
-    margin-top: 1rem;
+    margin-left: auto;
+    /* margin-top: 1rem; */
 }
