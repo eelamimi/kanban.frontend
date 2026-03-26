@@ -1,10 +1,3 @@
-.teamsSection__team-h1 {
-    display: block;
-    font-size: 2rem;
-    margin: 0;
-    font-weight: bold;
-}
-
 .teamsSection__team-header {
     display: flex;
     flex-direction: row;

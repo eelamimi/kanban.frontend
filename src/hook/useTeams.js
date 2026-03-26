@@ -9,7 +9,7 @@ export const useTeams = () => {
         async function fetchTeams() {
             try {
                 const response = await teamsAPI.getTeams()
-                setTeams(response.teams)
+                setTeams(response)
             } catch (error) {
                 console.error('Error fetching teams:', error)
             } finally {

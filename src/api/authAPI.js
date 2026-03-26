@@ -18,9 +18,9 @@ const authAPI = {
         }
     },
 
-    authenticateUser: async (request) => {
+    loginUser: async (request) => {
         try {
-            const response = await axiosInstance.post(`${AUTH_URL}/authenticate`, request)
+            const response = await axiosInstance.post(`${AUTH_URL}/login`, request)
             return response.data
         } catch (error) {
             if (error.response) {

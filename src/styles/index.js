@@ -1,4 +1,4 @@
-import './body.css'
+import './main.css'
 
 import './components/button.css'
 import './components/form.css'

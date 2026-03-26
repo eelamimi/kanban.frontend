@@ -13,7 +13,7 @@ const TeamsSection = () => {
     return (
         <Section>
             <div className='teamsSection__team-header'>
-                <div className="teamsSection__team-h1">Команды</div>
+                <div className="h1">Команды</div>
                 <Button className='teamsSection__team-add-button'>Создать команду</Button>
             </div>
             <div className="teamsSection__teams-list">
@@ -25,7 +25,7 @@ const TeamsSection = () => {
                         >
                             {team.name}
                         </Link>
-                        <div className="teamsSection__team-role">{team.role}</div>
+                        <div className="teamsSection__team-role">{team.role.name}</div>
                     </div>
                 ))}
             </div>

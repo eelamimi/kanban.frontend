@@ -3,9 +3,9 @@ import axiosInstance from './axiosConfig'
 const USER_URL = 'api/user'
 
 const userAPI = {
-    getUserInfo: async () => {
+    getUserInfo: async (userId) => {
         try {
-            const response = await axiosInstance.get(`${USER_URL}`)
+            const response = await axiosInstance.get(`${USER_URL}/${userId}`)
             return response.data
         } catch (error) {
             if (error.response) {

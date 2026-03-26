@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import userAPI from '../api/userAPI'
+import AuthService from '../service/AuthService'
 
 const useUserInfo = () => {
     const [firstName, setFirstName] = useState('')
@@ -10,7 +11,8 @@ const useUserInfo = () => {
 
     useEffect(() => {
         async function fetchData() {
-            const response = await userAPI.getUserInfo()
+            const { userId } = AuthService.getUserInfo()
+            const response = await userAPI.getUserInfo(userId)
             setFirstName(response.firstName)
             setSecondName(response.secondName)
             setEmail(response.email)

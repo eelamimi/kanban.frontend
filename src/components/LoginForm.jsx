@@ -88,7 +88,7 @@ function LoginForm() {
         setIsLoading(true)
 
         try {
-            const response = await authAPI.authenticateUser({
+            const response = await authAPI.loginUser({
                 Email: email,
                 Password: password,
             })

@@ -3,7 +3,7 @@ import AuthService from '../service/AuthService';
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
-    timeout: 10_000,
+    timeout: 30_000,
     headers: {
         'Content-Type': 'application/json'
     }

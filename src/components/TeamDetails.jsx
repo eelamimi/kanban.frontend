@@ -1,8 +1,10 @@
+import Section from './Section'
+
 const TeamDetails = () => {
     return (
-        <h1>
-            Hello, World!
-        </h1>
+        <Section>
+
+        </Section>
     )
 }
 
