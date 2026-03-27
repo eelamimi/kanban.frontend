@@ -1,4 +1,5 @@
 import './main.css'
+import './spinner.css'
 
 import './components/button.css'
 import './components/form.css'

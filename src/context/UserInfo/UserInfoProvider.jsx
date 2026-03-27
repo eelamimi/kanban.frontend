@@ -11,6 +11,7 @@ const UserInfoProvider = ({ children }) => {
         setEmail,
         avatar,
         setAvatar,
+        isUserInfoLoading,
         createdAt
     } = useUserInfo()
 
@@ -30,6 +31,7 @@ const UserInfoProvider = ({ children }) => {
                 setEmail,
                 avatar,
                 setAvatar,
+                isUserInfoLoading,
                 createdAt,
                 teams,
                 isLoadingTeams

@@ -8,6 +8,7 @@ const useUserInfo = () => {
     const [email, setEmail] = useState('')
     const [createdAt, setCreatedAt] = useState(null)
     const [avatar, setAvatar] = useState(null)
+    const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
 
     useEffect(() => {
         async function fetchData() {
@@ -18,6 +19,7 @@ const useUserInfo = () => {
             setEmail(response.email)
             setCreatedAt(response.createdAt)
             setAvatar(response.avatar)
+            setIsUserInfoLoading(false)
         }
 
         fetchData()
@@ -32,6 +34,7 @@ const useUserInfo = () => {
         setEmail,
         avatar,
         setAvatar,
+        isUserInfoLoading,
         createdAt
     }
 }
