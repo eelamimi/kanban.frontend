@@ -1,0 +1,21 @@
+.teamDetails__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.teamDetails__field {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 1rem;
+}
+
+.teamDetails__label {
+    width: 1fr;
+    color: #3b3b3b;
+}
+
+.button.teamDetails__team-edit-button {
+    margin-left: auto;
+}

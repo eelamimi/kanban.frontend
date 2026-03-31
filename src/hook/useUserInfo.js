@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import userAPI from '../api/userAPI'
 import AuthService from '../service/AuthService'
 
@@ -10,20 +10,15 @@ const useUserInfo = () => {
     const [avatar, setAvatar] = useState(null)
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
 
-    useEffect(() => {
-        async function fetchData() {
-            const { userId } = AuthService.getUserInfo()
-            const response = await userAPI.getUserInfo(userId)
-            setFirstName(response.firstName)
-            setSecondName(response.secondName)
-            setEmail(response.email)
-            setCreatedAt(response.createdAt)
-            setAvatar(response.avatar)
-            setIsUserInfoLoading(false)
-        }
-
-        fetchData()
-    }, [])
+    const loadUserById = async (id) => {
+        const response = await userAPI.getUserInfo(id)
+        setFirstName(response.firstName)
+        setSecondName(response.secondName)
+        setEmail(response.email)
+        setCreatedAt(response.createdAt)
+        setAvatar(response.avatar)
+        setIsUserInfoLoading(false)
+    }
 
     return {
         firstName,
@@ -35,7 +30,8 @@ const useUserInfo = () => {
         avatar,
         setAvatar,
         isUserInfoLoading,
-        createdAt
+        createdAt,
+        loadUserById
     }
 }
 

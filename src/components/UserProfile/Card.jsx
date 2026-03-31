@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import { UserInfoContext } from '../../context/UserInfo/UserInfoContext'
 import { formatDate } from '../../utils/dataFormatter';
 import UserProfileAvatar from './Avatar'
@@ -6,7 +6,7 @@ import UserProfileInfo from './Info'
 import UserProfileFullName from './FullName'
 import UserProfileField from './Field'
 
-const UserProfileCard = () => {
+const UserProfileCard = memo(() => {
     const {
         firstName,
         secondName,
@@ -34,6 +34,6 @@ const UserProfileCard = () => {
             </UserProfileInfo>
         </div >
     )
-}
+})
 
 export default UserProfileCard

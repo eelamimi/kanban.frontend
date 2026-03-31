@@ -1,9 +1,8 @@
-/* Добавьте в ваш CSS файл */
 .loading-spinner {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 200px;
+    min-height: 60px;
 }
 
 .spinner {
