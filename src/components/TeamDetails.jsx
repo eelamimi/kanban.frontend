@@ -16,6 +16,7 @@ const TeamDetails = () => {
         async function fetchTeam() {
             try {
                 const response = await teamsAPI.getTeam(teamId)
+                console.log(response)
                 setTeam(response)
             } catch (error) {
                 console.error('Error fetching team:', error)
@@ -51,7 +52,7 @@ const TeamDetails = () => {
             <Section>
                 <div className='teamDetails__header'>
                     <div className='h1'>{team.name}</div>
-                    <Button className='teamDetails__team-edit-button'>Редактировать команду</Button>
+                    <Button className='left'>Редактировать команду</Button>
                 </div>
                 <div className='teamDetails__field'>
                     <div className='teamDetails__label'>{`${currentUserPair.role.name}:`}</div>
@@ -61,7 +62,7 @@ const TeamDetails = () => {
             <Section>
                 <div className='teamDetails__header'>
                     <div className='h1'>Проекты</div>
-                    <Button className='teamDetails__team-edit-button'>Добавить проект</Button>
+                    <Button className='left'>Добавить проект</Button>
                 </div>
                 <List
                     items={team.projects}
@@ -73,7 +74,7 @@ const TeamDetails = () => {
             <Section>
                 <div className='teamDetails__header'>
                     <div className='h1'>Пользователи</div>
-                    <Button className='teamDetails__team-edit-button'>Пригласить</Button>
+                    <Button className='left'>Пригласить</Button>
                 </div>
                 <List
                     items={team.userRolePairs}
