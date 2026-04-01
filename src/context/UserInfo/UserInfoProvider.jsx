@@ -24,18 +24,21 @@ const UserInfoProvider = ({ children }) => {
 
     const {
         teams,
-        isLoadingTeams
+        isLoadingTeams,
+        loadTeamsByUserId
     } = useTeams()
 
     useEffect(() => {
         if (userIdFromUrl) {
-            loadUserById(userIdFromUrl);
+            loadUserById(userIdFromUrl)
+            loadTeamsByUserId(userIdFromUrl)
         }
         else {
-            loadUserById(AuthService.getUserInfo().userProfileId)
+            const userProfileId = AuthService.getUserInfo().userProfileId
+            loadUserById(userProfileId)
+            loadTeamsByUserId(userProfileId)
         }
-
-    }, [userIdFromUrl, loadUserById]);
+    }, [userIdFromUrl, loadUserById, loadTeamsByUserId])
 
     return (
         <UserInfoContext.Provider

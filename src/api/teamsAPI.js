@@ -3,9 +3,9 @@ import axiosInstance from './axiosConfig'
 const TEAMS_URL = 'api/teams'
 
 const teamsAPI = {
-    getTeams: async () => {
+    getTeams: async (userId) => {
         try {
-            const response = await axiosInstance.get(`${TEAMS_URL}`)
+            const response = await axiosInstance.get(`${TEAMS_URL}?personUserId=${userId}`)
             return response.data
         } catch (error) {
             if (error.response) {

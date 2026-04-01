@@ -9,7 +9,7 @@ const userAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка регистрации')
+                throw new Error(error.response.data?.message || 'Ошибка загрузки пользователя')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {

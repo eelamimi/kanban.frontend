@@ -1,24 +1,20 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useState } from 'react'
 import teamsAPI from '../api/teamsAPI'
 
 export const useTeams = () => {
     const [teams, setTeams] = useState([])
     const [isLoadingTeams, setIsLoadingTeams] = useState(true)
 
-    useEffect(() => {
-        async function fetchTeams() {
-            try {
-                const response = await teamsAPI.getTeams()
-                setTeams(response)
-            } catch (error) {
-                console.error('Error fetching teams:', error)
-            } finally {
-                setIsLoadingTeams(false)
-            }
+    const loadTeamsByUserId = useCallback(async (userId) => {
+        try {
+            const response = await teamsAPI.getTeams(userId)
+            setTeams(response)
+        } catch (error) {
+            console.error('Error fetching teams:', error)
+        } finally {
+            setIsLoadingTeams(false)
         }
-
-        fetchTeams()
     }, [])
 
-    return { teams, isLoadingTeams }
+    return { teams, isLoadingTeams, loadTeamsByUserId }
 }

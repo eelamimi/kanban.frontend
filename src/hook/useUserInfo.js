@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import userAPI from '../api/userAPI'
 import AuthService from '../service/AuthService'
 
@@ -10,15 +10,15 @@ const useUserInfo = () => {
     const [avatar, setAvatar] = useState(null)
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
 
-    const loadUserById = async (id) => {
-        const response = await userAPI.getUserInfo(id)
+    const loadUserById = useCallback(async (userId) => {
+        const response = await userAPI.getUserInfo(userId, AuthService.getUserInfo().userProfileId)
         setFirstName(response.firstName)
         setSecondName(response.secondName)
         setEmail(response.email)
         setCreatedAt(response.createdAt)
         setAvatar(response.avatar)
         setIsUserInfoLoading(false)
-    }
+    }, [])
 
     return {
         firstName,
