@@ -1,5 +1,6 @@
 import Section from '../Section'
 import Button from '../Button'
+import Column from './Column'
 
 const Columns = ({ columns }) => {
     return (
@@ -8,7 +9,7 @@ const Columns = ({ columns }) => {
                 <div className="h1">Доска</div>
                 <Button className='left'>Добавить задачу</Button>
             </div>
-            <div className="columnsContainer">
+            <div className="columns">
                 {columns.map((column) => {
                     column.issues = [
                         { id: 1, title: 'title1' },
@@ -20,16 +21,7 @@ const Columns = ({ columns }) => {
                     ]
 
                     return (
-                        <div className="column" key={column.id}>
-                            <Section className='columnName'>
-                                {column.name}
-                            </Section>
-                            <Section className='issues'>
-                                {column.issues.map((issue) => (
-                                    <div key={issue.id}>{issue.title}</div>
-                                ))}
-                            </Section>
-                        </div>
+                        <Column column={column} key={column.id} />
                     )
                 })}
             </div>

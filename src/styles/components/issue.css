@@ -1,0 +1,18 @@
+.issue {
+    padding: .5rem;
+    border-bottom: 1px solid #ddd;
+
+    &:hover {
+        background-color: #acacac;
+        cursor: pointer;
+    }
+
+    &:first-child {
+        border-radius: 10px 10px 0 0;
+    }
+
+    &:last-child {
+        border-bottom: none;
+        border-radius: 0 0 10px 10px;
+    }
+}

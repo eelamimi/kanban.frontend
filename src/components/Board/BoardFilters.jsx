@@ -6,7 +6,7 @@ const BoardFilters = ({ filters }) => {
             <div className="h1">Фильтры</div>
             {filters.map((filter) => {
                 return (
-                    <span>{filter.fullName}</span>
+                    <span>{filter.firstName}</span>
                 )
             })}
         </Section>

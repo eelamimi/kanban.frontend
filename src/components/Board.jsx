@@ -38,12 +38,23 @@ const Board = () => {
                 <Section className={'full-width'}>
                     <Spinner />
                 </Section>
+                <Section className={'full-width'}>
+                    <Spinner />
+                </Section>
             </>
         )
     }
 
     return (
         <>
+            <Section className={'full-width'}>
+                <div className='board__header'>
+                    <div className="h1">{project.name}</div>
+                </div>
+                <div className='teamDetails__field'>
+                    <span>{project.description}</span>
+                </div>
+            </Section>
             <BoardFilters
                 filters={project.filters}
             />
