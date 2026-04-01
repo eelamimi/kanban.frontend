@@ -7,3 +7,8 @@
     padding: 2rem;
     width: 600px;
 }
+
+.section.full-width {
+    margin: 2rem;
+    width: auto;
+}
