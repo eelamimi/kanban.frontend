@@ -1,6 +1,6 @@
-const Span = ({ label, value }) => {
+const Span = ({ className = '', label, value }) => {
     return (
-        <div className='field-ro'>
+        <div className={`field-ro ${className}`}>
             {label && <div className='field-ro_label'>{label}</div>}
             <span>{value}</span>
         </div>
