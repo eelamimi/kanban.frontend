@@ -1,14 +1,16 @@
-import { useState } from 'react';
-import { DndContext, closestCenter } from '@dnd-kit/core';
-import Section from '../Section';
-import Button from '../Button';
-import Column from './Column';
+import { useState } from 'react'
+import { DndContext, closestCenter } from '@dnd-kit/core'
+import Section from '../Section'
+import Button from '../Button'
+import Column from './Column'
+import AddIssueModal from '../AddIssueModal'
 
 const Columns = ({ columns: initialColumns }) => {
+    const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
     const [columns, setColumns] = useState(initialColumns)
 
     function handleDragEnd(event) {
-        const { active, over } = event;
+        const { active, over } = event
 
         // const issueId = active.id
         // const sourceColumnId = findColumnByIssueId(issueId)
@@ -17,19 +19,19 @@ const Columns = ({ columns: initialColumns }) => {
         // if (sourceColumnId === targetColumnId)
         //     return
 
-        // const issueId = active.id;
-        // const sourceColumnId = findColumnByIssueId(issueId);
-        // const targetColumnId = over.id;
+        // const issueId = active.id
+        // const sourceColumnId = findColumnByIssueId(issueId)
+        // const targetColumnId = over.id
 
-        // if (sourceColumnId === targetColumnId) return;
+        // if (sourceColumnId === targetColumnId) return
 
         // // Находим issue и перемещаем
-        // const sourceColumn = columns.find(col => col.id === sourceColumnId);
-        // const targetColumn = columns.find(col => col.id === targetColumnId);
+        // const sourceColumn = columns.find(col => col.id === sourceColumnId)
+        // const targetColumn = columns.find(col => col.id === targetColumnId)
 
-        // const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId);
+        // const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
 
-        // if (!movedIssue) return;
+        // if (!movedIssue) return
 
         // // Создаем новые колонки
         // const newColumns = columns.map(col => {
@@ -37,27 +39,27 @@ const Columns = ({ columns: initialColumns }) => {
         //         return {
         //             ...col,
         //             issues: col.issues.filter(issue => issue.id !== issueId)
-        //         };
+        //         }
         //     }
         //     if (col.id === targetColumnId) {
         //         return {
         //             ...col,
         //             issues: [...col.issues, movedIssue]
-        //         };
+        //         }
         //     }
-        //     return col;
-        // });
+        //     return col
+        // })
 
-        // setColumns(newColumns);
+        // setColumns(newColumns)
     }
 
     function findColumnByIssueId(issueId) {
         for (const column of columns) {
             if (column.issues.some(issue => issue.id === issueId)) {
-                return column.id;
+                return column.id
             }
         }
-        return null;
+        return null
     }
 
     return (
@@ -68,7 +70,19 @@ const Columns = ({ columns: initialColumns }) => {
             <Section className='full-width'>
                 <div className='subsection'>
                     <div className="h1">Доска</div>
-                    <Button className='left'>Добавить задачу</Button>
+                    <Button
+                        className='left'
+                        onClick={() => setIsAddIssueOpen(true)}
+                    >
+                        Добавить задачу
+                    </Button>
+                    <AddIssueModal
+                        isOpen={isAddIssueOpen}
+                        onClose={() => {
+                            console.log('onClose')
+                            setIsAddIssueOpen(false)
+                        }}
+                    />
                 </div>
                 <div className="columns">
                     {columns.map((column) => (
@@ -77,7 +91,7 @@ const Columns = ({ columns: initialColumns }) => {
                 </div>
             </Section>
         </DndContext>
-    );
-};
+    )
+}
 
-export default Columns;
+export default Columns
