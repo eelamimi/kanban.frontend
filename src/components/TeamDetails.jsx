@@ -6,6 +6,7 @@ import AuthService from '../service/AuthService'
 import Spinner from './Spinner'
 import Button from './Button'
 import List from './List'
+import Span from './Span'
 
 const TeamDetails = () => {
     const { teamId } = useParams()
@@ -50,17 +51,17 @@ const TeamDetails = () => {
     return (
         <>
             <Section>
-                <div className='teamDetails__header'>
+                <div className='subsection'>
                     <div className='h1'>{team.name}</div>
                     <Button className='left'>Редактировать команду</Button>
                 </div>
-                <div className='teamDetails__field'>
-                    <div className='teamDetails__label'>{`${currentUserPair.role.name}:`}</div>
-                    <span>{`${currentUserPair.user.firstName} ${currentUserPair.user.secondName}`}</span>
-                </div>
+                <Span
+                    label={`${currentUserPair.role.name}:`}
+                    value={`${currentUserPair.user.firstName} ${currentUserPair.user.secondName}`}
+                />
             </Section>
             <Section>
-                <div className='teamDetails__header'>
+                <div className='subsection'>
                     <div className='h1'>Проекты</div>
                     <Button className='left'>Добавить проект</Button>
                 </div>
@@ -72,7 +73,7 @@ const TeamDetails = () => {
                 />
             </Section>
             <Section>
-                <div className='teamDetails__header'>
+                <div className='subsection'>
                     <div className='h1'>Пользователи</div>
                     <Button className='left'>Пригласить</Button>
                 </div>

@@ -1,23 +1,11 @@
-.userProfile__field {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 1rem;
-}
-
-.userProfile__label {
-    width: 1fr;
-    color: #3b3b3b;
-}
-
-/* .teamDetails__field {
+.field-ro {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-top: 1rem;
 }
 
-.teamDetails__label {
+.field-ro_label {
     width: 1fr;
     color: #3b3b3b;
-} */
+}

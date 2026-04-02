@@ -5,6 +5,7 @@ import Columns from './Board/Columns'
 import projectsAPI from '../api/projectAPI'
 import Section from './Section'
 import Spinner from './Spinner'
+import Span from './Span'
 
 const Board = () => {
     const { projectId } = useParams()
@@ -51,9 +52,7 @@ const Board = () => {
                 <div className='subsection'>
                     <div className="h1">{project.name}</div>
                 </div>
-                <div className='teamDetails__field'>
-                    <span>{project.description}</span>
-                </div>
+                <Span value={project.description} />
             </Section>
             <BoardFilters
                 filters={project.filters}

@@ -4,7 +4,7 @@ import { formatDate } from '../../utils/dataFormatter';
 import UserProfileAvatar from './Avatar'
 import UserProfileInfo from './Info'
 import UserProfileFullName from './FullName'
-import UserProfileField from './Field'
+import Span from '../Span';
 
 const UserProfileCard = memo(() => {
     const {
@@ -23,12 +23,12 @@ const UserProfileCard = memo(() => {
                     firstName={firstName}
                     secondName={secondName}
                 />
-                <UserProfileField
-                    label='Почта'
+                <Span
+                    label='Почта:'
                     value={email}
                 />
-                <UserProfileField
-                    label='Зарегистрирован'
+                <Span
+                    label='Зарегистрирован:'
                     value={formatDate(createdAt)}
                 />
             </UserProfileInfo>
