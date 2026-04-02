@@ -48,7 +48,7 @@ const Board = () => {
     return (
         <>
             <Section className={'full-width'}>
-                <div className='board__header'>
+                <div className='subsection'>
                     <div className="h1">{project.name}</div>
                 </div>
                 <div className='teamDetails__field'>

@@ -12,3 +12,9 @@
     margin: 2rem;
     width: auto;
 }
+
+.subsection {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}

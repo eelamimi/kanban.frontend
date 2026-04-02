@@ -17,8 +17,8 @@ const TeamsSection = () => {
                 <Spinner />
             ) : (
                 <>
-                    <div className='teamsSection__team-header'>
-                        <div className="h1">Команды</div>
+                    <div className='subsection'>
+                        <div className='h1'>Команды</div>
                         <Button className='left'>Создать команду</Button>
                     </div>
                     <List
