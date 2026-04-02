@@ -5,7 +5,7 @@ import Column from './Column'
 const Columns = ({ columns }) => {
     return (
         <Section className='full-width'>
-            <div className='board__header'>
+            <div className='subsection'>
                 <div className="h1">Доска</div>
                 <Button className='left'>Добавить задачу</Button>
             </div>
