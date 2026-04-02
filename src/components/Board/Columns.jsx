@@ -10,12 +10,12 @@ const Columns = ({ columns: initialColumns }) => {
     function handleDragEnd(event) {
         const { active, over } = event;
 
-        const issueId = active.id
-        const sourceColumnId = findColumnByIssueId(issueId)
-        const targetColumnId = over.id
+        // const issueId = active.id
+        // const sourceColumnId = findColumnByIssueId(issueId)
+        // const targetColumnId = over.id
 
-        if (sourceColumnId === targetColumnId)
-            return
+        // if (sourceColumnId === targetColumnId)
+        //     return
 
         // const issueId = active.id;
         // const sourceColumnId = findColumnByIssueId(issueId);

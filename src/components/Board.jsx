@@ -45,14 +45,7 @@ const Board = () => {
             </>
         )
     }
-    project.columns.map((c) => (c.issues = [
-        { id: `${c.name}1`, title: 'title1' },
-        { id: `${c.name}2`, title: 'title2' },
-        { id: `${c.name}3`, title: 'title3' },
-        { id: `${c.name}4`, title: 'title4' },
-        { id: `${c.name}5`, title: 'title5' },
-        { id: `${c.name}6`, title: 'title6' },
-    ]))
+
     return (
         <>
             <Section className={'full-width'}>
