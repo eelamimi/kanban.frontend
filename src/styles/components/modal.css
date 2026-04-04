@@ -7,13 +7,16 @@
 dialog {
     border: 1px solid #777;
     border-radius: 10px;
-    /* padding: 2rem; */
     padding: 0;
 }
 
+dialog::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
 .dialogContainer {
-    /* margin: 2rem; */
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 2rem;
+    width: 600px;
 }

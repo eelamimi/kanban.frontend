@@ -78,10 +78,7 @@ const Columns = ({ columns: initialColumns }) => {
                     </Button>
                     <AddIssueModal
                         isOpen={isAddIssueOpen}
-                        onClose={() => {
-                            console.log('onClose')
-                            setIsAddIssueOpen(false)
-                        }}
+                        onClose={() => setIsAddIssueOpen(false)}
                     />
                 </div>
                 <div className="columns">

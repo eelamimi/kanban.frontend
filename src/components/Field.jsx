@@ -1,6 +1,8 @@
 function Field(props) {
     const {
         id,
+        fieldClassName = '',
+        inputClassName = '',
         label,
         type,
         required,
@@ -12,9 +14,9 @@ function Field(props) {
     } = props
 
     return (
-        <div className='field'>
+        <div className={`field ${fieldClassName}`}>
             <input
-                className={`field__input ${error ? 'is-invalid' : ''}`}
+                className={`field__input ${error ? 'is-invalid' : ''} ${inputClassName}`}
                 placeholder=''
                 id={id}
                 type={type}
