@@ -7,6 +7,12 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
     const hasValue = !!value
 
     const styles = {
+        // container: (base, state) => ({
+        //     // ...base,
+        //     flex: '1',
+        //     width: '100%',
+        //     flexGrow: '1',
+        // }),
         control: (base, state) => ({
             ...base,
             border: '1px solid black',
@@ -22,9 +28,13 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
         }),
         input: () => ({
             color: 'black',
+            width: '100%',
+            display: 'inline-block',
+            flex: '1 1 auto',
         }),
         singleValue: () => ({
             color: 'black',
+            whiteSpace: 'nowrap',
         }),
         valueContainer: (base) => ({
             ...base,
@@ -32,6 +42,8 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
             height: '36px',
             display: 'flex',
             alignItems: 'center',
+            flexDirection: 'row',
+            flexWrap: 'nowrap'
         }),
         indicatorsContainer: () => ({
             height: '36px',
@@ -41,6 +53,10 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
             borderRadius: '4px',
             outline: '1px solid black',
             marginTop: '4px',
+            position: 'absolute',
+            zIndex: 3,
+            backgroundColor: 'white',
+            width: '100%',
         }),
         menuList: () => ({
             padding: '0',

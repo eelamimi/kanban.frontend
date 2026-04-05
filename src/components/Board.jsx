@@ -39,9 +39,6 @@ const Board = () => {
                 <Section className={'full-width'}>
                     <Spinner />
                 </Section>
-                <Section className={'full-width'}>
-                    <Spinner />
-                </Section>
             </>
         )
     }
@@ -54,10 +51,11 @@ const Board = () => {
                 </div>
                 <Span value={project.description} />
                 <Filters
-                    filters={project.filters}
+                    filters={project.members}
                 />
             </Section>
             <Columns
+                members={project.members}
                 columns={project.columns}
             />
         </>

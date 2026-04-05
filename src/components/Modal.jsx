@@ -49,7 +49,7 @@ function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
             onClick={handleOverlayClick}
         >
             <div className='dialogContainer'>
-                <div className='h1'>{title}</div>
+                <div className='h1' style={{ marginBottom: '25px' }}>{title}</div>
                 {children}
                 <form className='buttons' method='dialog'>
                     <Button

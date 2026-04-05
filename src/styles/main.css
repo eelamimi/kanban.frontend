@@ -17,4 +17,9 @@ body {
 
 .row {
     display: flex;
+    flex-direction: row;
+}
+
+.row>* {
+    flex: 1;
 }

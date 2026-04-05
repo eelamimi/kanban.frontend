@@ -5,7 +5,7 @@ import Button from '../Button'
 import Column from './Column'
 import AddIssueModal from '../AddIssueModal'
 
-const Columns = ({ columns: initialColumns }) => {
+const Columns = ({ members, columns: initialColumns }) => {
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
     const [columns, setColumns] = useState(initialColumns)
 
@@ -77,6 +77,7 @@ const Columns = ({ columns: initialColumns }) => {
                         Добавить проблему
                     </Button>
                     <AddIssueModal
+                        members={members}
                         isOpen={isAddIssueOpen}
                         onClose={() => setIsAddIssueOpen(false)}
                     />
