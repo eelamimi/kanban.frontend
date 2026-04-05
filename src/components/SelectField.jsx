@@ -1,7 +1,10 @@
 import Select from 'react-select'
+import { useState } from 'react'
 
 const SelectField = ({ id, options, value, onChange, placeholder = 'Выберите...' }) => {
+    const [isFocused, setIsFocused] = useState(false)
     const selectedOption = options.find(option => option.value === value)
+    const hasValue = !!value
 
     const styles = {
         control: (base, state) => ({
@@ -40,42 +43,36 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
                 backgroundColor: state.isSelected ? 'gray' : 'lightgray',
             },
         }),
-        // .field__label {
-        //             position: absolute;
-        //     left: 10px;
-        //     top: 10px;
-        //     transition: all 0.3s ease;
-        //     color: hsl(0, 0 %, 50 %);
-        //     pointer - events: none;
-        // }
-        // .field__input: focus +.field__label,
-        // .field__input: not(: placeholder - shown) +.field__label {
-        //     top: -8px;
-        //     left: 9px;
-        //     font - size: 13px;
-        //     padding: 0px 3px;
-        //     background - color: white;
-        // }
-
         placeholder: (base, state) => ({
             ...base,
-            position: 'absolute',
-            transition: 'all 0.3s ease',
-
-            // '&:focus'
+            display: 'none',
         })
     }
 
     return (
-        <div className={`field`}>
+        <div className="field" style={{ position: 'relative' }}>
             <Select
                 id={id}
                 styles={styles}
                 options={options}
                 value={selectedOption}
                 onChange={(selected) => onChange(selected?.value || '')}
-                placeholder={placeholder}
+                placeholder=""
+                onFocus={() => setIsFocused(true)}
+                onBlur={() => setIsFocused(false)}
             />
+            <label
+                className="field__label"
+                style={{
+                    top: (isFocused || hasValue) ? '-8px' : '10px',
+                    left: (isFocused || hasValue) ? '9px' : '10px',
+                    fontSize: (isFocused || hasValue) ? '13px' : undefined,
+                    padding: (isFocused || hasValue) ? '0px 3px' : undefined,
+                    backgroundColor: (isFocused || hasValue) ? 'white' : undefined,
+                }}
+            >
+                {placeholder}
+            </label>
         </div>
     )
 }
