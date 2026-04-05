@@ -17,13 +17,12 @@
     left: 10px;
     top: 10px;
     transition: all 0.3s ease;
-    color: #999;
+    color: hsl(0, 0%, 50%);
     pointer-events: none;
 }
 
 .field__input:focus {
-    border: 2px solid black;
-    outline: none;
+    outline: 1px solid black;
 }
 
 .field__input:focus+.field__label,
@@ -36,7 +35,8 @@
 }
 
 .field__input.is-invalid {
-    border: 2px solid red;
+    border-color: red;
+    outline: 1px solid red;
 }
 
 .field__input.full-width {
@@ -53,168 +53,4 @@
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    /* max-width: 100%; */
 }
-
-/* 
-.field__select {
-    appearance: none;
-    -webkit-appearance: none;
-    background-color: white;
-    cursor: pointer;
-}
-
-.field__select {
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 10px center;
-    background-size: 16px;
-    padding-right: 30px;
-}
-
-.field__select.has-value+.field__label,
-.field__select:focus+.field__label {
-    top: -8px;
-    left: 9px;
-    font-size: 13px;
-    padding: 0px 3px;
-    background-color: white;
-}
-
-.field__select:valid+.field__label {
-    top: -8px;
-    left: 9px;
-    font-size: 13px;
-    padding: 0px 3px;
-    background-color: white;
-}
-
-.field__select option[value=""] {
-    display: none;
-}
-
-.field__select option {
-    border-radius: 10px;
-    border: 5px solid black;
-}
-
-.field__select:required:invalid+.field__label {
-    top: 10px;
-    font-size: 16px;
-}
-
-.field__select:required:valid+.field__label {
-    top: -8px;
-    font-size: 13px;
-} */
-
-/* .field__select { */
-/* Базовая стилизация самого select */
-/* appearance: none; */
-/* -webkit-appearance: none; */
-/* -moz-appearance: none; */
-/* 
-background-color: white;
-border: 1px solid #ccc;
-border-radius: 4px;
-padding: 8px 30px 8px 12px;
-font-size: 16px;
-font-family: inherit;
-cursor: pointer;
-
-/* Кастомная стрелка */
-/* background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23333' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e"); */
-/* background-repeat: no-repeat; */
-/* background-position: right 10px center; */
-/* background-size: 16px; */
-/* } */
-/* Стили для options (ограниченно работают в разных браузерах) */
-/*
-.field__select option {
-    padding: 10px;
-    background-color: white;
-    color: #333;
-}
-
-.field__select option:hover {
-    background-color: #f0f0f0;
-}
-
-.field__select option:checked {
-    background-color: #007bff;
-    color: white;
-}*/
-
-/* CustomSelect.css */
-/* .custom-select {
-    position: relative;
-    width: 100%;
-    font-family: inherit;
-}
-
-.custom-select__trigger {
-    background: white;
-    border: 1px solid black;
-    border-radius: 4px;
-    padding: 8px 30px 8px 12px;
-    cursor: pointer;
-    display: flex;
-    justify-content: space-between;
-    align-items: center; */
-/* transition: all 0.3s ease; */
-/* }
-
-.custom-select__trigger.open { */
-/* border-color: #007bff; */
-/* box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25); */
-/* border: 2px solid black;
-}
-
-.custom-select__value {
-    font-size: 14px;
-    color: #333;
-}
-
-.custom-select__arrow {
-    position: relative;
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-    border-top: 5px solid #666;
-    transition: transform 0.3s;
-}
-
-.custom-select__trigger.open .custom-select__arrow {
-    transform: rotate(180deg);
-}
-
-.custom-select__dropdown {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    right: 0;
-    margin-top: 4px;
-    background: white;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    max-height: 200px;
-    overflow-y: auto;
-    z-index: 1000;
-}
-
-.custom-select__option {
-    padding: 8px 12px;
-    cursor: pointer;
-    transition: background 0.2s;
-}
-
-.custom-select__option:hover {
-    background: #f5f5f5;
-}
-
-.custom-select__option.selected {
-    background: #e7f3ff;
-    color: #007bff;
-} */
