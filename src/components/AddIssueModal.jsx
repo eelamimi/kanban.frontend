@@ -5,46 +5,57 @@ import SelectField from './SelectField'
 
 function AddIssueModal({ isOpen, onClose }) {
     const [issueTitle, setIssueTitle] = useState('')
+    const [issueType, setIssueType] = useState('');
 
     const onIssueTitleInput = ({ target }) => {
         const { value } = target
         setIssueTitle(value)
     }
 
-    const addTask = async () => {
+    const addIssue = async () => {
         console.log('onAction addTask modal')
     }
-    const [country, setCountry] = useState('');
 
-    const countryOptions = [
-        { value: 'russia', label: 'Россия' },
-        { value: 'usa', label: 'США' },
-        { value: 'uk', label: 'Великобритания' }
+    const issueTypeOptions = [
+        { value: 'Bug', label: 'Баг' },
+        { value: 'Story', label: 'История' },
+        { value: 'Task', label: 'Задача' },
+        { value: 'Investigation', label: 'Расследование' }
     ];
 
     return (
         <Modal
             isOpen={isOpen}
-            title={'Создать задачу'}
+            title={'Создать проблему'}
             actionTitle={'Создать'}
-            onAction={addTask}
+            onAction={addIssue}
             onClose={onClose}
         >
             <Field
                 id='issueTitle'
                 inputClassName='full-width'
                 type='text'
-                label='Название задачи'
+                label='Название проблемы'
                 value={issueTitle}
                 onInput={onIssueTitleInput}
                 required
             />
+            {/* <div className="row"> */}
+            {/* <div className='row'> */}
             <SelectField
-                placeholder="Название задачи"
-                value={country}
-                onChange={setCountry}
-                options={countryOptions}
+                placeholder="Тип проблемы"
+                value={issueType}
+                onChange={setIssueType}
+                options={issueTypeOptions}
             />
+            <SelectField
+                placeholder="Тип проблемы"
+                value={issueType}
+                onChange={setIssueType}
+                options={issueTypeOptions}
+            />
+            {/* </div> */}
+            {/* </div> */}
         </Modal>
     )
 }

@@ -14,3 +14,7 @@ body {
 .left {
     margin-left: auto;
 }
+
+.row {
+    display: flex;
+}

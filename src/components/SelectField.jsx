@@ -15,42 +15,59 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
             height: '36px',
             maxHeight: '36px',
             outline: state.isFocused ? '1px solid black' : 'none',
+            backgroundColor: 'white',
             '&:hover': {
                 borderColor: 'none'
             },
         }),
-        input: (base, state) => ({
-            ...base,
+        input: () => ({
             color: 'black',
         }),
-        singleValue: (base, state) => ({
-            ...base,
+        singleValue: () => ({
             color: 'black',
         }),
-        menu: (base, state) => ({
+        valueContainer: (base) => ({
+            ...base,
+            padding: '0 8px',
+            height: '36px',
+            display: 'flex',
+            alignItems: 'center',
+        }),
+        indicatorsContainer: () => ({
+            height: '36px',
+        }),
+        menu: () => ({
             border: '1px solid black',
             borderRadius: '4px',
             outline: '1px solid black',
+            marginTop: '4px',
         }),
-        menuList: (base, state) => ({
+        menuList: () => ({
             padding: '0',
         }),
         option: (base, state) => ({
             ...base,
             padding: '.5rem 1rem',
             backgroundColor: state.isSelected ? 'dimgray' : 'transparent',
+            '&:first-of-type': {
+                borderRadius: '4px 4px 0 0',
+            },
+            '&:last-child': {
+                borderRadius: '0 0 4px 4px',
+            },
             '&:hover': {
                 backgroundColor: state.isSelected ? 'gray' : 'lightgray',
             },
         }),
-        placeholder: (base, state) => ({
-            ...base,
+        placeholder: () => ({
             display: 'none',
         })
     }
 
     return (
-        <div className="field" style={{ position: 'relative' }}>
+        <div className="field" style={{
+            position: 'relative',
+        }}>
             <Select
                 id={id}
                 styles={styles}
@@ -64,11 +81,16 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
             <label
                 className="field__label"
                 style={{
-                    top: (isFocused || hasValue) ? '-8px' : '10px',
+                    position: 'absolute',
                     left: (isFocused || hasValue) ? '9px' : '10px',
+                    top: (isFocused || hasValue) ? '-8px' : '10px',
                     fontSize: (isFocused || hasValue) ? '13px' : undefined,
                     padding: (isFocused || hasValue) ? '0px 3px' : undefined,
                     backgroundColor: (isFocused || hasValue) ? 'white' : undefined,
+                    transition: 'all 0.3s ease',
+                    color: 'hsl(0, 0%, 50%)',
+                    pointerEvents: 'none',
+                    zIndex: 2,
                 }}
             >
                 {placeholder}

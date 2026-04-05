@@ -74,7 +74,7 @@ const Columns = ({ columns: initialColumns }) => {
                         className='left'
                         onClick={() => setIsAddIssueOpen(true)}
                     >
-                        Добавить задачу
+                        Добавить проблему
                     </Button>
                     <AddIssueModal
                         isOpen={isAddIssueOpen}
