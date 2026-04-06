@@ -6,13 +6,14 @@ import AuthService from '../service/AuthService'
 import TextareaField from './TextAreaField'
 import FileAttachmentField from './FileAttachmentField'
 import { useAddIssueModal } from '../hook/useAddIssueModal'
+import issueAPI from '../api/issueAPI'
 
 const issueTypeOptions = Object.freeze([
     { value: 'Bug', label: 'Баг' },
     { value: 'Story', label: 'История' },
     { value: 'Task', label: 'Задача' },
     { value: 'Investigation', label: 'Расследование' }
-]);
+])
 
 const issuePriorityOptions = Object.freeze([
     { value: 'Minimal', label: 'Минимальный' },
@@ -20,18 +21,19 @@ const issuePriorityOptions = Object.freeze([
     { value: 'Medium', label: 'Средний' },
     { value: 'High', label: 'Высокий' },
     { value: 'Critical', label: 'Критический' }
-]);
+])
 
 const userProfileId = AuthService.getUserInfo().userProfileId
+const MAX_FILE_SIZE = 20 * 1024 * 1024
 
-function AddIssueModal({ members, columns, setColumns, isOpen, onClose }) {
+function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClose }) {
     const memberIdOptions = useMemo(() => {
         return members.map((member) => ({
             value: member.id,
             label: `${member.firstName} ${member.secondName}`
         }))
     }, [members])
-
+    const storyPoints = 1
     const curUser = useMemo(() =>
         memberIdOptions.find(member => member.value === userProfileId),
         [memberIdOptions])
@@ -58,12 +60,49 @@ function AddIssueModal({ members, columns, setColumns, isOpen, onClose }) {
         onDescriptionInput,
         validateValues,
         resetValues,
-    } = useAddIssueModal(curUser)
+    } = useAddIssueModal({ curUser })
 
     const addIssue = useCallback(async () => {
-        console.log(validateValues())
+        if (!validateValues())
+            return false
+
+        const formData = new FormData()
+        formData.append('ProjectId', projectId)
+        formData.append('Title', title)
+        formData.append('AssigneeId', assignee.value)
+        formData.append('AuthorId', author.value)
+        formData.append('IssueType', issueType.value)
+        formData.append('IssuePriority', priority.value)
+        formData.append('Description', description)
+        formData.append('StoryPoints', storyPoints) // TODO
+
+        if (attachedFiles && attachedFiles.length > 0) {
+            const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
+
+            if (oversizedFiles.length > 0) {
+                console.error('Файлы превышают 20MB:', oversizedFiles.map(f => f.name))
+                return false
+            }
+
+            attachedFiles.forEach((file) => {
+                formData.append('Files', file)
+            })
+        }
+
+        const response = await issueAPI.addIssue(formData)
+
         return false
-    }, [validateValues])
+    }, [
+        projectId,
+        title,
+        assignee,
+        author,
+        issueType,
+        priority,
+        description,
+        attachedFiles,
+        validateValues
+    ])
 
     const handleClose = useCallback(() => {
         resetValues(curUser)

@@ -55,6 +55,7 @@ const Board = () => {
                 />
             </Section>
             <Columns
+                projectId={projectId}
                 members={project.members}
                 columns={project.columns}
             />
