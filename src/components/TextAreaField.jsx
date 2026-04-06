@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useCallback } from 'react'
 
 function TextareaField(props) {
     const {
@@ -16,22 +16,23 @@ function TextareaField(props) {
 
     const textareaRef = useRef(null)
 
-    const autoResize = () => {
+    const autoResize = useCallback(() => {
         const textarea = textareaRef.current
         if (textarea) {
             textarea.style.height = 'auto'
-            textarea.style.height = `${textarea.scrollHeight}px`
+            textarea.style.height = `${Math.max(88, textarea.scrollHeight)}px`
+            console.log(textarea.scrollHeight)
         }
-    }
+    }, [])
 
     useEffect(() => {
         autoResize()
-    }, [value])
+    }, [autoResize, value])
 
-    const handleInput = (e) => {
+    const handleInput = useCallback((e) => {
         autoResize()
         if (onInput) onInput(e)
-    }
+    }, [autoResize, onInput])
 
     return (
         <div className={`field ${fieldClassName}`}>

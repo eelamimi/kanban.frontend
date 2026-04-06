@@ -24,7 +24,6 @@
     &:not(:disabled) {
         &:hover {
             color: rgb(125, 0, 0);
-            /* background-color: transparent; */
         }
     }
 }

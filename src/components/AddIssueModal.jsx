@@ -4,7 +4,7 @@ import Field from './Field'
 import SelectField from './SelectField'
 import AuthService from '../service/AuthService'
 import TextareaField from './TextAreaField'
-import Button from './Button'
+import FileAttachmentField from './FileAttachmentField'
 
 const issueTypeOptions = [
     { value: 'Bug', label: 'Баг' },
@@ -36,31 +36,14 @@ function AddIssueModal({ members, isOpen, onClose }) {
         }))
     }, [members])
 
-    const onIssueTitleInput = ({ target }) => {
+    const onIssueTitleInput = useCallback(({ target }) => {
         const { value } = target
         setIssueTitle(value)
-    }
+    }, [])
 
-    const onIssueDescriptionInput = ({ target }) => {
+    const onIssueDescriptionInput = useCallback(({ target }) => {
         const { value } = target
         setIssueDescription(value)
-    }
-
-    const handleFileSelect = useCallback((event) => {
-        const files = Array.from(event.target.files)
-        setAttachedFiles(prev => [...prev, ...files])
-    }, [])
-
-    const removeFile = useCallback((index) => {
-        setAttachedFiles(prev => prev.filter((_, i) => i !== index))
-    }, [])
-
-    const formatFileSize = useCallback((bytes) => {
-        if (bytes === 0) return '0 Bytes'
-        const k = 1024
-        const sizes = ['Bytes', 'KB', 'MB', 'GB']
-        const i = Math.floor(Math.log(bytes) / Math.log(k))
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
     }, [])
 
     const addIssue = useCallback(async () => {
@@ -124,22 +107,10 @@ function AddIssueModal({ members, isOpen, onClose }) {
                 onInput={onIssueDescriptionInput}
                 required
             />
-            <dl className='fileAttachment__container'>
-                <dt className='fileAttachment__link'>
-                    <label>Прикрепить файлы
-                        <input type="file" multiple onChange={handleFileSelect} hidden />
-                    </label>
-                </dt>
-                {attachedFiles && attachedFiles.map((file, i) => (
-                    <dd key={i} className='fileAttachment__file'>
-                        <Button
-                            className='fileAttachment__remove'
-                            onClick={() => removeFile(i)}
-                        >✖</Button>
-                        {file.name} ({formatFileSize(file.size)})
-                    </dd>
-                ))}
-            </dl>
+            <FileAttachmentField
+                files={attachedFiles}
+                setFiles={setAttachedFiles}
+            />
         </Modal>
     )
 }
