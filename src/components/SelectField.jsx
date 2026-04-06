@@ -1,26 +1,20 @@
 import Select from 'react-select'
 import { useState } from 'react'
 
-const SelectField = ({ id, options, value, onChange, placeholder = 'Выберите...' }) => {
+const SelectField = ({ id, options, value, onChange, placeholder = 'Выберите...', error }) => {
     const [isFocused, setIsFocused] = useState(false)
     const selectedOption = options.find(option => option.value === value)
     const hasValue = !!value
 
     const styles = {
-        // container: (base, state) => ({
-        //     // ...base,
-        //     flex: '1',
-        //     width: '100%',
-        //     flexGrow: '1',
-        // }),
         control: (base, state) => ({
             ...base,
-            border: '1px solid black',
+            border: error ? '1px solid red' : '1px solid black',
             boxShadow: 'none',
             minHeight: '36px',
             height: '36px',
             maxHeight: '36px',
-            outline: state.isFocused ? '1px solid black' : 'none',
+            outline: error ? '1px solid red' : state.isFocused ? '1px solid black' : 'none',
             backgroundColor: 'white',
             '&:hover': {
                 borderColor: 'none'
@@ -111,6 +105,17 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
             >
                 {placeholder}
             </label>
+            {error && (
+                <span
+                    className='field__error'
+                    style={{
+                        marginTop: '3px'
+                    }}
+                    title={error}
+                >
+                    {error}
+                </span>
+            )}
         </div>
     )
 }

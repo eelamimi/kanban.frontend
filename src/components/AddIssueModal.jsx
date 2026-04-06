@@ -21,12 +21,18 @@ const issuePriorityOptions = [
 ]
 
 function AddIssueModal({ members, isOpen, onClose }) {
-    const [issueTitle, setIssueTitle] = useState('')
-    const [assigneeId, setAssigneeId] = useState('')
-    const [authorId, setAuthorId] = useState(AuthService.getUserInfo().userProfileId)
-    const [issueDescription, setIssueDescription] = useState('')
+    const userProfileId = AuthService.getUserInfo().userProfileId
+    const [title, setTitle] = useState('')
+    const [assignee, setAssignee] = useState('')
+    const [author, setAuthor] = useState(userProfileId)
     const [issueType, setIssueType] = useState('')
-    const [issuePriority, setIssuePriority] = useState('')
+    const [priority, setPriority] = useState('')
+    const [description, setDescription] = useState('')
+    const [errorTitle, setErrorTitle] = useState('')
+    const [errorAssignee, setErrorAssignee] = useState('')
+    const [errorIssueType, setErrorIssueType] = useState('')
+    const [errorPriority, setErrorPriority] = useState('')
+    const [errorDescription, setErrorDescription] = useState('')
     const [attachedFiles, setAttachedFiles] = useState([])
 
     const memberIdOptions = useMemo(() => {
@@ -36,21 +42,103 @@ function AddIssueModal({ members, isOpen, onClose }) {
         }))
     }, [members])
 
-    const onIssueTitleInput = useCallback(({ target }) => {
+    const onTitleInput = useCallback(({ target }) => {
         const { value } = target
-        setIssueTitle(value)
+        const clearValue = value.trim()
+        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
+
+        setTitle(value)
+        setErrorTitle(hasOnlySpaces ? 'Название обязательно' : '')
     }, [])
 
-    const onIssueDescriptionInput = useCallback(({ target }) => {
-        const { value } = target
-        setIssueDescription(value)
+    const onAssigneeInput = useCallback((value) => {
+        setAssignee(value)
+        setErrorAssignee('')
     }, [])
+
+    const onIssueTypeInput = useCallback((value) => {
+        setIssueType(value)
+        setErrorIssueType('')
+    }, [])
+
+    const onPriorityInput = useCallback((value) => {
+        setPriority(value)
+        setErrorPriority('')
+    }, [])
+
+    const onDescriptionInput = useCallback(({ target }) => {
+        const { value } = target
+        const clearValue = value.trim()
+        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
+
+        setDescription(value)
+        setErrorDescription(hasOnlySpaces ? 'Описание обязательно' : '')
+    }, [])
+
+    const validateValues = useCallback(() => {
+        let isValid = true
+
+        let clearValue = title.trim()
+        let hasOnlySpaces = title.length > 0 && clearValue.length === 0
+        if (hasOnlySpaces || title.length === 0) {
+            setErrorTitle('Название обязательно')
+            isValid = false
+        }
+
+        if (assignee === '') {
+            setErrorAssignee('Исполнитель обязателен')
+            isValid = false
+        }
+
+        if (issueType === '') {
+            setErrorIssueType('Тип проблемы обязателен')
+            isValid = false
+        }
+
+        if (priority === '') {
+            setErrorPriority('Приоритет проблемы обязателен')
+            isValid = false
+        }
+
+        clearValue = description.trim()
+        hasOnlySpaces = description.length > 0 && clearValue.length === 0
+        if (hasOnlySpaces || description.length === 0) {
+            setErrorDescription('Описание обязательно')
+            isValid = false
+        }
+
+        return isValid
+    }, [
+        title,
+        assignee,
+        issueType,
+        priority,
+        description
+    ])
 
     const addIssue = useCallback(async () => {
-        console.log('onAction addTask modal')
-        console.log('Прикрепленные файлы:', attachedFiles)
-        return
-    }, [attachedFiles])
+        console.log(validateValues())
+        return false
+    }, [validateValues])
+
+    const handleClose = useCallback(() => {
+        setTitle('')
+        setErrorTitle('')
+        setAssignee('')
+        setErrorAssignee('')
+        setAuthor(userProfileId)
+        setDescription('')
+        setErrorDescription('')
+        setIssueType('')
+        setErrorIssueType('')
+        setPriority('')
+        setErrorPriority('')
+        setAttachedFiles([])
+        onClose()
+    }, [
+        userProfileId,
+        onClose
+    ])
 
     return (
         <Modal
@@ -58,28 +146,29 @@ function AddIssueModal({ members, isOpen, onClose }) {
             title={'Создать проблему'}
             actionTitle={'Создать'}
             onAction={addIssue}
-            onClose={onClose}
+            onClose={handleClose}
         >
             <Field
                 id='issueTitle'
                 inputClassName='full-width'
                 type='text'
                 label='Название'
-                value={issueTitle}
-                onInput={onIssueTitleInput}
-                required
+                value={title}
+                onInput={onTitleInput}
+                error={errorTitle}
             />
             <div className='row' style={{ gap: '25px' }}>
                 <SelectField
                     placeholder='Исполнитель'
-                    value={assigneeId}
-                    onChange={setAssigneeId}
+                    value={assignee}
+                    onChange={onAssigneeInput}
                     options={memberIdOptions}
+                    error={errorAssignee}
                 />
                 <SelectField
                     placeholder='Автор'
-                    value={authorId}
-                    onChange={setAuthorId}
+                    value={author}
+                    onChange={setAuthor}
                     options={memberIdOptions}
                 />
             </div>
@@ -87,14 +176,16 @@ function AddIssueModal({ members, isOpen, onClose }) {
                 <SelectField
                     placeholder='Тип'
                     value={issueType}
-                    onChange={setIssueType}
+                    onChange={onIssueTypeInput}
                     options={issueTypeOptions}
+                    error={errorIssueType}
                 />
                 <SelectField
                     placeholder='Приоритет'
-                    value={issuePriority}
-                    onChange={setIssuePriority}
+                    value={priority}
+                    onChange={onPriorityInput}
                     options={issuePriorityOptions}
+                    error={errorPriority}
                 />
             </div>
             <TextareaField
@@ -103,9 +194,9 @@ function AddIssueModal({ members, isOpen, onClose }) {
                 textareaClassName="full-width"
                 type='text'
                 label='Описание'
-                value={issueDescription}
-                onInput={onIssueDescriptionInput}
-                required
+                value={description}
+                onInput={onDescriptionInput}
+                error={errorDescription}
             />
             <FileAttachmentField
                 files={attachedFiles}

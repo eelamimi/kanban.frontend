@@ -1,21 +1,23 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import Button from './Button'
 
 function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
     const [isOverlayClick, setIsOverlayClick] = useState(false)
     const dialogRef = useRef(null)
 
-    const handleSubmit = async () => {
-        await onAction()
-        dialogRef.current.close()
-    }
+    const handleSubmit = useCallback(async () => {
+        const canClose = await onAction()
+        if (canClose) {
+            dialogRef.current.close()
+        }
+    }, [onAction])
 
-    const handleOverlayClick = (e) => {
+    const handleOverlayClick = useCallback((e) => {
         if (e.target === dialogRef.current) {
             setIsOverlayClick(true)
             onClose()
         }
-    }
+    }, [onClose])
 
     useEffect(() => {
         const dialog = dialogRef.current

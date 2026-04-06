@@ -21,7 +21,6 @@ function TextareaField(props) {
         if (textarea) {
             textarea.style.height = 'auto'
             textarea.style.height = `${Math.max(88, textarea.scrollHeight)}px`
-            console.log(textarea.scrollHeight)
         }
     }, [])
 
