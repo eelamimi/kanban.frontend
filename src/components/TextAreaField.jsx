@@ -1,4 +1,4 @@
-import { useRef, useEffect, useCallback } from 'react'
+import { useRef, useEffect, useCallback, memo } from 'react'
 
 function TextareaField(props) {
     const {
@@ -56,4 +56,4 @@ function TextareaField(props) {
     )
 }
 
-export default TextareaField
+export default memo(TextareaField)

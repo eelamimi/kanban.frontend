@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 function Button(props) {
     const {
         className = '',
@@ -19,4 +21,4 @@ function Button(props) {
     )
 }
 
-export default Button
+export default memo(Button)

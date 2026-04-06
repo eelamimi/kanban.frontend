@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, memo } from 'react'
 import Modal from './Modal'
 import Field from './Field'
 import SelectField from './SelectField'
@@ -6,27 +6,39 @@ import AuthService from '../service/AuthService'
 import TextareaField from './TextAreaField'
 import FileAttachmentField from './FileAttachmentField'
 
-const issueTypeOptions = [
+const issueTypeOptions = Object.freeze([
     { value: 'Bug', label: 'Баг' },
     { value: 'Story', label: 'История' },
     { value: 'Task', label: 'Задача' },
     { value: 'Investigation', label: 'Расследование' }
-]
-const issuePriorityOptions = [
+]);
+
+const issuePriorityOptions = Object.freeze([
     { value: 'Minimal', label: 'Минимальный' },
     { value: 'Low', label: 'Низкий' },
     { value: 'Medium', label: 'Средний' },
     { value: 'High', label: 'Высокий' },
     { value: 'Critical', label: 'Критический' }
-]
+]);
+
+const userProfileId = AuthService.getUserInfo().userProfileId
 
 function AddIssueModal({ members, isOpen, onClose }) {
-    const userProfileId = AuthService.getUserInfo().userProfileId
+    const memberIdOptions = useMemo(() => {
+        return members.map((member) => ({
+            value: member.id,
+            label: `${member.firstName} ${member.secondName}`
+        }))
+    }, [members])
+    const curUser = useMemo(() =>
+        memberIdOptions.find(member => member.value === userProfileId),
+        [memberIdOptions])
+
     const [title, setTitle] = useState('')
-    const [assignee, setAssignee] = useState('')
-    const [author, setAuthor] = useState(userProfileId)
-    const [issueType, setIssueType] = useState('')
-    const [priority, setPriority] = useState('')
+    const [assignee, setAssignee] = useState(null)
+    const [author, setAuthor] = useState(curUser)
+    const [issueType, setIssueType] = useState(null)
+    const [priority, setPriority] = useState(null)
     const [description, setDescription] = useState('')
     const [errorTitle, setErrorTitle] = useState('')
     const [errorAssignee, setErrorAssignee] = useState('')
@@ -34,13 +46,6 @@ function AddIssueModal({ members, isOpen, onClose }) {
     const [errorPriority, setErrorPriority] = useState('')
     const [errorDescription, setErrorDescription] = useState('')
     const [attachedFiles, setAttachedFiles] = useState([])
-
-    const memberIdOptions = useMemo(() => {
-        return members.map((member) => ({
-            value: member.id,
-            label: `${member.firstName} ${member.secondName}`
-        }))
-    }, [members])
 
     const onTitleInput = useCallback(({ target }) => {
         const { value } = target
@@ -51,18 +56,18 @@ function AddIssueModal({ members, isOpen, onClose }) {
         setErrorTitle(hasOnlySpaces ? 'Название обязательно' : '')
     }, [])
 
-    const onAssigneeInput = useCallback((value) => {
-        setAssignee(value)
+    const onAssigneeInput = useCallback((selected) => {
+        setAssignee(selected)
         setErrorAssignee('')
     }, [])
 
-    const onIssueTypeInput = useCallback((value) => {
-        setIssueType(value)
+    const onIssueTypeInput = useCallback((selected) => {
+        setIssueType(selected)
         setErrorIssueType('')
     }, [])
 
-    const onPriorityInput = useCallback((value) => {
-        setPriority(value)
+    const onPriorityInput = useCallback((selected) => {
+        setPriority(selected)
         setErrorPriority('')
     }, [])
 
@@ -85,17 +90,17 @@ function AddIssueModal({ members, isOpen, onClose }) {
             isValid = false
         }
 
-        if (assignee === '') {
+        if (assignee === null) {
             setErrorAssignee('Исполнитель обязателен')
             isValid = false
         }
 
-        if (issueType === '') {
+        if (issueType === null) {
             setErrorIssueType('Тип проблемы обязателен')
             isValid = false
         }
 
-        if (priority === '') {
+        if (priority === null) {
             setErrorPriority('Приоритет проблемы обязателен')
             isValid = false
         }
@@ -124,19 +129,19 @@ function AddIssueModal({ members, isOpen, onClose }) {
     const handleClose = useCallback(() => {
         setTitle('')
         setErrorTitle('')
-        setAssignee('')
+        setAssignee(null)
         setErrorAssignee('')
-        setAuthor(userProfileId)
+        setAuthor(curUser)
         setDescription('')
         setErrorDescription('')
-        setIssueType('')
+        setIssueType(null)
         setErrorIssueType('')
-        setPriority('')
+        setPriority(null)
         setErrorPriority('')
         setAttachedFiles([])
         onClose()
     }, [
-        userProfileId,
+        curUser,
         onClose
     ])
 
@@ -206,4 +211,4 @@ function AddIssueModal({ members, isOpen, onClose }) {
     )
 }
 
-export default AddIssueModal
+export default memo(AddIssueModal)

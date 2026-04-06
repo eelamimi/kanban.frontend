@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 const Section = ({ className = '', children }) => {
     return (
         <div className={`section ${className}`}>
@@ -6,4 +8,4 @@ const Section = ({ className = '', children }) => {
     )
 }
 
-export default Section
+export default memo(Section)

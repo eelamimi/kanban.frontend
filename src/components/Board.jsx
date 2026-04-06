@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
 import projectsAPI from '../api/projectAPI'
 import Filters from './Board/Filters'
@@ -62,4 +62,4 @@ const Board = () => {
     )
 }
 
-export default Board
+export default memo(Board)

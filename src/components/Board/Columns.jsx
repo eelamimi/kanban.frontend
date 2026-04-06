@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react'
+import { useState, useCallback, useMemo, memo } from 'react'
 import { DndContext, closestCenter } from '@dnd-kit/core'
 import Section from '../Section'
 import Button from '../Button'
@@ -19,7 +19,7 @@ const Columns = ({ members, columns: initialColumns }) => {
         return map
     }, [columns])
 
-    function handleDragEnd(event) {
+    const handleDragEnd = useCallback((event) => {
         const { active, over } = event
 
         // const issueId = active.id
@@ -61,7 +61,7 @@ const Columns = ({ members, columns: initialColumns }) => {
         // })
 
         // setColumns(newColumns)
-    }
+    }, [])
 
     const findColumnByIssueId = useCallback((issueId) => {
         return issueToColumnMap.get(issueId) || null
@@ -97,4 +97,4 @@ const Columns = ({ members, columns: initialColumns }) => {
     )
 }
 
-export default Columns
+export default memo(Columns)

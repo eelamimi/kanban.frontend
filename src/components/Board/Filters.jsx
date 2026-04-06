@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 const Filters = ({ filters }) => {
     return (
         <div className="filtersContainer">
@@ -11,4 +13,4 @@ const Filters = ({ filters }) => {
     )
 }
 
-export default Filters
+export default memo(Filters)

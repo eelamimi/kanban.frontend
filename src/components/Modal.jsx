@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useEffect, useState, useCallback, memo } from 'react'
 import Button from './Button'
 
 function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
@@ -71,4 +71,4 @@ function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
     )
 }
 
-export default Modal
+export default memo(Modal)

@@ -1,3 +1,5 @@
+import { memo } from 'react'
+
 function Field(props) {
     const {
         id,
@@ -39,4 +41,4 @@ function Field(props) {
     )
 }
 
-export default Field
+export default memo(Field)

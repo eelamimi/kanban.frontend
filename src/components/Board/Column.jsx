@@ -1,11 +1,12 @@
-import { useDroppable } from '@dnd-kit/core';
-import Section from '../Section';
-import Issue from './Issue';
+import { useDroppable } from '@dnd-kit/core'
+import Section from '../Section'
+import Issue from './Issue'
+import { memo } from 'react'
 
 const Column = ({ column }) => {
     const { setNodeRef } = useDroppable({
         id: column.id,
-    });
+    })
 
     return (
         <div ref={setNodeRef} className="column">
@@ -18,7 +19,7 @@ const Column = ({ column }) => {
                 ))}
             </Section>
         </div>
-    );
-};
+    )
+}
 
-export default Column;
+export default memo(Column)
