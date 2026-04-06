@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useCallback, useMemo } from 'react'
 import { DndContext, closestCenter } from '@dnd-kit/core'
 import Section from '../Section'
 import Button from '../Button'
@@ -8,6 +8,16 @@ import AddIssueModal from '../AddIssueModal'
 const Columns = ({ members, columns: initialColumns }) => {
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
     const [columns, setColumns] = useState(initialColumns)
+
+    const issueToColumnMap = useMemo(() => {
+        const map = new Map()
+        for (const column of columns) {
+            for (const issue of column.issues) {
+                map.set(issue.id, column.id)
+            }
+        }
+        return map
+    }, [columns])
 
     function handleDragEnd(event) {
         const { active, over } = event
@@ -53,14 +63,9 @@ const Columns = ({ members, columns: initialColumns }) => {
         // setColumns(newColumns)
     }
 
-    function findColumnByIssueId(issueId) {
-        for (const column of columns) {
-            if (column.issues.some(issue => issue.id === issueId)) {
-                return column.id
-            }
-        }
-        return null
-    }
+    const findColumnByIssueId = useCallback((issueId) => {
+        return issueToColumnMap.get(issueId) || null
+    }, [issueToColumnMap])
 
     return (
         <DndContext

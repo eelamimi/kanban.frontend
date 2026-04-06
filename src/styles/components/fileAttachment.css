@@ -1,0 +1,30 @@
+.fileAttachment__container {
+    margin: 0;
+    margin-bottom: 25px;
+}
+
+.fileAttachment__link {
+    appearance: none;
+    text-decoration: none;
+    width: fit-content;
+
+    & label:hover {
+        text-decoration: underline;
+        cursor: pointer;
+    }
+}
+
+.fileAttachment__remove {
+    background: none;
+    border: none;
+    color: red;
+    margin: 0;
+    padding: 0 5px;
+
+    &:not(:disabled) {
+        &:hover {
+            color: rgb(125, 0, 0);
+            /* background-color: transparent; */
+        }
+    }
+}

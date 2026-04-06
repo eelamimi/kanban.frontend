@@ -54,3 +54,40 @@
     overflow: hidden;
     white-space: nowrap;
 }
+
+.field__textarea {
+    border: 1px solid black;
+    border-radius: 4px;
+    outline: none;
+    padding: 8px;
+    font-size: 16px;
+    min-width: 14rem;
+    resize: none;
+    overflow-y: hidden;
+    font-family: inherit;
+    line-height: 1.5;
+    min-height: 76.8;
+}
+
+.field__textarea:focus {
+    outline: 1px solid black;
+}
+
+.field__textarea:focus+.field__label,
+.field__textarea:not(:placeholder-shown)+.field__label {
+    top: -8px;
+    left: 9px;
+    font-size: 13px;
+    padding: 0px 3px;
+    background-color: white;
+}
+
+.field__textarea.is-invalid {
+    border-color: red;
+    outline: 1px solid red;
+}
+
+.field__textarea.full-width {
+    width: 100%;
+    box-sizing: border-box;
+}

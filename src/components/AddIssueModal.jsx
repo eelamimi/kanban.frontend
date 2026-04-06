@@ -1,8 +1,10 @@
-import { useState } from 'react'
+import { useState, useMemo, useCallback } from 'react'
 import Modal from './Modal'
 import Field from './Field'
 import SelectField from './SelectField'
 import AuthService from '../service/AuthService'
+import TextareaField from './TextAreaField'
+import Button from './Button'
 
 const issueTypeOptions = [
     { value: 'Bug', label: 'Баг' },
@@ -25,10 +27,14 @@ function AddIssueModal({ members, isOpen, onClose }) {
     const [issueDescription, setIssueDescription] = useState('')
     const [issueType, setIssueType] = useState('')
     const [issuePriority, setIssuePriority] = useState('')
+    const [attachedFiles, setAttachedFiles] = useState([])
 
-    const memberIdOptions = members.map((member) => ({
-        value: member.id, label: `${member.firstName} ${member.secondName}`
-    }))
+    const memberIdOptions = useMemo(() => {
+        return members.map((member) => ({
+            value: member.id,
+            label: `${member.firstName} ${member.secondName}`
+        }))
+    }, [members])
 
     const onIssueTitleInput = ({ target }) => {
         const { value } = target
@@ -40,9 +46,28 @@ function AddIssueModal({ members, isOpen, onClose }) {
         setIssueDescription(value)
     }
 
-    const addIssue = async () => {
+    const handleFileSelect = useCallback((event) => {
+        const files = Array.from(event.target.files)
+        setAttachedFiles(prev => [...prev, ...files])
+    }, [])
+
+    const removeFile = useCallback((index) => {
+        setAttachedFiles(prev => prev.filter((_, i) => i !== index))
+    }, [])
+
+    const formatFileSize = useCallback((bytes) => {
+        if (bytes === 0) return '0 Bytes'
+        const k = 1024
+        const sizes = ['Bytes', 'KB', 'MB', 'GB']
+        const i = Math.floor(Math.log(bytes) / Math.log(k))
+        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
+    }, [])
+
+    const addIssue = useCallback(async () => {
         console.log('onAction addTask modal')
-    }
+        console.log('Прикрепленные файлы:', attachedFiles)
+        return
+    }, [attachedFiles])
 
     return (
         <Modal
@@ -89,15 +114,32 @@ function AddIssueModal({ members, isOpen, onClose }) {
                     options={issuePriorityOptions}
                 />
             </div>
-            <Field
+            <TextareaField
                 id='issueDescription'
                 inputClassName='full-width'
+                textareaClassName="full-width"
                 type='text'
                 label='Описание'
                 value={issueDescription}
                 onInput={onIssueDescriptionInput}
                 required
             />
+            <dl className='fileAttachment__container'>
+                <dt className='fileAttachment__link'>
+                    <label>Прикрепить файлы
+                        <input type="file" multiple onChange={handleFileSelect} hidden />
+                    </label>
+                </dt>
+                {attachedFiles && attachedFiles.map((file, i) => (
+                    <dd key={i} className='fileAttachment__file'>
+                        <Button
+                            className='fileAttachment__remove'
+                            onClick={() => removeFile(i)}
+                        >✖</Button>
+                        {file.name} ({formatFileSize(file.size)})
+                    </dd>
+                ))}
+            </dl>
         </Modal>
     )
 }
