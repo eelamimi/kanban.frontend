@@ -74,7 +74,7 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
         formData.append('IssueType', issueType.value)
         formData.append('IssuePriority', priority.value)
         formData.append('Description', description)
-        formData.append('StoryPoints', storyPoints) // TODO
+        formData.append('StoryPoints', storyPoints) // TODO Оценка сложности
 
         if (attachedFiles && attachedFiles.length > 0) {
             const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
