@@ -1,10 +1,11 @@
-import { useState, useMemo, useCallback, memo } from 'react'
+import { useMemo, useCallback, memo } from 'react'
 import Modal from './Modal'
 import Field from './Field'
 import SelectField from './SelectField'
 import AuthService from '../service/AuthService'
 import TextareaField from './TextAreaField'
 import FileAttachmentField from './FileAttachmentField'
+import { useAddIssueModal } from '../hook/useAddIssueModal'
 
 const issueTypeOptions = Object.freeze([
     { value: 'Bug', label: 'Баг' },
@@ -23,103 +24,41 @@ const issuePriorityOptions = Object.freeze([
 
 const userProfileId = AuthService.getUserInfo().userProfileId
 
-function AddIssueModal({ members, isOpen, onClose }) {
+function AddIssueModal({ members, columns, setColumns, isOpen, onClose }) {
     const memberIdOptions = useMemo(() => {
         return members.map((member) => ({
             value: member.id,
             label: `${member.firstName} ${member.secondName}`
         }))
     }, [members])
+
     const curUser = useMemo(() =>
         memberIdOptions.find(member => member.value === userProfileId),
         [memberIdOptions])
 
-    const [title, setTitle] = useState('')
-    const [assignee, setAssignee] = useState(null)
-    const [author, setAuthor] = useState(curUser)
-    const [issueType, setIssueType] = useState(null)
-    const [priority, setPriority] = useState(null)
-    const [description, setDescription] = useState('')
-    const [errorTitle, setErrorTitle] = useState('')
-    const [errorAssignee, setErrorAssignee] = useState('')
-    const [errorIssueType, setErrorIssueType] = useState('')
-    const [errorPriority, setErrorPriority] = useState('')
-    const [errorDescription, setErrorDescription] = useState('')
-    const [attachedFiles, setAttachedFiles] = useState([])
-
-    const onTitleInput = useCallback(({ target }) => {
-        const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
-        setTitle(value)
-        setErrorTitle(hasOnlySpaces ? 'Название обязательно' : '')
-    }, [])
-
-    const onAssigneeInput = useCallback((selected) => {
-        setAssignee(selected)
-        setErrorAssignee('')
-    }, [])
-
-    const onIssueTypeInput = useCallback((selected) => {
-        setIssueType(selected)
-        setErrorIssueType('')
-    }, [])
-
-    const onPriorityInput = useCallback((selected) => {
-        setPriority(selected)
-        setErrorPriority('')
-    }, [])
-
-    const onDescriptionInput = useCallback(({ target }) => {
-        const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
-        setDescription(value)
-        setErrorDescription(hasOnlySpaces ? 'Описание обязательно' : '')
-    }, [])
-
-    const validateValues = useCallback(() => {
-        let isValid = true
-
-        let clearValue = title.trim()
-        let hasOnlySpaces = title.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || title.length === 0) {
-            setErrorTitle('Название обязательно')
-            isValid = false
-        }
-
-        if (assignee === null) {
-            setErrorAssignee('Исполнитель обязателен')
-            isValid = false
-        }
-
-        if (issueType === null) {
-            setErrorIssueType('Тип проблемы обязателен')
-            isValid = false
-        }
-
-        if (priority === null) {
-            setErrorPriority('Приоритет проблемы обязателен')
-            isValid = false
-        }
-
-        clearValue = description.trim()
-        hasOnlySpaces = description.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || description.length === 0) {
-            setErrorDescription('Описание обязательно')
-            isValid = false
-        }
-
-        return isValid
-    }, [
+    const {
         title,
         assignee,
+        author,
         issueType,
         priority,
-        description
-    ])
+        description,
+        attachedFiles,
+        errorTitle,
+        errorAssignee,
+        errorIssueType,
+        errorPriority,
+        errorDescription,
+        setAuthor,
+        setAttachedFiles,
+        onTitleInput,
+        onAssigneeInput,
+        onIssueTypeInput,
+        onPriorityInput,
+        onDescriptionInput,
+        validateValues,
+        resetValues,
+    } = useAddIssueModal(curUser)
 
     const addIssue = useCallback(async () => {
         console.log(validateValues())
@@ -127,21 +66,11 @@ function AddIssueModal({ members, isOpen, onClose }) {
     }, [validateValues])
 
     const handleClose = useCallback(() => {
-        setTitle('')
-        setErrorTitle('')
-        setAssignee(null)
-        setErrorAssignee('')
-        setAuthor(curUser)
-        setDescription('')
-        setErrorDescription('')
-        setIssueType(null)
-        setErrorIssueType('')
-        setPriority(null)
-        setErrorPriority('')
-        setAttachedFiles([])
+        resetValues(curUser)
         onClose()
     }, [
         curUser,
+        resetValues,
         onClose
     ])
 

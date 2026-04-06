@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import { memo, useCallback } from 'react'
 import Button from './Button'
 
 function FileAttachmentField({ files, setFiles }) {
@@ -41,4 +41,4 @@ function FileAttachmentField({ files, setFiles }) {
     )
 }
 
-export default FileAttachmentField
+export default memo(FileAttachmentField)

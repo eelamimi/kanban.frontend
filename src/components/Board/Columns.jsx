@@ -83,6 +83,8 @@ const Columns = ({ members, columns: initialColumns }) => {
                     </Button>
                     <AddIssueModal
                         members={members}
+                        columns={columns}
+                        setColumns={setColumns}
                         isOpen={isAddIssueOpen}
                         onClose={() => setIsAddIssueOpen(false)}
                     />
