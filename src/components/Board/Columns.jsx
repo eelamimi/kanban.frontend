@@ -19,53 +19,47 @@ const Columns = ({ projectId, members, columns: initialColumns }) => {
         return map
     }, [columns])
 
-    const handleDragEnd = useCallback((event) => {
-        const { active, over } = event
-
-        // const issueId = active.id
-        // const sourceColumnId = findColumnByIssueId(issueId)
-        // const targetColumnId = over.id
-
-        // if (sourceColumnId === targetColumnId)
-        //     return
-
-        // const issueId = active.id
-        // const sourceColumnId = findColumnByIssueId(issueId)
-        // const targetColumnId = over.id
-
-        // if (sourceColumnId === targetColumnId) return
-
-        // // Находим issue и перемещаем
-        // const sourceColumn = columns.find(col => col.id === sourceColumnId)
-        // const targetColumn = columns.find(col => col.id === targetColumnId)
-
-        // const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
-
-        // if (!movedIssue) return
-
-        // // Создаем новые колонки
-        // const newColumns = columns.map(col => {
-        //     if (col.id === sourceColumnId) {
-        //         return {
-        //             ...col,
-        //             issues: col.issues.filter(issue => issue.id !== issueId)
-        //         }
-        //     }
-        //     if (col.id === targetColumnId) {
-        //         return {
-        //             ...col,
-        //             issues: [...col.issues, movedIssue]
-        //         }
-        //     }
-        //     return col
-        // })
-
-        // setColumns(newColumns)
-    }, [])
-
     const findColumnByIssueId = useCallback((issueId) => {
         return issueToColumnMap.get(issueId) || null
     }, [issueToColumnMap])
+
+    const handleDragEnd = useCallback((event) => {
+        const { active, over } = event
+
+        const issueId = active.id
+        const sourceColumnId = findColumnByIssueId(issueId)
+        const targetColumnId = over.id
+
+        if (sourceColumnId === targetColumnId)
+            return
+
+        const sourceColumn = columns.find(col => col.id === sourceColumnId)
+
+        const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
+
+        if (!movedIssue) return
+
+        const newColumns = columns.map(col => {
+            if (col.id === sourceColumnId) {
+                return {
+                    ...col,
+                    issues: col.issues.filter(issue => issue.id !== issueId)
+                }
+            }
+            if (col.id === targetColumnId) {
+                return {
+                    ...col,
+                    issues: [...col.issues, movedIssue]
+                }
+            }
+            return col
+        })
+
+        setColumns(newColumns)
+    }, [
+        columns,
+        findColumnByIssueId
+    ])
 
     return (
         <DndContext
