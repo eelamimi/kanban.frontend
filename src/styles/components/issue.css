@@ -15,4 +15,9 @@
         border-bottom: none;
         border-radius: 0 0 10px 10px;
     }
+
+    &:only-child {
+        border-bottom: none;
+        border-radius: 10px;
+    }
 }

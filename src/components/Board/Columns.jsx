@@ -84,7 +84,6 @@ const Columns = ({ projectId, members, columns: initialColumns }) => {
                     <AddIssueModal
                         projectId={projectId}
                         members={members}
-                        columns={columns}
                         setColumns={setColumns}
                         isOpen={isAddIssueOpen}
                         onClose={() => setIsAddIssueOpen(false)}

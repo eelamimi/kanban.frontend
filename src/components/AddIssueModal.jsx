@@ -26,14 +26,13 @@ const issuePriorityOptions = Object.freeze([
 const userProfileId = AuthService.getUserInfo().userProfileId
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 
-function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClose }) {
+function AddIssueModal({ projectId, members, setColumns, isOpen, onClose }) {
     const memberIdOptions = useMemo(() => {
         return members.map((member) => ({
             value: member.id,
             label: `${member.firstName} ${member.secondName}`
         }))
     }, [members])
-    const storyPoints = 1
     const curUser = useMemo(() =>
         memberIdOptions.find(member => member.value === userProfileId),
         [memberIdOptions])
@@ -45,6 +44,7 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
         issueType,
         priority,
         description,
+        storyPoints,
         attachedFiles,
         errorTitle,
         errorAssignee,
@@ -52,6 +52,7 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
         errorPriority,
         errorDescription,
         setAuthor,
+        setStoryPoints,
         setAttachedFiles,
         onTitleInput,
         onAssigneeInput,
@@ -74,7 +75,7 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
         formData.append('IssueType', issueType.value)
         formData.append('IssuePriority', priority.value)
         formData.append('Description', description)
-        formData.append('StoryPoints', storyPoints) // TODO Оценка сложности
+        formData.append('StoryPoints', storyPoints)
 
         if (attachedFiles && attachedFiles.length > 0) {
             const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
@@ -89,17 +90,26 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
             })
         }
 
-        const response = await issueAPI.addIssue(formData)
+        const issue = await issueAPI.addIssue(formData)
+        setColumns(prevColumns =>
+            prevColumns.map(column =>
+                column.position === 0
+                    ? { ...column, issues: [...column.issues, issue] }
+                    : column
+            )
+        )
 
-        return false
+        return true
     }, [
         projectId,
+        setColumns,
         title,
         assignee,
         author,
         issueType,
         priority,
         description,
+        storyPoints,
         attachedFiles,
         validateValues
     ])
@@ -161,6 +171,14 @@ function AddIssueModal({ projectId, members, columns, setColumns, isOpen, onClos
                     error={errorPriority}
                 />
             </div>
+            <Field
+                id='storyPoints'
+                inputClassName='full-width'
+                type='number'
+                label='Оценка сложности'
+                value={storyPoints}
+                onInput={(event) => { setStoryPoints(event.target.value) }}
+            />
             <TextareaField
                 id='issueDescription'
                 inputClassName='full-width'

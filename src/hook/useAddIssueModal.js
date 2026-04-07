@@ -7,6 +7,7 @@ export const useAddIssueModal = ({ curUser }) => {
     const [issueType, setIssueType] = useState(null)
     const [priority, setPriority] = useState(null)
     const [description, setDescription] = useState('')
+    const [storyPoints, setStoryPoints] = useState(1)
     const [errorTitle, setErrorTitle] = useState('')
     const [errorAssignee, setErrorAssignee] = useState('')
     const [errorIssueType, setErrorIssueType] = useState('')
@@ -94,6 +95,7 @@ export const useAddIssueModal = ({ curUser }) => {
         setAssignee(null)
         setErrorAssignee('')
         setAuthor(curUser)
+        setStoryPoints(1)
         setDescription('')
         setErrorDescription('')
         setIssueType(null)
@@ -110,6 +112,7 @@ export const useAddIssueModal = ({ curUser }) => {
         issueType,
         priority,
         description,
+        storyPoints,
         attachedFiles,
 
         errorTitle,
@@ -124,6 +127,7 @@ export const useAddIssueModal = ({ curUser }) => {
         setIssueType,
         setPriority,
         setDescription,
+        setStoryPoints,
         setAttachedFiles,
 
         onTitleInput,

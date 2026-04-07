@@ -27,6 +27,7 @@ function Field(props) {
                 ref={ref}
                 required={required}
                 autoComplete={autoComplete}
+                {...(type === 'number' && { min: 1, max: 20 })}
             />
             <label
                 className='field__label'
