@@ -21,3 +21,20 @@
         border-radius: 10px;
     }
 }
+
+.row .issue_type {
+    width: 16px;
+    height: 16px;
+    align-items: center;
+    vertical-align: center;
+}
+
+.row .issue_publicId {
+    font-size: 14px;
+}
+
+.issue_title {}
+
+.issue_storyPoints {}
+
+.issue_priority {}

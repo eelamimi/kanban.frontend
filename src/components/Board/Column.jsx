@@ -3,7 +3,7 @@ import Section from '../Section'
 import Issue from './Issue'
 import { memo } from 'react'
 
-const Column = ({ column }) => {
+const Column = ({ column, shortName }) => {
     const { setNodeRef } = useDroppable({
         id: column.id,
     })
@@ -15,7 +15,11 @@ const Column = ({ column }) => {
             </Section>
             <Section className='issues'>
                 {column.issues.map((issue) => (
-                    <Issue issue={issue} key={issue.id} />
+                    <Issue
+                        shortName={shortName}
+                        key={issue.id}
+                        issue={issue}
+                    />
                 ))}
             </Section>
         </div>

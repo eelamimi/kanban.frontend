@@ -5,7 +5,7 @@ import Button from '../Button'
 import Column from './Column'
 import AddIssueModal from '../AddIssueModal'
 
-const Columns = ({ projectId, members, columns: initialColumns }) => {
+const Columns = ({ projectId, shortName, members, columns: initialColumns }) => {
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
     const [columns, setColumns] = useState(initialColumns)
 
@@ -85,7 +85,11 @@ const Columns = ({ projectId, members, columns: initialColumns }) => {
                 </div>
                 <div className="columns">
                     {columns.map((column) => (
-                        <Column column={column} key={column.id} />
+                        <Column
+                            shortName={shortName}
+                            column={column}
+                            key={column.id}
+                        />
                     ))}
                 </div>
             </Section>
