@@ -1,14 +1,14 @@
 import { useDraggable } from '@dnd-kit/core'
 import { memo, useMemo } from 'react'
 import bugImg from '../../assets/img/500x500.jpg'
-import storyImg from '../../assets/img/500x500.jpg'
-import taskImg from '../../assets/img/500x500.jpg'
-import investigationImg from '../../assets/img/500x500.jpg'
-import minimalImg from '../../assets/img/500x500.jpg'
 import lowImg from '../../assets/img/500x500.jpg'
-import mediumImg from '../../assets/img/500x500.jpg'
 import highImg from '../../assets/img/500x500.jpg'
+import taskImg from '../../assets/img/500x500.jpg'
+import storyImg from '../../assets/img/500x500.jpg'
+import mediumImg from '../../assets/img/500x500.jpg'
+import minimalImg from '../../assets/img/500x500.jpg'
 import criticalImg from '../../assets/img/500x500.jpg'
+import investigationImg from '../../assets/img/500x500.jpg'
 
 const issueTypesImg = {
     0: bugImg,
