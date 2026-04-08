@@ -6,10 +6,13 @@ import Columns from './Board/Columns'
 import Section from './Section'
 import Spinner from './Spinner'
 import Span from './Span'
+import Button from './Button'
+import EditBoardModal from './Modals/EditBoardModal'
 
 const Board = () => {
     const { projectId } = useParams()
     const [isLoadingProject, setIsLoadingProject] = useState(true)
+    const [isEditBoardOpen, setIsEditBoardOpen] = useState(false)
     const [project, setProject] = useState(null)
 
     useEffect(() => {
@@ -47,7 +50,18 @@ const Board = () => {
             <Section className={'full-width'}>
                 <div className='subsection'>
                     <div className="h1">{`${project.name} (${project.shortName})`}</div>
+                    <Button
+                        className='left'
+                        onClick={() => setIsEditBoardOpen(true)}
+                    >
+                        Редактировать доску
+                    </Button>
+                    <EditBoardModal
+                        isOpen={isEditBoardOpen}
+                        onClose={() => setIsEditBoardOpen(false)}
+                    />
                 </div>
+
                 <Span value={project.description} />
                 <Filters
                     filters={project.members}
