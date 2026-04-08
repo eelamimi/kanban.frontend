@@ -6,6 +6,7 @@ import Column from './Column'
 import AddIssueModal from '../AddIssueModal'
 
 const Columns = ({ projectId, shortName, members, columns: initialColumns }) => {
+    const [allowedColumnIds, setAllowedColumnIds] = useState([])
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
     const [columns, setColumns] = useState(initialColumns)
 
@@ -23,21 +24,41 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
         return issueToColumnMap.get(issueId) || null
     }, [issueToColumnMap])
 
+    const handleDragStart = useCallback((event) => {
+        const { active } = event
+        const issueId = active.id
+        const sourceColumnId = findColumnByIssueId(issueId)
+        const sourceColumn = columns.find(col => col.id === sourceColumnId)
+
+        if (sourceColumn?.nextColumns) {
+            setAllowedColumnIds(sourceColumn.nextColumns)
+        } else {
+            setAllowedColumnIds([])
+        }
+    }, [columns, findColumnByIssueId])
+
     const handleDragEnd = useCallback((event) => {
         const { active, over } = event
-
         const issueId = active.id
         const sourceColumnId = findColumnByIssueId(issueId)
         const targetColumnId = over.id
 
-        if (sourceColumnId === targetColumnId)
+        if (sourceColumnId === targetColumnId ||
+            !allowedColumnIds.includes(targetColumnId)) {
+            setAllowedColumnIds([])
             return
+        }
 
         const sourceColumn = columns.find(col => col.id === sourceColumnId)
-
         const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
 
-        if (!movedIssue) return
+        if (!movedIssue) {
+            setAllowedColumnIds([])
+            return
+        }
+
+        const targetColumnPosition = columns.find(col => col.id === targetColumnId).position
+        movedIssue.isDeleted = targetColumnPosition === (columns.length - 1)
 
         const newColumns = columns.map(col => {
             if (col.id === sourceColumnId) {
@@ -55,20 +76,19 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
             return col
         })
 
+        setAllowedColumnIds([])
         setColumns(newColumns)
-    }, [
-        columns,
-        findColumnByIssueId
-    ])
+    }, [columns, allowedColumnIds, findColumnByIssueId])
 
     return (
         <DndContext
+            onDragStart={handleDragStart}
             onDragEnd={handleDragEnd}
             collisionDetection={closestCenter}
         >
             <Section className='full-width'>
                 <div className='subsection'>
-                    <div className="h1">Доска</div>
+                    <div className='h1'>Доска</div>
                     <Button
                         className='left'
                         onClick={() => setIsAddIssueOpen(true)}
@@ -83,12 +103,13 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
                         onClose={() => setIsAddIssueOpen(false)}
                     />
                 </div>
-                <div className="columns">
+                <div className='columns'>
                     {columns.map((column) => (
                         <Column
-                            shortName={shortName}
-                            column={column}
                             key={column.id}
+                            column={column}
+                            shortName={shortName}
+                            canDropHere={allowedColumnIds.includes(column.id)}
                         />
                     ))}
                 </div>

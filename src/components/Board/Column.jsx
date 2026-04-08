@@ -3,7 +3,7 @@ import Section from '../Section'
 import Issue from './Issue'
 import { memo } from 'react'
 
-const Column = ({ column, shortName }) => {
+const Column = ({ column, shortName, canDropHere = false }) => {
     const { setNodeRef } = useDroppable({
         id: column.id,
     })
@@ -13,7 +13,7 @@ const Column = ({ column, shortName }) => {
             <Section className='columnName'>
                 {column.name}
             </Section>
-            <Section className='issues'>
+            <Section className={`issues ${canDropHere ? `highlight` : ``}`}>
                 {column.issues.map((issue) => (
                     <Issue
                         shortName={shortName}

@@ -19,5 +19,12 @@
     margin: 0;
     padding: 1rem;
     width: auto;
+    /* background-color: rgba(0, 123, 255, 0.05); */
     flex: 1;
+
+    &.highlight {
+        border: 2px dashed #007bff;
+        background-color: rgba(0, 123, 255, 0.385);
+        /* transition: all 0.2s ease; */
+    }
 }

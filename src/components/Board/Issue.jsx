@@ -57,7 +57,7 @@ const Issue = ({ issue, shortName }) => {
                 <div className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}>{`${shortName}-${issue.numberInProject}`}</div>
             </div>
             <div className='issue-row'>
-                <div className='issue_title'>{issue.title}</div>
+                <div className={`issue_title ${issue.isDeleted ? `deleted` : ``}`}>{issue.title}</div>
             </div>
             <div className='issue-row last'>
                 <div className='issue_img-container'>
