@@ -1,12 +1,12 @@
 import { useMemo, useCallback, memo } from 'react'
-import Modal from './Modal'
-import Field from './Field'
-import SelectField from './SelectField'
-import AuthService from '../service/AuthService'
-import TextareaField from './TextAreaField'
-import FileAttachmentField from './FileAttachmentField'
-import { useAddIssueModal } from '../hook/useAddIssueModal'
-import issueAPI from '../api/issueAPI'
+import { useAddIssueModal } from '../../hook/useAddIssueModal'
+import AuthService from '../../service/AuthService'
+import FileAttachmentField from '../FileAttachmentField'
+import TextareaField from '../TextAreaField'
+import SelectField from '../SelectField'
+import Modal from '../Modal'
+import Field from '../Field'
+import issueAPI from '../../api/issueAPI'
 
 const issueTypeOptions = Object.freeze([
     { value: 'Bug', label: 'Баг' },

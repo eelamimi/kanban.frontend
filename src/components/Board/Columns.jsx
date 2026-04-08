@@ -3,7 +3,7 @@ import { DndContext, closestCenter } from '@dnd-kit/core'
 import Section from '../Section'
 import Button from '../Button'
 import Column from './Column'
-import AddIssueModal from '../AddIssueModal'
+import AddIssueModal from '../Modals/AddIssueModal'
 import projectAPI from '../../api/projectAPI'
 
 const Columns = ({ projectId, shortName, members, columns: initialColumns }) => {
