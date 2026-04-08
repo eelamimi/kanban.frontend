@@ -16,7 +16,6 @@ const Board = () => {
         async function fetchProject(projectId) {
             try {
                 const response = await projectsAPI.getProject(projectId)
-                console.log(response)
                 setProject(response)
             }
             catch (error) {
