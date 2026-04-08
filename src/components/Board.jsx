@@ -1,6 +1,6 @@
 import { memo, useEffect, useState } from 'react'
 import { useParams } from 'react-router'
-import projectsAPI from '../api/projectAPI'
+import projectAPI from '../api/projectAPI'
 import Filters from './Board/Filters'
 import Columns from './Board/Columns'
 import Section from './Section'
@@ -15,7 +15,7 @@ const Board = () => {
     useEffect(() => {
         async function fetchProject(projectId) {
             try {
-                const response = await projectsAPI.getProject(projectId)
+                const response = await projectAPI.getProject(projectId)
                 setProject(response)
             }
             catch (error) {

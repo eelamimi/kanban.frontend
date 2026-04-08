@@ -4,6 +4,7 @@ import Section from '../Section'
 import Button from '../Button'
 import Column from './Column'
 import AddIssueModal from '../AddIssueModal'
+import projectAPI from '../../api/projectAPI'
 
 const Columns = ({ projectId, shortName, members, columns: initialColumns }) => {
     const [allowedColumnIds, setAllowedColumnIds] = useState([])
@@ -37,7 +38,7 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
         }
     }, [columns, findColumnByIssueId])
 
-    const handleDragEnd = useCallback((event) => {
+    const handleDragEnd = useCallback(async (event) => {
         const { active, over } = event
         const issueId = active.id
         const sourceColumnId = findColumnByIssueId(issueId)
@@ -56,6 +57,8 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
             setAllowedColumnIds([])
             return
         }
+
+        const previousColumns = columns
 
         const targetColumnPosition = columns.find(col => col.id === targetColumnId).position
         movedIssue.isDeleted = targetColumnPosition === (columns.length - 1)
@@ -78,6 +81,17 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
 
         setAllowedColumnIds([])
         setColumns(newColumns)
+
+        try {
+            await projectAPI.moveIssue({
+                IssueId: issueId,
+                SourceColumnId: sourceColumnId,
+                TargetColumnId: targetColumnId,
+            });
+        } catch (error) {
+            console.error('Ошибка при перемещении задачи:', error);
+            setColumns(previousColumns);
+        }
     }, [columns, allowedColumnIds, findColumnByIssueId])
 
     return (
