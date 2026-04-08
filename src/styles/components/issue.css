@@ -1,6 +1,6 @@
 .issue {
     padding: .5rem;
-    border-bottom: 1px solid #ddd;
+    border-bottom: 1px solid gray;
 
     &:hover {
         background-color: #acacac;
@@ -22,19 +22,40 @@
     }
 }
 
-.row .issue_type {
-    width: 16px;
-    height: 16px;
+.issue-row {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 10px;
+    gap: 6px;
+
+    &.last {
+        margin-bottom: 0;
+    }
+}
+
+.issue_img-container {
+    width: 14x;
+    height: 14px;
+    display: flex;
+    justify-content: center;
     align-items: center;
-    vertical-align: center;
 }
 
-.row .issue_publicId {
-    font-size: 14px;
+.issue_publicId {
+    font-size: 13px;
+    height: 13px;
 }
 
-.issue_title {}
+.issue_title {
+    font-size: 16px;
+}
 
-.issue_storyPoints {}
-
-.issue_priority {}
+.issue_storyPoints {
+    font-size: 13px;
+    align-items: center;
+    background-color: lightgray;
+    padding: 1px 3px;
+    border-radius: 3px;
+    height: 12px;
+    display: flex;
+}

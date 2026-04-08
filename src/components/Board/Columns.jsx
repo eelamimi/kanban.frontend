@@ -49,7 +49,7 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
             if (col.id === targetColumnId) {
                 return {
                     ...col,
-                    issues: [...col.issues, movedIssue]
+                    issues: [...col.issues, movedIssue].sort((a, b) => a.numberInProject - b.numberInProject)
                 }
             }
             return col

@@ -1,11 +1,28 @@
 import { useDraggable } from '@dnd-kit/core'
 import { memo, useMemo } from 'react'
+import bugImg from '../../assets/img/500x500.jpg'
+import storyImg from '../../assets/img/500x500.jpg'
+import taskImg from '../../assets/img/500x500.jpg'
+import investigationImg from '../../assets/img/500x500.jpg'
+import minimalImg from '../../assets/img/500x500.jpg'
+import lowImg from '../../assets/img/500x500.jpg'
+import mediumImg from '../../assets/img/500x500.jpg'
+import highImg from '../../assets/img/500x500.jpg'
+import criticalImg from '../../assets/img/500x500.jpg'
 
 const issueTypesImg = {
-    0: '../../assets/img/bug.png',
-    1: '../../assets/img/story.png',
-    2: '../../assets/img/task.png',
-    3: '../../assets/img/investigation.png',
+    0: bugImg,
+    1: storyImg,
+    2: taskImg,
+    3: investigationImg,
+}
+
+const issuePriorityImg = {
+    0: minimalImg,
+    1: lowImg,
+    2: mediumImg,
+    3: highImg,
+    4: criticalImg,
 }
 
 const Issue = ({ issue, shortName }) => {
@@ -29,26 +46,28 @@ const Issue = ({ issue, shortName }) => {
             {...listeners}
             {...attributes}
         >
-            <div
-                className='row'
-                style={{
-                    alignItems: 'center',
-                    alignContent: 'center',
-                }}
-            >
-                <div className="issue_type">
+            <div className='issue-row'>
+                <div className="issue_img-container">
                     <img
                         src={issueTypesImg[issue.issueType]}
-                        width='16'
-                        height='16'
+                        width='14'
+                        height='14'
                     />
                 </div>
                 <div className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}>{`${shortName}-${issue.numberInProject}`}</div>
             </div>
-            <div className='issue_title'>{issue.title}</div>
-            <div className='row'>
+            <div className='issue-row'>
+                <div className='issue_title'>{issue.title}</div>
+            </div>
+            <div className='issue-row last'>
+                <div className='issue_img-container'>
+                    <img
+                        src={issuePriorityImg[issue.issuePriority]}
+                        width='14'
+                        height='14'
+                    />
+                </div>
                 <div className='issue_storyPoints'>{issue.storyPoints}</div>
-                <div className='issue_priority'>{issue.issuePriority}</div>
             </div>
         </div>
     )

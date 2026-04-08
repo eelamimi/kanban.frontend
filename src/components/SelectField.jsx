@@ -93,7 +93,7 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
     }), [isFocused, hasValue])
 
     return (
-        <div className="field" style={{ position: 'relative' }}>
+        <div className="field" style={{ flex: 1, position: 'relative' }}>
             <Select
                 id={id}
                 styles={styles}
