@@ -8,17 +8,17 @@
     }
 
     &:first-child {
-        border-radius: 10px 10px 0 0;
+        border-radius: 2px 2px 0 0;
     }
 
     &:last-child {
         border-bottom: none;
-        border-radius: 0 0 10px 10px;
+        border-radius: 0 0 2px 2px;
     }
 
     &:only-child {
         border-bottom: none;
-        border-radius: 10px;
+        border-radius: 2px;
     }
 }
 
@@ -53,7 +53,7 @@
 
 .deleted {
     text-decoration: line-through;
-    text-decoration-thickness: 2px;
+    text-decoration-thickness: 1px;
 }
 
 .issue_title {
