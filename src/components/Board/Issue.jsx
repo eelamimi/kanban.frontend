@@ -1,5 +1,5 @@
 import { useDraggable } from '@dnd-kit/core'
-import { memo, useMemo } from 'react'
+import { memo, useContext, useMemo } from 'react'
 import bugImg from '../../assets/img/500x500.jpg'
 import lowImg from '../../assets/img/500x500.jpg'
 import highImg from '../../assets/img/500x500.jpg'
@@ -9,6 +9,7 @@ import mediumImg from '../../assets/img/500x500.jpg'
 import minimalImg from '../../assets/img/500x500.jpg'
 import criticalImg from '../../assets/img/500x500.jpg'
 import investigationImg from '../../assets/img/500x500.jpg'
+import { ProjectContext } from '../../context/Project/ProjectContext'
 
 const issueTypesImg = {
     0: bugImg,
@@ -25,7 +26,8 @@ const issuePriorityImg = {
     4: criticalImg,
 }
 
-const Issue = ({ issue, shortName }) => {
+const Issue = ({ issue }) => {
+    const { project } = useContext(ProjectContext)
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
         id: issue.id,
     })
@@ -54,7 +56,7 @@ const Issue = ({ issue, shortName }) => {
                         height='14'
                     />
                 </div>
-                <div className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}>{`${shortName}-${issue.numberInProject}`}</div>
+                <div className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}>{`${project.shortName}-${issue.numberInProject}`}</div>
             </div>
             <div className='issue-row'>
                 <div className={`issue_title ${issue.isDeleted ? `deleted` : ``}`}>{issue.title}</div>

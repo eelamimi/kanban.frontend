@@ -1,4 +1,4 @@
-import { useMemo, useCallback, memo } from 'react'
+import { useMemo, useCallback, memo, useContext } from 'react'
 import { useAddIssueModal } from '../../hook/useAddIssueModal'
 import AuthService from '../../service/AuthService'
 import FileAttachmentField from '../FileAttachmentField'
@@ -7,6 +7,7 @@ import SelectField from '../SelectField'
 import Modal from '../Modal'
 import Field from '../Field'
 import issueAPI from '../../api/issueAPI'
+import { ProjectContext } from '../../context/Project/ProjectContext'
 
 const issueTypeOptions = Object.freeze([
     { value: 'Bug', label: 'Баг' },
@@ -26,13 +27,15 @@ const issuePriorityOptions = Object.freeze([
 const userProfileId = AuthService.getUserInfo().userProfileId
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 
-function AddIssueModal({ projectId, members, setColumns, isOpen, onClose }) {
+function AddIssueModal({ setColumns, isOpen, onClose }) {
+    const { project } = useContext(ProjectContext)
+
     const memberIdOptions = useMemo(() => {
-        return members.map((member) => ({
+        return project.members.map((member) => ({
             value: member.id,
             label: `${member.firstName} ${member.secondName}`
         }))
-    }, [members])
+    }, [project.members])
     const curUser = useMemo(() =>
         memberIdOptions.find(member => member.value === userProfileId),
         [memberIdOptions])
@@ -68,7 +71,7 @@ function AddIssueModal({ projectId, members, setColumns, isOpen, onClose }) {
             return false
 
         const formData = new FormData()
-        formData.append('ProjectId', projectId)
+        formData.append('ProjectId', project.id)
         formData.append('Title', title)
         formData.append('AssigneeId', assignee.value)
         formData.append('AuthorId', author.value)
@@ -101,7 +104,7 @@ function AddIssueModal({ projectId, members, setColumns, isOpen, onClose }) {
 
         return true
     }, [
-        projectId,
+        project.id,
         setColumns,
         title,
         assignee,

@@ -1,15 +1,17 @@
-import { useState, useCallback, useMemo, memo } from 'react'
+import { useState, useCallback, useMemo, memo, useContext } from 'react'
 import { DndContext, closestCenter } from '@dnd-kit/core'
 import Section from '../Section'
 import Button from '../Button'
 import Column from './Column'
 import AddIssueModal from '../Modals/AddIssueModal'
 import projectAPI from '../../api/projectAPI'
+import { ProjectContext } from '../../context/Project/ProjectContext'
 
-const Columns = ({ projectId, shortName, members, columns: initialColumns }) => {
+const Columns = () => {
+    const { project } = useContext(ProjectContext)
     const [allowedColumnIds, setAllowedColumnIds] = useState([])
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
-    const [columns, setColumns] = useState(initialColumns)
+    const [columns, setColumns] = useState(project.columns)
 
     const issueToColumnMap = useMemo(() => {
         const map = new Map()
@@ -110,8 +112,6 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
                         Добавить проблему
                     </Button>
                     <AddIssueModal
-                        projectId={projectId}
-                        members={members}
                         setColumns={setColumns}
                         isOpen={isAddIssueOpen}
                         onClose={() => setIsAddIssueOpen(false)}
@@ -122,7 +122,6 @@ const Columns = ({ projectId, shortName, members, columns: initialColumns }) => 
                         <Column
                             key={column.id}
                             column={column}
-                            shortName={shortName}
                             canDropHere={allowedColumnIds.includes(column.id)}
                         />
                     ))}
