@@ -1,23 +1,24 @@
 import { useRef, useEffect, useState, useCallback, memo } from 'react'
 import Button from './Button'
 
-function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
+function Modal({ isOpen, onAction, actionTitle, onClose, isDisabled = false, ref, title, children }) {
     const [isOverlayClick, setIsOverlayClick] = useState(false)
-    const dialogRef = useRef(null)
+    const internalDialogRef = useRef(null)
+    const dialogRef = ref || internalDialogRef
 
     const handleSubmit = useCallback(async () => {
         const canClose = await onAction()
         if (canClose) {
             dialogRef.current.close()
         }
-    }, [onAction])
+    }, [onAction, dialogRef])
 
     const handleOverlayClick = useCallback((e) => {
         if (e.target === dialogRef.current) {
             setIsOverlayClick(true)
             onClose()
         }
-    }, [onClose])
+    }, [onClose, dialogRef])
 
     useEffect(() => {
         const dialog = dialogRef.current
@@ -27,7 +28,7 @@ function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
         } else if (!isOpen && dialog.open) {
             dialog.close()
         }
-    }, [isOpen])
+    }, [isOpen, dialogRef])
 
     useEffect(() => {
         const dialog = dialogRef.current
@@ -43,7 +44,7 @@ function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
 
         dialog.addEventListener('close', handleClose)
         return () => dialog.removeEventListener('close', handleClose)
-    }, [onClose, isOverlayClick])
+    }, [onClose, dialogRef, isOverlayClick])
 
     return (
         <dialog
@@ -54,15 +55,19 @@ function Modal({ isOpen, onAction, actionTitle, onClose, title, children }) {
                 <div className='h1' style={{ marginBottom: '25px' }}>{title}</div>
                 {children}
                 <form className='buttons' method='dialog'>
+                    {onAction &&
+                        <Button
+                            className='left'
+                            onClick={handleSubmit}
+                            isDisabled={isDisabled}
+                        >
+                            {actionTitle}
+                        </Button>
+                    }
                     <Button
-                        className='left'
-                        onClick={handleSubmit}
+                        className={`close ${onAction ? `` : `left`}`}
+                        type='close'
                     >
-                        {actionTitle}
-                    </Button>
-                    <Button
-                        className='close'
-                        type='close'>
                         Закрыть
                     </Button>
                 </form>
