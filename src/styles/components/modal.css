@@ -8,6 +8,8 @@ dialog {
     border: 1px solid #777;
     border-radius: 10px;
     padding: 0;
+    min-width: 600px;
+    width: 70%;
 }
 
 dialog::backdrop {
@@ -18,5 +20,8 @@ dialog::backdrop {
     border: 1px solid transparent;
     border-radius: 10px;
     padding: 2rem;
-    width: 600px;
+}
+
+.modal-section {
+    margin-bottom: 25px;
 }

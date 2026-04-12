@@ -1,19 +1,24 @@
-import { memo, useCallback } from 'react'
+import { memo, useCallback, useRef } from 'react'
 import Modal from '../Modal'
+import EditProjectSection from '../EditBoardModalSections/EditProjectSection'
+import EditColumnRelationsSection from '../EditBoardModalSections/EditColumnRelationsSection'
 
 function EditBoardModal({ isOpen, onClose }) {
-    const handleClose = useCallback(() => {
-        onClose()
-    }, [onClose])
+    const dialogRef = useRef(null)
+
+    const handleClose = useCallback(
+        () => onClose(), [onClose])
 
     return (
         <Modal
             isOpen={isOpen}
             title={'Редактирование доски'}
             actionTitle={'Обновить'}
-            onAction={() => true}
             onClose={handleClose}
+            ref={dialogRef}
         >
+            <EditProjectSection />
+            <EditColumnRelationsSection />
         </Modal>
     )
 }
