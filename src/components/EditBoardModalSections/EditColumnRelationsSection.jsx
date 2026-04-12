@@ -1,11 +1,11 @@
-import { memo, useState, useContext, useCallback, useMemo } from 'react'
+import { memo, useState, useContext, useCallback } from 'react'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import ModalSection from '../ModalSection'
 
 const EditColumnRelationsSection = () => {
     const { project } = useContext(ProjectContext)
 
-    const updateTransitions = useMemo((fromColumnId, toColumnId) => {
+    const updateTransitions = useCallback((fromColumnId, toColumnId) => {
 
     }, [])
 
