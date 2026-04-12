@@ -51,6 +51,7 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
         attachedFiles,
         errorTitle,
         errorAssignee,
+        errorAuthor,
         errorIssueType,
         errorPriority,
         errorDescription,
@@ -156,6 +157,7 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
                     value={author}
                     onChange={setAuthor}
                     options={memberIdOptions}
+                    error={errorAuthor}
                 />
             </div>
             <div className='row' style={{ gap: '25px' }}>

@@ -10,6 +10,7 @@ export const useAddIssueModal = ({ curUser }) => {
     const [storyPoints, setStoryPoints] = useState(1)
     const [errorTitle, setErrorTitle] = useState('')
     const [errorAssignee, setErrorAssignee] = useState('')
+    const [errorAuthor, setErrorAuthor] = useState('')
     const [errorIssueType, setErrorIssueType] = useState('')
     const [errorPriority, setErrorPriority] = useState('')
     const [errorDescription, setErrorDescription] = useState('')
@@ -26,6 +27,11 @@ export const useAddIssueModal = ({ curUser }) => {
 
     const onAssigneeInput = useCallback((selected) => {
         setAssignee(selected)
+        setErrorAssignee('')
+    }, [])
+
+    const onAuthorInput = useCallback((selected) => {
+        setAuthor(selected)
         setErrorAssignee('')
     }, [])
 
@@ -63,6 +69,11 @@ export const useAddIssueModal = ({ curUser }) => {
             isValid = false
         }
 
+        if (author == null) {
+            setErrorAuthor('Автор обязателен')
+            isValid = false
+        }
+
         if (issueType === null) {
             setErrorIssueType('Тип проблемы обязателен')
             isValid = false
@@ -84,6 +95,7 @@ export const useAddIssueModal = ({ curUser }) => {
     }, [
         title,
         assignee,
+        author,
         issueType,
         priority,
         description
@@ -95,6 +107,7 @@ export const useAddIssueModal = ({ curUser }) => {
         setAssignee(null)
         setErrorAssignee('')
         setAuthor(curUser)
+        setErrorAuthor('')
         setStoryPoints(1)
         setDescription('')
         setErrorDescription('')
@@ -117,6 +130,7 @@ export const useAddIssueModal = ({ curUser }) => {
 
         errorTitle,
         errorAssignee,
+        errorAuthor,
         errorIssueType,
         errorPriority,
         errorDescription,
@@ -132,6 +146,7 @@ export const useAddIssueModal = ({ curUser }) => {
 
         onTitleInput,
         onAssigneeInput,
+        onAuthorInput,
         onIssueTypeInput,
         onPriorityInput,
         onDescriptionInput,
