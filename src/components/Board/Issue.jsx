@@ -1,15 +1,15 @@
 import { useDraggable } from '@dnd-kit/core'
 import { memo, useContext, useMemo } from 'react'
-import bugImg from '../../assets/img/500x500.jpg'
-import lowImg from '../../assets/img/500x500.jpg'
-import highImg from '../../assets/img/500x500.jpg'
-import taskImg from '../../assets/img/500x500.jpg'
-import storyImg from '../../assets/img/500x500.jpg'
-import mediumImg from '../../assets/img/500x500.jpg'
-import minimalImg from '../../assets/img/500x500.jpg'
-import criticalImg from '../../assets/img/500x500.jpg'
-import investigationImg from '../../assets/img/500x500.jpg'
 import { ProjectContext } from '../../context/Project/ProjectContext'
+import minimalImg from '../../assets/img/issuePriority/500x500.jpg'
+import lowImg from '../../assets/img/issuePriority/500x500.jpg'
+import mediumImg from '../../assets/img/issuePriority/500x500.jpg'
+import highImg from '../../assets/img/issuePriority/500x500.jpg'
+import criticalImg from '../../assets/img/issuePriority/500x500.jpg'
+import bugImg from '../../assets/img/issueType/bug.png'
+import taskImg from '../../assets/img/issueType/task.png'
+import storyImg from '../../assets/img/issueType/story.png'
+import investigationImg from '../../assets/img/issueType/investigation.png'
 
 const issueTypesImg = {
     0: bugImg,
@@ -56,7 +56,11 @@ const Issue = ({ issue }) => {
                         height='14'
                     />
                 </div>
-                <div className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}>{`${project.shortName}-${issue.numberInProject}`}</div>
+                <div
+                    className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}
+                >
+                    {`${project.shortName}-${issue.numberInProject}`}
+                </div>
             </div>
             <div className='issue-row'>
                 <div className='issue_title'>{issue.title}</div>
