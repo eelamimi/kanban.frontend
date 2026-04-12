@@ -37,7 +37,7 @@ const Board = () => {
                         className='left'
                         onClick={() => setIsEditBoardOpen(true)}
                     >
-                        Редактировать доску
+                        Редактировать
                     </Button>
                     <EditBoardModal
                         isOpen={isEditBoardOpen}
