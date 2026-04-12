@@ -1,4 +1,4 @@
-import { useMemo, useCallback, memo, useContext } from 'react'
+import { useMemo, useCallback, memo, useContext, useState } from 'react'
 import { useAddIssueModal } from '../../hook/useAddIssueModal'
 import AuthService from '../../service/AuthService'
 import FileAttachmentField from '../FileAttachmentField'
@@ -29,7 +29,7 @@ const MAX_FILE_SIZE = 20 * 1024 * 1024
 
 function AddIssueModal({ setColumns, isOpen, onClose }) {
     const { project } = useContext(ProjectContext)
-
+    const [isWaiting, setIsWaiting] = useState(false)
     const memberIdOptions = useMemo(() => {
         return project.members.map((member) => ({
             value: member.id,
@@ -68,8 +68,11 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
     } = useAddIssueModal({ curUser })
 
     const addIssue = useCallback(async () => {
-        if (!validateValues())
+        setIsWaiting(true)
+        if (!validateValues()) {
+            setIsWaiting(false)
             return false
+        }
 
         const formData = new FormData()
         formData.append('ProjectId', project.id)
@@ -86,6 +89,7 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
 
             if (oversizedFiles.length > 0) {
                 console.error('Файлы превышают 20MB:', oversizedFiles.map(f => f.name))
+                setIsWaiting(false)
                 return false
             }
 
@@ -103,6 +107,7 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
             )
         )
 
+        setIsWaiting(false)
         return true
     }, [
         project.id,
@@ -134,6 +139,7 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
             actionTitle={'Создать'}
             onAction={addIssue}
             onClose={handleClose}
+            isDisabled={isWaiting}
         >
             <Field
                 id='issueTitle'

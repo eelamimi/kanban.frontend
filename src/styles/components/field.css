@@ -1,6 +1,11 @@
 .field {
     position: relative;
     margin-bottom: 25px;
+
+    &.full-width {
+        flex: 1;
+        width: auto;
+    }
 }
 
 .field__input {
