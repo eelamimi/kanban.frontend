@@ -63,8 +63,9 @@
 .issue_storyPoints {
     font-size: 13px;
     align-items: center;
+    border: 1px solid gray;
     background-color: lightgray;
-    padding: 1px 3px;
+    padding: 0 2px;
     border-radius: 2px;
     height: 12px;
     display: flex;
