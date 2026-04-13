@@ -36,6 +36,37 @@ export const useEditProjectModalSection = () => {
         setErrorProjectDescription(hasOnlySpaces || value.length === 0 ? 'Описание обязательно' : '')
     }, [])
 
+    const validateValues = useCallback(() => {
+        let isValid = true
+
+        let clearValue = projectName.trim()
+        let hasOnlySpaces = projectName.length > 0 && clearValue.length === 0
+        if (hasOnlySpaces || projectName.length === 0) {
+            setErrorProjectName('Название обязательно')
+            isValid = false
+        }
+
+        clearValue = projectShortName.trim()
+        hasOnlySpaces = projectShortName.length > 0 && clearValue.length === 0
+        if (hasOnlySpaces || projectShortName.length === 0) {
+            setErrorProjectShortName('Ключ проекта обязателен')
+            isValid = false
+        }
+
+        clearValue = projectDescription.trim()
+        hasOnlySpaces = projectDescription.length > 0 && clearValue.length === 0
+        if (hasOnlySpaces || projectDescription.length === 0) {
+            setErrorProjectDescription('Описание обязательно')
+            isValid = false
+        }
+
+        return isValid
+    }, [
+        projectName, setErrorProjectName,
+        projectShortName, setErrorProjectShortName,
+        projectDescription, setErrorProjectDescription,
+    ])
+
     const initValues = useCallback((project) => {
         setProjectName(project.name)
         setProjectShortName(project.shortName)
@@ -56,5 +87,6 @@ export const useEditProjectModalSection = () => {
         onProjectDescriptionInput,
 
         initValues,
+        validateValues,
     }
 }

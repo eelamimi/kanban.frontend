@@ -52,6 +52,7 @@ const Columns = () => {
         }
 
         const sourceColumn = project.columns.find(col => col.id === sourceColumnId)
+        const targetColumn = project.columns.find(col => col.id === targetColumnId)
         const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
 
         if (!movedIssue) {
@@ -61,8 +62,10 @@ const Columns = () => {
 
         const prevProject = project
 
-        const targetColumnPosition = project.columns.find(col => col.id === targetColumnId).position
-        movedIssue.isDeleted = targetColumnPosition === (project.columns.length - 1)
+        const updatedIssue = {
+            ...movedIssue,
+            isDeleted: targetColumn.position === (project.columns.length - 1)
+        }
 
         const newColumns = project.columns.map(col => {
             if (col.id === sourceColumnId) {
@@ -74,7 +77,7 @@ const Columns = () => {
             if (col.id === targetColumnId) {
                 return {
                     ...col,
-                    issues: [...col.issues, movedIssue].sort((a, b) => a.numberInProject - b.numberInProject)
+                    issues: [...col.issues, updatedIssue].sort((a, b) => a.numberInProject - b.numberInProject)
                 }
             }
             return col
@@ -91,10 +94,10 @@ const Columns = () => {
                 IssueId: issueId,
                 SourceColumnId: sourceColumnId,
                 TargetColumnId: targetColumnId,
-            });
+            })
         } catch (error) {
-            console.error('Ошибка при перемещении задачи:', error);
-            setProject(prevProject);
+            console.error('Ошибка при перемещении задачи:', error)
+            setProject(prevProject)
         }
     }, [project, setProject, allowedColumnIds, findColumnByIssueId])
 

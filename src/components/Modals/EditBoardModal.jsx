@@ -17,7 +17,7 @@ function EditBoardModal({ isOpen, onClose }) {
             onClose={handleClose}
             ref={dialogRef}
         >
-            <EditProjectSection />
+            <EditProjectSection ref={dialogRef} />
             <EditColumnRelationsSection />
         </Modal>
     )

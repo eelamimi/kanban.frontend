@@ -1,12 +1,14 @@
-import { memo, useCallback, useContext, useEffect } from 'react'
+import { memo, useCallback, useContext, useEffect, useState } from 'react'
 import Field from '../Field'
 import TextAreaField from '../TextAreaField'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { useEditProjectModalSection } from '../../hook/useEditProjectModalSection'
 import ModalSection from '../ModalSection'
+// import projectAPI from '../../api/projectAPI'
 
-const EditProjectSection = () => {
-    const { project } = useContext(ProjectContext)
+const EditProjectSection = ({ ref = null }) => {
+    const { project, setProject } = useContext(ProjectContext)
+    const [isWaiting, setIsWaiting] = useState(false)
     const {
         projectName,
         projectShortName,
@@ -18,18 +20,67 @@ const EditProjectSection = () => {
         onProjectShortNameInput,
         onProjectDescriptionInput,
         initValues,
+        validateValues,
     } = useEditProjectModalSection()
 
     useEffect(() => initValues(project),
         [project, initValues])
+
     const handleProjectSubmit = useCallback(async () => {
-        return true
-    }, [])
+        setIsWaiting(true)
+
+        if (!validateValues()) {
+            setIsWaiting(false)
+            return false
+        }
+
+        try {
+            const trimmedName = projectName.trim();
+            const trimmedShortName = projectShortName.trim();
+            const trimmedDescription = projectDescription.trim();
+
+            if (project.name !== trimmedName ||
+                project.shortName !== trimmedShortName ||
+                project.description !== trimmedDescription) {
+
+                // await projectAPI.update({
+                //     Name: trimmedName,
+                //     ShortName: trimmedShortName,
+                //     Description: trimmedDescription
+                // })
+
+                setProject(prev => ({
+                    ...prev,
+                    name: trimmedName,
+                    shortName: trimmedShortName,
+                    description: trimmedDescription
+                }))
+
+                initValues(project)
+            }
+            setIsWaiting(false)
+            return true
+        } catch (error) {
+            console.error('Ошибка при редактировании проекта:', error)
+            setIsWaiting(false)
+            return false
+        }
+    }, [
+        project,
+        projectName,
+        projectShortName,
+        projectDescription,
+        setProject,
+        validateValues,
+        initValues
+    ])
 
     return (
         <ModalSection
             onClick={handleProjectSubmit}
+            isDisabled={isWaiting}
             buttonTitle='Обновить'
+            ref={ref}
         >
             <div className='row' style={{ gap: '25px' }}>
                 <Field
