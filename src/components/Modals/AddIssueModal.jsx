@@ -10,7 +10,7 @@ import issueAPI from '../../api/issueAPI'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 
 const issueTypeOptions = Object.freeze([
-    { value: 'Bug', label: 'Баг' },
+    { value: 'Bug', label: 'Ошибка' },
     { value: 'Story', label: 'История' },
     { value: 'Task', label: 'Задача' },
     { value: 'Investigation', label: 'Расследование' }
