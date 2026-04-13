@@ -1,15 +1,15 @@
 import axiosInstance from './axiosConfig'
 
-const PROJECT_URL = 'api/projects'
+const COLUMN_URL = 'api/columns'
 
-const projectAPI = {
-    getProject: async (projectId) => {
+const columnAPI = {
+    updateRelation: async (request) => {
         try {
-            const response = await axiosInstance.get(`${PROJECT_URL}/${projectId}`)
+            const response = await axiosInstance.post(`${COLUMN_URL}/updateRelation`, request)
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка загрузки проекта')
+                throw new Error(error.response.data?.message || 'Ошибка обновления связи')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -19,4 +19,4 @@ const projectAPI = {
     },
 }
 
-export default projectAPI
+export default columnAPI
