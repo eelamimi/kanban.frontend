@@ -27,8 +27,8 @@ const issuePriorityOptions = Object.freeze([
 const userProfileId = AuthService.getUserInfo().userProfileId
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 
-function AddIssueModal({ setColumns, isOpen, onClose }) {
-    const { project } = useContext(ProjectContext)
+function AddIssueModal({ isOpen, onClose }) {
+    const { project, setProject } = useContext(ProjectContext)
     const [isWaiting, setIsWaiting] = useState(false)
     const memberIdOptions = useMemo(() => {
         return project.members.map((member) => ({
@@ -99,19 +99,20 @@ function AddIssueModal({ setColumns, isOpen, onClose }) {
         }
 
         const issue = await issueAPI.addIssue(formData)
-        setColumns(prevColumns =>
-            prevColumns.map(column =>
+        setProject(prev => ({
+            ...prev,
+            columns: prev.columns.map(column =>
                 column.position === 0
                     ? { ...column, issues: [...column.issues, issue] }
                     : column
             )
-        )
+        }))
 
         setIsWaiting(false)
         return true
     }, [
-        project.id,
-        setColumns,
+        project,
+        setProject,
         title,
         assignee,
         author,
