@@ -4,24 +4,23 @@ import Section from '../Section'
 import Button from '../Button'
 import Column from './Column'
 import AddIssueModal from '../Modals/AddIssueModal'
-import projectAPI from '../../api/projectAPI'
 import { ProjectContext } from '../../context/Project/ProjectContext'
+import issueAPI from '../../api/issueAPI'
 
 const Columns = () => {
-    const { project } = useContext(ProjectContext)
+    const { project, setProject } = useContext(ProjectContext)
     const [allowedColumnIds, setAllowedColumnIds] = useState([])
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
-    const [columns, setColumns] = useState(project.columns)
 
     const issueToColumnMap = useMemo(() => {
         const map = new Map()
-        for (const column of columns) {
+        for (const column of project.columns) {
             for (const issue of column.issues) {
                 map.set(issue.id, column.id)
             }
         }
         return map
-    }, [columns])
+    }, [project.columns])
 
     const findColumnByIssueId = useCallback((issueId) => {
         return issueToColumnMap.get(issueId) || null
@@ -31,14 +30,14 @@ const Columns = () => {
         const { active } = event
         const issueId = active.id
         const sourceColumnId = findColumnByIssueId(issueId)
-        const sourceColumn = columns.find(col => col.id === sourceColumnId)
+        const sourceColumn = project.columns.find(col => col.id === sourceColumnId)
 
         if (sourceColumn?.nextColumns) {
             setAllowedColumnIds(sourceColumn.nextColumns)
         } else {
             setAllowedColumnIds([])
         }
-    }, [columns, findColumnByIssueId])
+    }, [project.columns, findColumnByIssueId])
 
     const handleDragEnd = useCallback(async (event) => {
         const { active, over } = event
@@ -52,7 +51,7 @@ const Columns = () => {
             return
         }
 
-        const sourceColumn = columns.find(col => col.id === sourceColumnId)
+        const sourceColumn = project.columns.find(col => col.id === sourceColumnId)
         const movedIssue = sourceColumn.issues.find(issue => issue.id === issueId)
 
         if (!movedIssue) {
@@ -60,12 +59,12 @@ const Columns = () => {
             return
         }
 
-        const previousColumns = columns
+        const prevProject = project
 
-        const targetColumnPosition = columns.find(col => col.id === targetColumnId).position
-        movedIssue.isDeleted = targetColumnPosition === (columns.length - 1)
+        const targetColumnPosition = project.columns.find(col => col.id === targetColumnId).position
+        movedIssue.isDeleted = targetColumnPosition === (project.columns.length - 1)
 
-        const newColumns = columns.map(col => {
+        const newColumns = project.columns.map(col => {
             if (col.id === sourceColumnId) {
                 return {
                     ...col,
@@ -82,19 +81,22 @@ const Columns = () => {
         })
 
         setAllowedColumnIds([])
-        setColumns(newColumns)
+        setProject(prev => ({
+            ...prev,
+            columns: newColumns
+        }))
 
         try {
-            await projectAPI.moveIssue({
+            await issueAPI.moveIssue({
                 IssueId: issueId,
                 SourceColumnId: sourceColumnId,
                 TargetColumnId: targetColumnId,
             });
         } catch (error) {
             console.error('Ошибка при перемещении задачи:', error);
-            setColumns(previousColumns);
+            setProject(prevProject);
         }
-    }, [columns, allowedColumnIds, findColumnByIssueId])
+    }, [project, setProject, allowedColumnIds, findColumnByIssueId])
 
     return (
         <DndContext
@@ -112,13 +114,12 @@ const Columns = () => {
                         Добавить проблему
                     </Button>
                     <AddIssueModal
-                        setColumns={setColumns}
                         isOpen={isAddIssueOpen}
                         onClose={() => setIsAddIssueOpen(false)}
                     />
                 </div>
                 <div className='columns'>
-                    {columns.map((column) => (
+                    {project.columns.map((column) => (
                         <Column
                             key={column.id}
                             column={column}
