@@ -194,7 +194,7 @@ function AddIssueModal({ isOpen, onClose }) {
             <TextareaField
                 id='issueDescription'
                 inputClassName='full-width'
-                textareaClassName="full-width"
+                textareaClassName='full-width'
                 type='text'
                 label='Описание'
                 value={description}

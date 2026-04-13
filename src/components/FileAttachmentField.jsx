@@ -23,7 +23,7 @@ function FileAttachmentField({ files, setFiles }) {
         <dl className='fileAttachment__container'>
             <dt className='fileAttachment__link'>
                 <label>Прикрепить файлы
-                    <input type="file" multiple onChange={handleFileSelect} hidden />
+                    <input type='file' multiple onChange={handleFileSelect} hidden />
                 </label>
             </dt>
             {files && files.map((file, i) => (

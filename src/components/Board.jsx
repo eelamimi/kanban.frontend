@@ -32,7 +32,7 @@ const Board = () => {
         <>
             <Section className={'full-width'}>
                 <div className='subsection'>
-                    <div className="h1">{`${project.name} (${project.shortName})`}</div>
+                    <div className='h1'>{`${project.name} (${project.shortName})`}</div>
                     <Button
                         className='left'
                         onClick={() => setIsEditBoardOpen(true)}

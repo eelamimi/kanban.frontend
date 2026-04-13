@@ -167,7 +167,7 @@ function RegistryForm() {
 
     return (
         <Form className='registry'>
-            <FieldSet title="Регистрация">
+            <FieldSet title='Регистрация'>
                 <Field
                     id='firstName'
                     type='text'

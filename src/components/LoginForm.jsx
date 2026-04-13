@@ -103,7 +103,7 @@ function LoginForm() {
 
     return (
         <Form className='login'>
-            <FieldSet title="Вход в аккаунт">
+            <FieldSet title='Вход в аккаунт'>
                 <Field
                     id='email'
                     type='email'

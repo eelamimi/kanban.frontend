@@ -9,7 +9,7 @@ const Column = ({ column, canDropHere = false }) => {
     })
 
     return (
-        <div ref={setNodeRef} className="column">
+        <div ref={setNodeRef} className='column'>
             <Section className='columnName'>
                 {column.name}
             </Section>

@@ -34,7 +34,7 @@ axiosInstance.interceptors.response.use(
     },
     (error) => {
         if (error.response?.status === 401) {
-            console.log("un authorize")
+            console.log('un authorize')
             AuthService.clearUserInfo()
             AuthService.redirectToLogin()
         }

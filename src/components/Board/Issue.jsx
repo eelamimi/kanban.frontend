@@ -49,7 +49,7 @@ const Issue = ({ issue }) => {
             {...attributes}
         >
             <div className='issue-row'>
-                <div className="issue_img-container">
+                <div className='issue_img-container'>
                     <img
                         src={issueTypesImg[issue.issueType]}
                         width='14'
