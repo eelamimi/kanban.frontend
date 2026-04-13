@@ -1,0 +1,104 @@
+.transition-matrix {
+    border-radius: 4px;
+    overflow: hidden;
+    border: 2px solid black;
+}
+
+.matrix-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.matrix-table th,
+.matrix-table td {
+    border: 1px solid black;
+    padding: 12px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.matrix-table tr:first-child th,
+.matrix-table tr:first-child td {
+    border-top: none;
+}
+
+.matrix-table tr:last-child th {
+    border-bottom: 2px solid black;
+}
+
+.matrix-table tr th,
+.matrix-table tr td {
+    border-right: 2px solid black;
+}
+
+.matrix-table tr th:not(:first-child),
+.matrix-table tr td:not(:first-child),
+.matrix-table th:last-child,
+.matrix-table td:last-child {
+    border-right: none;
+}
+
+.matrix-table tr:last-child td {
+    border-bottom: none;
+}
+
+.matrix-table th:first-child,
+.matrix-table td:first-child {
+    border-left: none;
+}
+
+.matrix-table th {
+    font-weight: 600;
+}
+
+.from-column {
+    background-color: transparent;
+    font-weight: 500;
+    text-align: left;
+}
+
+.transition-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border: 1px solid #999;
+    border-radius: 4px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    transition: all 0.2s;
+    margin: 0;
+}
+
+.transition-checkbox:checked {
+    background-color: #4caf50;
+    border-color: #4caf50;
+}
+
+.transition-checkbox:checked::after {
+    content: '⤴';
+    position: absolute;
+    top: 40%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.transition-checkbox:hover {
+    border-color: #4caf50;
+}
+
+.self-transition {
+    color: black;
+}
+
+.matrix-cell {
+    background-color: white;
+}
+
+.matrix-cell:has(.transition-checkbox:checked) {
+    background-color: white;
+}
