@@ -17,7 +17,6 @@ const TeamDetails = () => {
         async function fetchTeam() {
             try {
                 const response = await teamsAPI.getTeam(teamId)
-                console.log(response)
                 setTeam(response)
             } catch (error) {
                 console.error('Error fetching team:', error)
