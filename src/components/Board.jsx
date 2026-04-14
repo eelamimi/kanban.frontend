@@ -44,7 +44,7 @@ const Board = () => {
                         onClose={() => setIsEditBoardOpen(false)}
                     />
                 </div>
-                <Span value={project.description} />
+                <Span className='multiline' value={project.description} />
                 <Filters />
             </Section>
             <Columns />

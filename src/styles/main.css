@@ -24,3 +24,7 @@ body {
     display: flex;
     flex-direction: column;
 }
+
+.multiline {
+    white-space: pre-line;
+}

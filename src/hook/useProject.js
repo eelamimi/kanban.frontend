@@ -45,7 +45,7 @@ export const useProject = () => {
     useEffect(() => {
         async function fetchProject(projectId) {
             try {
-                const response = await projectAPI.getProject(projectId)
+                const response = await projectAPI.get(projectId)
                 setProject(response)
             }
             catch (error) {

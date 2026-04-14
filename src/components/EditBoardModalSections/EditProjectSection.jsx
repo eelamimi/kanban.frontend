@@ -4,7 +4,7 @@ import TextAreaField from '../TextAreaField'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { useEditProjectModalSection } from '../../hook/useEditProjectModalSection'
 import ModalSection from '../ModalSection'
-// import projectAPI from '../../api/projectAPI'
+import projectAPI from '../../api/projectAPI'
 
 const EditProjectSection = ({ ref = null }) => {
     const { project, setProject } = useContext(ProjectContext)
@@ -43,11 +43,12 @@ const EditProjectSection = ({ ref = null }) => {
                 project.shortName !== trimmedShortName ||
                 project.description !== trimmedDescription) {
 
-                // await projectAPI.update({
-                //     Name: trimmedName,
-                //     ShortName: trimmedShortName,
-                //     Description: trimmedDescription
-                // })
+                await projectAPI.update({
+                    Name: trimmedName,
+                    ShortName: trimmedShortName,
+                    Description: trimmedDescription,
+                    ProjectId: project.id,
+                })
 
                 setProject(prev => ({
                     ...prev,
