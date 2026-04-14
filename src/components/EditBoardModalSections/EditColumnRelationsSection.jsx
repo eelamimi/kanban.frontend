@@ -1,15 +1,50 @@
-import { memo, useState, useContext, useCallback } from 'react'
+import { memo, useContext, useCallback, useMemo } from 'react'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import ModalSection from '../ModalSection'
+import columnAPI from '../../api/columnAPI'
 
 const EditColumnRelationsSection = () => {
-    const { project, updateTransitions } = useContext(ProjectContext)
+    const { project, setProject } = useContext(ProjectContext)
+
+    const onUpdateTransitions = useCallback(async (fromColumnId, toColumnId, isTransitionAllowed) => {
+        const prevProject = project
+
+        setProject(prevProject => ({
+            ...prevProject,
+            columns: prevProject.columns.map(column => {
+                if (column.id === fromColumnId)
+                    if (isTransitionAllowed)
+                        return {
+                            ...column,
+                            nextColumns: [...column.nextColumns, toColumnId]
+                        }
+                    else
+                        return {
+                            ...column,
+                            nextColumns: column.nextColumns.filter(id => id !== toColumnId)
+                        }
+
+                return column
+            })
+        }))
+
+        try {
+            await columnAPI.updateRelation({
+                FromColumnId: fromColumnId,
+                ToColumnId: toColumnId,
+                IsTransitionAllowed: isTransitionAllowed,
+            })
+        } catch (error) {
+            console.error('Ошибка при редактировании связей колон:', error)
+            setProject(prevProject)
+        }
+    }, [project, setProject])
 
     return (
         <ModalSection title='Редактирование связей'>
             <TransitionMatrix
                 project={project}
-                onUpdateTransitions={updateTransitions}
+                onUpdateTransitions={onUpdateTransitions}
             />
         </ModalSection>
     )
@@ -18,7 +53,7 @@ const EditColumnRelationsSection = () => {
 export default memo(EditColumnRelationsSection)
 
 const TransitionMatrix = ({ project, onUpdateTransitions }) => {
-    const [transitions, setTransitions] = useState(() => {
+    const transitions = useMemo(() => {
         const matrix = {}
         project.columns.forEach(fromColumn => {
             matrix[fromColumn.id] = {}
@@ -28,20 +63,11 @@ const TransitionMatrix = ({ project, onUpdateTransitions }) => {
             })
         })
         return matrix
-    })
+    }, [project.columns])
 
     const toggleTransition = useCallback((fromColumnId, toColumnId) => {
-        const isTransitionAllowed = !transitions[fromColumnId][toColumnId]
-        const newTransitions = {
-            ...transitions,
-            [fromColumnId]: {
-                ...transitions[fromColumnId],
-                [toColumnId]: isTransitionAllowed
-            }
-        }
-
-        setTransitions(newTransitions)
-        onUpdateTransitions?.(fromColumnId, toColumnId, isTransitionAllowed)
+        const isTransitionAllowed = !transitions[fromColumnId]?.[toColumnId]
+        onUpdateTransitions(fromColumnId, toColumnId, isTransitionAllowed)
     }, [transitions, onUpdateTransitions])
 
     return (

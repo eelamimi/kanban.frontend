@@ -6,7 +6,6 @@ const ProjectProvider = ({ children }) => {
         project,
         setProject,
         isLoadingProject,
-        updateTransitions
     } = useProject()
 
     return (
@@ -15,7 +14,6 @@ const ProjectProvider = ({ children }) => {
                 project,
                 setProject,
                 isLoadingProject,
-                updateTransitions,
             }}
         >
             {children}

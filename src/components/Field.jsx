@@ -13,6 +13,8 @@ function Field(props) {
         error,
         autoComplete,
         ref,
+        min = 1,
+        max = 20,
     } = props
 
     return (
@@ -27,7 +29,7 @@ function Field(props) {
                 ref={ref}
                 required={required}
                 autoComplete={autoComplete}
-                {...(type === 'number' && { min: 1, max: 20 })}
+                {...(type === 'number' && { min: min, max: max })}
             />
             <label
                 className='field__label'
