@@ -14,10 +14,13 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { memo, useCallback, useContext, useState, useMemo } from 'react'
-import Section from '../Section'
-import ModalSection from '../ModalSection'
 import { ProjectContext } from '../../context/Project/ProjectContext'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import columnAPI from '../../api/columnAPI'
+import ModalSection from '../ModalSection'
+import Section from '../Section'
+import Button from '../Button'
 
 const SortableColumn = memo(({ column }) => {
     const {
@@ -36,11 +39,33 @@ const SortableColumn = memo(({ column }) => {
         cursor: 'grab'
     }), [transform, transition, isDragging])
 
+    const handleEditColumnButton = useCallback(async () => {
+
+    }, [])
+
+    const handleDeleteColumnButton = useCallback(async () => {
+
+    }, [])
+
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
-            <Section className='columnName'>
-                {column.name}
-            </Section>
+            <div className='row' style={{ gap: '4px' }}>
+                <Section className='column-position'>
+                    {column.name}
+                </Section>
+                <Button
+                    className='column-button-action'
+                    onClick={handleEditColumnButton}
+                >
+                    <FontAwesomeIcon icon={faPenToSquare} />
+                </Button>
+                <Button
+                    className='close column-button-action'
+                    onClick={handleDeleteColumnButton}
+                >
+                    ✖
+                </Button>
+            </div>
         </div>
     )
 })

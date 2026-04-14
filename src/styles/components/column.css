@@ -27,3 +27,18 @@
         background-color: rgba(0, 123, 255, 0.385);
     }
 }
+
+.column-position {
+    flex: 1;
+    margin: 0;
+    padding: 1rem;
+    width: auto;
+    align-items: center;
+    font-size: 1.1rem;
+    font-weight: bold;
+}
+
+.column-button-action {
+    height: auto;
+    width: 54.4px;
+}
