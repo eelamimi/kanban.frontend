@@ -3,6 +3,7 @@ import Modal from '../Modal'
 import EditProjectSection from '../EditBoardModalSections/EditProjectSection'
 import EditColumnRelationsSection from '../EditBoardModalSections/EditColumnRelationsSection'
 import AddColumnSection from '../EditBoardModalSections/AddColumnSection'
+import EditColumnPositionsSection from '../EditBoardModalSections/EditColumnPositionsSection'
 
 function EditBoardModal({ isOpen, onClose }) {
     const dialogRef = useRef(null)
@@ -20,6 +21,7 @@ function EditBoardModal({ isOpen, onClose }) {
         >
             <EditProjectSection ref={dialogRef} />
             <AddColumnSection ref={dialogRef} />
+            <EditColumnPositionsSection />
             <EditColumnRelationsSection />
         </Modal>
     )
