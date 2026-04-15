@@ -33,12 +33,19 @@
     margin: 0;
     padding: 1rem;
     width: auto;
-    align-items: center;
     font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-weight: bold;
+    align-content: center;
 }
 
 .column-button-action {
-    height: auto;
-    width: 54.4px;
+    min-height: 54.4px;
+    min-width: 54.4px;
+}
+
+.section.editing-column-name {
+    padding: .8px;
 }

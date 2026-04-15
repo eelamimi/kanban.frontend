@@ -45,6 +45,32 @@ const columnAPI = {
             }
         }
     },
+    update: async (request) => {
+        try {
+            await axiosInstance.put(COLUMN_URL, request)
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response.data?.message || 'Ошибка изменения имени колонки')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
+    delete: async (request) => {
+        try {
+            await axiosInstance.delete(COLUMN_URL, request)
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response.data?.message || 'Ошибка удаление колонки')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default columnAPI

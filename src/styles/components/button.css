@@ -18,12 +18,6 @@
     }
 }
 
-.button:disabled {
-    background-color: #777;
-    border-color: #777;
-    cursor: not-allowed;
-}
-
 .button.close {
     background-color: red;
     border-color: red;
@@ -35,4 +29,10 @@
             border-color: red;
         }
     }
+}
+
+.button:disabled {
+    background-color: #777;
+    border-color: #777;
+    cursor: not-allowed;
 }

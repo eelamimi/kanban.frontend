@@ -6,6 +6,10 @@
         flex: 1;
         width: auto;
     }
+
+    &.column-name-edit {
+        margin: 0;
+    }
 }
 
 .field__input {
