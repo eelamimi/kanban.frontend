@@ -58,9 +58,9 @@ const columnAPI = {
             }
         }
     },
-    delete: async (request) => {
+    delete: async (id) => {
         try {
-            await axiosInstance.delete(COLUMN_URL, request)
+            await axiosInstance.delete(`${COLUMN_URL}/${id}`)
         } catch (error) {
             if (error.response) {
                 throw new Error(error.response.data?.message || 'Ошибка удаление колонки')

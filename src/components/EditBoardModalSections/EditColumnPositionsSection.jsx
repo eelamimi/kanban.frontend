@@ -118,9 +118,7 @@ const SortableColumn = memo(({ column }) => {
         }))
 
         try {
-            await columnAPI.delete({
-                Id: column.id
-            })
+            await columnAPI.delete(column.id)
         } catch (error) {
             console.error('Ошибка при удалении колонки:', error)
             setProject(previousProject)
