@@ -114,7 +114,23 @@ const SortableColumn = memo(({ column }) => {
         const previousProject = project
         setProject(prev => ({
             ...prev,
-            columns: prev.columns.filter(col => col.id !== column.id)
+            columns: prev.columns
+                .filter(col => col.id !== column.id)
+                .map(col =>
+                    col.position === 0
+                        ? {
+                            ...col,
+                            issues: [
+                                ...col.issues,
+                                ...column.issues.map(issue => ({
+                                    ...issue,
+                                    isDeleted: false,
+                                    closedAt: null
+                                }))]
+                                .sort((a, b) => a.numberInProject - b.numberInProject)
+                        }
+                        : col
+                )
         }))
 
         try {
@@ -126,7 +142,7 @@ const SortableColumn = memo(({ column }) => {
         finally {
             setIsWaitingDeleteColumn(false)
         }
-    }, [column.id, project, setProject])
+    }, [column.id, column.issues, project, setProject])
 
     return (
         <div ref={setNodeRef} style={style} {...attributes} {...listeners}>
@@ -191,12 +207,22 @@ const EditColumnPositionsSection = () => {
             const oldIndex = project.columns.findIndex(col => col.id === active.id)
             const newIndex = project.columns.findIndex(col => col.id === over.id)
 
+            const prevColumns = project.columns
             const newColumns = arrayMove(project.columns, oldIndex, newIndex)
 
-            const prevColumns = project.columns
+            const lastIndex = newColumns.length - 1
+            const utcNow = new Date().toISOString()
             const updatedColumns = newColumns.map((col, index) => ({
                 ...col,
-                position: index
+                position: index,
+                issues: col.issues.map(issue => {
+                    const isInLastColumn = index === lastIndex
+                    return {
+                        ...issue,
+                        isDeleted: isInLastColumn,
+                        closedAt: isInLastColumn ? utcNow : null
+                    }
+                })
             }))
 
             setProject(prev => ({
