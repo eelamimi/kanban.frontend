@@ -1,7 +1,7 @@
 import { useIssue } from '../../hook/useIssue'
-import { RegistryContext as IssueContext } from './RegistryContext'
+import { IssueContext } from './IssueContext'
 
-export const IssueProvider = ({ children }) => {
+const IssueProvider = ({ children }) => {
     const {
         issue,
         isLoadingIssue
@@ -18,3 +18,5 @@ export const IssueProvider = ({ children }) => {
         </IssueContext.Provider>
     )
 }
+
+export default IssueProvider
