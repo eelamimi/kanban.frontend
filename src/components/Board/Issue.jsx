@@ -32,6 +32,7 @@ const Issue = ({ issue }) => {
     const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
         id: issue.id,
     })
+    const issuePublicId = `${project.shortName}-${issue.numberInProject}`
 
     const style = useMemo(() => {
         return {
@@ -59,8 +60,9 @@ const Issue = ({ issue }) => {
                 </div>
                 <Link
                     className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}
+                    to={`/issue/${issuePublicId}?projectId=${project.id}`}
                 >
-                    {`${project.shortName}-${issue.numberInProject}`}
+                    {issuePublicId}
                 </Link>
             </div>
             <div className='issue-row'>
