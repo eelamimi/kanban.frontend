@@ -7,6 +7,7 @@ import TeamPage from './pages/TeamPage'
 import TeamsPage from './pages/TeamsPage'
 import ProjectPage from './pages/ProjectPage'
 import UserInfoProvider from './context/UserInfo/UserInfoProvider'
+import IssuePage from './pages/IssuePage'
 // import { useAuthCheck } from './hook/useAuthCheck'
 // import ProtectedRoute from './components/ProtectedRoute'
 
@@ -40,6 +41,10 @@ function App() {
                 <Route
                     path='/projects/:projectId'
                     element={<ProjectPage />}
+                />
+                <Route
+                    path='/issue/:issuePublicId'
+                    element={<IssuePage />}
                 />
             </Route>
         </Routes>
