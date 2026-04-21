@@ -10,6 +10,7 @@ import bugImg from '../../assets/img/issueType/bug.png'
 import taskImg from '../../assets/img/issueType/task.png'
 import storyImg from '../../assets/img/issueType/story.png'
 import investigationImg from '../../assets/img/issueType/investigation.png'
+import { Link } from 'react-router'
 
 const issueTypesImg = {
     0: bugImg,
@@ -56,11 +57,11 @@ const Issue = ({ issue }) => {
                         height='14'
                     />
                 </div>
-                <div
+                <Link
                     className={`issue_publicId ${issue.isDeleted ? `deleted` : ``}`}
                 >
                     {`${project.shortName}-${issue.numberInProject}`}
-                </div>
+                </Link>
             </div>
             <div className='issue-row'>
                 <div className='issue_title'>{issue.title}</div>

@@ -49,11 +49,16 @@
 .issue_publicId {
     font-size: 13px;
     height: 13px;
-}
+    padding: 0;
+    margin: 0;
 
-.deleted {
-    text-decoration: line-through;
-    text-decoration-thickness: 1px;
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &.deleted {
+        text-decoration: line-through;
+    }
 }
 
 .issue_title {
