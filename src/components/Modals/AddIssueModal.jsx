@@ -1,4 +1,4 @@
-import { useMemo, useCallback, memo, useContext, useState } from 'react'
+import { useMemo, useCallback, memo, useContext, useState, useEffect } from 'react'
 import { useAddIssueModal } from '../../hook/useAddIssueModal'
 import AuthService from '../../service/AuthService'
 import FileAttachmentField from '../FileAttachmentField'
@@ -132,6 +132,14 @@ function AddIssueModal({ isOpen, onClose }) {
         resetValues,
         onClose
     ])
+
+    useEffect(() => {
+        function setDefaultAuthor() {
+            resetValues(curUser)
+        }
+
+        setDefaultAuthor()
+    }, [curUser, resetValues])
 
     return (
         <Modal
