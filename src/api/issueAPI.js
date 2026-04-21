@@ -5,7 +5,11 @@ const ISSUE_URL = 'api/issues'
 const issueAPI = {
     get: async (request) => {
         try {
-            const response = await axiosInstance.get(`${ISSUE_URL}/${request.issuePublicId}?projectId=${request.projectId}`)
+            const response = await axiosInstance.get(`${ISSUE_URL}/${request.issuePublicId}`, {
+                headers: {
+                    'ProjectId': request.projectId
+                }
+            })
             return response.data
         } catch (error) {
             if (error.response) {
