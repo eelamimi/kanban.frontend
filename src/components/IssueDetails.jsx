@@ -9,9 +9,14 @@ const IssueDetails = () => {
 
     if (isLoadingIssue)
         return (
-            <Section>
-                <Spinner />
-            </Section>
+            <>
+                <Section>
+                    <Spinner />
+                </Section>
+                <Section>
+                    <Spinner />
+                </Section>
+            </>
         )
 
     return (
