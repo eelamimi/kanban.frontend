@@ -75,3 +75,16 @@
     height: 12px;
     display: flex;
 }
+
+.issue-details_img-container {
+    width: 18.4x;
+    height: 18.4px;
+    display: flex;
+    justify-content: center;
+    border-radius: 3px;
+    align-items: center;
+
+    & img {
+        border-radius: 3px;
+    }
+}
