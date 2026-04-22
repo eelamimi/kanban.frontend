@@ -4,14 +4,16 @@ import { IssueContext } from './IssueContext'
 const IssueProvider = ({ children }) => {
     const {
         issue,
-        isLoadingIssue
+        isLoadingIssue,
+        addCommentary
     } = useIssue()
 
     return (
         <IssueContext.Provider
             value={{
                 issue,
-                isLoadingIssue
+                isLoadingIssue,
+                addCommentary
             }}
         >
             {children}
