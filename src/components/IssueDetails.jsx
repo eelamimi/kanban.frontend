@@ -4,6 +4,7 @@ import Spinner from './Spinner'
 import { IssueContext } from '../context/Issue/IssueContext'
 import Section from './Section'
 import IssueDescriptionAndFiles from './IssueDetails/IssueDescriptionAndFiles'
+import IssueCommentaries from './IssueDetails/IssueCommentaries'
 
 const IssueDetails = () => {
     const { isLoadingIssue } = useContext(IssueContext)
@@ -24,6 +25,7 @@ const IssueDetails = () => {
         <>
             <IssueHeader />
             <IssueDescriptionAndFiles />
+            <IssueCommentaries />
         </>
     )
 }
