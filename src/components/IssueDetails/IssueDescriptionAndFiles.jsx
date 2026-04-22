@@ -8,7 +8,6 @@ import { formatFileSize } from '../../utils/fileFormatter'
 const IssueDescriptionAndFiles = () => {
     const { issue } = useContext(IssueContext)
     const description = issue.commentaries.find((com) => com.isDescription)
-    console.log(issue)
     const files = issue.attachments.length === 0 ? null : issue.attachments
 
     return (
@@ -27,13 +26,15 @@ const IssueDescriptionAndFiles = () => {
                     <Span className='multiline' value={description.content} />
                 </div>
                 {files &&
-                    <div className='issue-files'>
+                    <div className='issue-files__container'>
                         <div className='h1'>Файлы</div>
-                        {files.map(file => (
-                            <dd key={file.id} className='fileAttachment__file'>
-                                {file.name} ({formatFileSize(file.size)})
-                            </dd>
-                        ))}
+                        <div className="issue-files__files">
+                            {files.map(file => (
+                                <span key={file.id} className='issue-files__file'>
+                                    {file.fileName} ({formatFileSize(file.size)})
+                                </span>
+                            ))}
+                        </div>
                     </div>}
             </div>
         </Section>
