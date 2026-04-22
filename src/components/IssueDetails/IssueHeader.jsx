@@ -70,7 +70,7 @@ const IssueHeader = () => {
                     {issue.closedAt &&
                         <Span
                             className='left'
-                            label='Удалена:'
+                            label='Закрыта:'
                             value={formatDate(issue.closedAt)}
                         />}
                 </div>
