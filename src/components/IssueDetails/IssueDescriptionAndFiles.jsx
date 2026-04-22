@@ -27,7 +27,7 @@ const IssueDescriptionAndFiles = () => {
                     <Span className='multiline' value={description.content} />
                 </div>
                 {files &&
-                    <div className='issue-files' style={{ gap: '0' }}>
+                    <div className='issue-files'>
                         <div className='h1'>Файлы</div>
                         {files.map(file => (
                             <dd key={file.id} className='fileAttachment__file'>
