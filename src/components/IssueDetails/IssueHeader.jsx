@@ -2,6 +2,8 @@ import { useContext } from 'react'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import Section from '../Section'
 import Button from '../Button'
+import Span from '../Span'
+import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
 
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
@@ -11,7 +13,7 @@ const IssueHeader = () => {
     return (
         <Section className='eight'>
             <div className='subsection'>
-                <div className="h1">{issue.title}</div>
+                <div className='h1'>{issue.title}</div>
                 <Button
                     className='left'
                 // TODO
@@ -28,6 +30,38 @@ const IssueHeader = () => {
                     isOpen={isEditBoardOpen}
                     onClose={() => setIsEditBoardOpen(false)}
                 /> */}
+            </div>
+            <div className='row' style={{ gap: '1rem' }}>
+                <div className='column' style={{ gap: '0' }}>
+                    <Span
+                        label='Исполнитель:'
+                        value={`${issue.assignee.firstName} ${issue.assignee.secondName}`}
+                    />
+                    <Span
+                        label='Автор:'
+                        value={`${issue.author.firstName} ${issue.author.secondName}`}
+                    />
+                </div>
+                <div className='column' style={{ gap: '0' }}>
+                    <div className='row' style={{ gap: '1rem' }}>
+                        <Span
+                            label='Приоритет:'
+                            imageClassName='issue-details_img-container'
+                            src={issuePriorityImg[issue.issuePriority]}
+                            h='18.4' w='18.4'
+                        />
+                        <Span
+                            label='Тип:'
+                            imageClassName='issue-details_img-container'
+                            src={issueTypesImg[issue.issueType]}
+                            h='18.4' w='18.4'
+                        />
+                    </div>
+                    <Span
+                        label='Оценка сложности:'
+                        value={issue.storyPoints}
+                    />
+                </div>
             </div>
         </Section>
     )
