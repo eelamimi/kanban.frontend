@@ -1,5 +1,6 @@
 import axios from 'axios';
 import AuthService from '../service/AuthService';
+import { showError } from '../utils/errorHandler';
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
@@ -33,6 +34,10 @@ axiosInstance.interceptors.response.use(
         return response
     },
     (error) => {
+        const message = error.response.data
+        if (message) {
+            showError(message);
+        }
         if (error.response?.status === 401) {
             console.log('un authorize')
             AuthService.clearUserInfo()
