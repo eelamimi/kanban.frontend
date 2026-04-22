@@ -4,6 +4,7 @@ import Section from '../Section'
 import Button from '../Button'
 import Span from '../Span'
 import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
+import { formatDate } from '../../utils/dataFormatter'
 
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
@@ -31,16 +32,6 @@ const IssueHeader = () => {
             </div>
             <div className='row' style={{ gap: '1rem' }}>
                 <div className='column' style={{ gap: '0' }}>
-                    <Span
-                        label='Исполнитель:'
-                        value={`${issue.assignee.firstName} ${issue.assignee.secondName}`}
-                    />
-                    <Span
-                        label='Автор:'
-                        value={`${issue.author.firstName} ${issue.author.secondName}`}
-                    />
-                </div>
-                <div className='column' style={{ gap: '0' }}>
                     <div className='row' style={{ gap: '1rem' }}>
                         <Span
                             label='Приоритет:'
@@ -58,6 +49,23 @@ const IssueHeader = () => {
                     <Span
                         label='Оценка сложности:'
                         value={issue.storyPoints}
+                    />
+                </div>
+                <div className='column' style={{ gap: '0' }}>
+                    <Span
+                        label='Исполнитель:'
+                        value={`${issue.assignee.firstName} ${issue.assignee.secondName}`}
+                    />
+                    <Span
+                        label='Автор:'
+                        value={`${issue.author.firstName} ${issue.author.secondName}`}
+                    />
+                </div>
+                <div className='column' style={{ gap: '0' }}>
+                    <Span
+                        className='issue-description-edited-at'
+                        label='Создана:'
+                        value={formatDate(issue.createdAt)}
                     />
                 </div>
             </div>
