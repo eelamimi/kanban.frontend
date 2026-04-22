@@ -51,7 +51,7 @@ const IssueHeader = () => {
                         value={issue.storyPoints}
                     />
                 </div>
-                <div className='column' style={{ gap: '0' }}>
+                <div className='column' style={{ alignItems: 'center', gap: '0' }}>
                     <Span
                         label='Исполнитель:'
                         value={`${issue.assignee.firstName} ${issue.assignee.secondName}`}
@@ -63,10 +63,16 @@ const IssueHeader = () => {
                 </div>
                 <div className='column' style={{ gap: '0' }}>
                     <Span
-                        className='issue-description-edited-at'
+                        className='left'
                         label='Создана:'
                         value={formatDate(issue.createdAt)}
                     />
+                    {issue.deletedAt &&
+                        <Span
+                            className='left'
+                            label='Удалена:'
+                            value={formatDate(issue.deletedAt)}
+                        />}
                 </div>
             </div>
         </Section>
