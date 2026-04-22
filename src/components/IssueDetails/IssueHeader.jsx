@@ -8,8 +8,6 @@ import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
 
-    console.log(issue)
-
     return (
         <Section className='eight'>
             <div className='subsection'>
