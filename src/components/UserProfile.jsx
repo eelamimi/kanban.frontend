@@ -10,11 +10,22 @@ const UserProfile = () => {
         isUserInfoLoading
     } = useContext(UserInfoContext)
 
+    if (isUserInfoLoading) {
+        return (
+            <>
+                <Section>
+                    <Spinner />
+                </Section>
+                <Section>
+                    <Spinner />
+                </Section>
+            </>
+        )
+    }
+
     return (
         <>
-            <Section>
-                {isUserInfoLoading ? <Spinner /> : <UserProfileCard />}
-            </Section>
+            <UserProfileCard />
             <TeamsSection />
         </>
     );
