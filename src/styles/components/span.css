@@ -3,6 +3,11 @@
     align-items: center;
     gap: 8px;
     margin-top: 1rem;
+
+    &.issue-description-edited-at {
+        margin-top: 11px;
+        margin-left: auto;
+    }
 }
 
 .field-ro_label {
