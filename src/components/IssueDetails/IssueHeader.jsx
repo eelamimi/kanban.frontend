@@ -67,11 +67,11 @@ const IssueHeader = () => {
                         label='Создана:'
                         value={formatDate(issue.createdAt)}
                     />
-                    {issue.deletedAt &&
+                    {issue.closedAt &&
                         <Span
                             className='left'
                             label='Удалена:'
-                            value={formatDate(issue.deletedAt)}
+                            value={formatDate(issue.closedAt)}
                         />}
                 </div>
             </div>
