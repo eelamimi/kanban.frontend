@@ -13,7 +13,7 @@ const IssueDescriptionAndFiles = () => {
 
     return (
         <Section className='eight'>
-            <div className='row'>
+            <div className='row' style={{ gap: '1rem' }}>
                 <div className='column' style={{ gap: '0' }}>
                     <div className='subsection'>
                         <div className='h1'>Описание</div>
