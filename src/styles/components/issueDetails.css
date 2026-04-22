@@ -1,0 +1,4 @@
+.issue-files {
+    display: flex;
+    flex-direction: column;
+}

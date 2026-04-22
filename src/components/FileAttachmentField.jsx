@@ -1,5 +1,6 @@
 import { memo, useCallback } from 'react'
 import Button from './Button'
+import { formatFileSize } from '../utils/fileFormatter'
 
 function FileAttachmentField({ files, setFiles }) {
     const handleFileSelect = useCallback((event) => {
@@ -10,14 +11,6 @@ function FileAttachmentField({ files, setFiles }) {
     const removeFile = useCallback((index) => {
         setFiles(prev => prev.filter((_, i) => i !== index))
     }, [setFiles])
-
-    const formatFileSize = useCallback((bytes) => {
-        if (bytes === 0) return '0 Bytes'
-        const k = 1024
-        const sizes = ['Bytes', 'KB', 'MB', 'GB']
-        const i = Math.floor(Math.log(bytes) / Math.log(k))
-        return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i]
-    }, [])
 
     return (
         <dl className='fileAttachment__container'>
