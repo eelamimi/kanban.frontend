@@ -44,7 +44,7 @@ const IssueCommentaries = () => {
                         setFiles={setAttachedFiles}
                     />
                     <Button
-                        className='left'
+                        className='left top'
                         type='submit'
                         onClick={validateAndSubmit}
                     >
