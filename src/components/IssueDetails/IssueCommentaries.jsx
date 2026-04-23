@@ -5,6 +5,7 @@ import Section from '../Section'
 import TextareaField from '../TextareaField'
 import IssueCommentary from './IssueCommentary'
 import Button from '../Button'
+import FileAttachmentField from '../FileAttachmentField'
 
 const IssueCommentaries = () => {
     const { issue, addCommentary } = useContext(IssueContext)
@@ -12,8 +13,10 @@ const IssueCommentaries = () => {
 
     const {
         commentary,
+        attachedFiles,
         errorCommentary,
         onCommentaryInput,
+        setAttachedFiles,
         validateAndSubmit
     } = useAddCommentary({ onAdd: addCommentary })
 
@@ -35,13 +38,19 @@ const IssueCommentaries = () => {
                     onInput={onCommentaryInput}
                     error={errorCommentary}
                 />
-                <Button
-                    className='left'
-                    type='submit'
-                    onClick={validateAndSubmit}
-                >
-                    Добавить
-                </Button>
+                <div className="row" style={{ gap: '1rem' }}>
+                    <FileAttachmentField
+                        files={attachedFiles}
+                        setFiles={setAttachedFiles}
+                    />
+                    <Button
+                        className='left'
+                        type='submit'
+                        onClick={validateAndSubmit}
+                    >
+                        Добавить
+                    </Button>
+                </div>
             </div>
         </Section>
     )
