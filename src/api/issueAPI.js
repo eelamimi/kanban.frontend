@@ -53,9 +53,13 @@ const issueAPI = {
             }
         }
     },
-    addCommentary: async (request) => {
+    addCommentary: async (formData) => {
         try {
-            const response = await axiosInstance.post(`${ISSUE_URL}/commentary`, request)
+            const response = await axiosInstance.post(`${ISSUE_URL}/commentary`, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
             return response.data
         } catch (error) {
             if (error.response) {

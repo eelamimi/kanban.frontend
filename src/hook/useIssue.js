@@ -30,15 +30,14 @@ export const useIssue = () => {
         fetchIssue()
     }, [issuePublicId, projectIdFromUrl])
 
-    const addCommentary = useCallback(async (content) => {
-        const response = await issueAPI.addCommentary({
-            IssuePublicId: issuePublicId,
-            ProjectId: projectIdFromUrl,
-            Content: content,
-            AuthorId: AuthService.getUserInfo().userProfileId
-        })
+    const addCommentary = useCallback(async (formData) => {
+        formData.append('IssueId', issue.id)
+        formData.append('AuthorId', AuthService.getUserInfo().userProfileId)
+
+        const response = await issueAPI.addCommentary(formData)
+
         setIssue(response)
-    }, [issuePublicId, projectIdFromUrl])
+    }, [issue.id])
 
     return {
         issue,
