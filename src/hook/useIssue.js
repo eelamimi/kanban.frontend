@@ -31,13 +31,13 @@ export const useIssue = () => {
     }, [issuePublicId, projectIdFromUrl])
 
     const addCommentary = useCallback(async (formData) => {
-        formData.append('IssueId', issue.id)
+        formData.append('IssueId', issue !== null ? issue.id : 'something')
         formData.append('AuthorId', AuthService.getUserInfo().userProfileId)
 
         const response = await issueAPI.addCommentary(formData)
 
         setIssue(response)
-    }, [issue.id])
+    }, [issue])
 
     return {
         issue,
