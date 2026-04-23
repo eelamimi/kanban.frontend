@@ -17,6 +17,12 @@ export const useAddCommentary = ({ onAdd }) => {
         setErrorCommentary(hasOnlySpaces ? 'Комментарий обязателен' : '')
     }, [])
 
+    const resetValues = useCallback(() => {
+        setCommentary('')
+        setErrorCommentary('')
+        setAttachedFiles([])
+    }, [])
+
     const validateAndSubmit = useCallback(async () => {
         const clearValue = commentary.trim()
         const hasOnlySpaces = commentary.length > 0 && clearValue.length === 0
@@ -54,12 +60,6 @@ export const useAddCommentary = ({ onAdd }) => {
             setIsSubmitting(false)
         }
     }, [commentary, attachedFiles, onAdd, resetValues])
-
-    const resetValues = useCallback(() => {
-        setCommentary('')
-        setErrorCommentary('')
-        setAttachedFiles([])
-    }, [])
 
     return {
         commentary,
