@@ -26,7 +26,7 @@ const IssueCommentaries = () => {
             {commentaries.length > 0 &&
                 <div className='commentaries'>
                     {commentaries.map((com) => {
-                        return <IssueCommentary commentary={com} />
+                        return <IssueCommentary key={com.id} commentary={com} />
                     })}
                 </div>}
             <div className='add-commentary'>
