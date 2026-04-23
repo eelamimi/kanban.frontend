@@ -1,8 +1,11 @@
 import { useState, useCallback } from 'react'
 
+const MAX_FILE_SIZE = 20 * 1024 * 1024
+
 export const useAddCommentary = ({ onAdd }) => {
     const [commentary, setCommentary] = useState('')
     const [errorCommentary, setErrorCommentary] = useState('')
+    const [attachedFiles, setAttachedFiles] = useState([])
     const [isSubmitting, setIsSubmitting] = useState(false)
 
     const onCommentaryInput = useCallback(({ target }) => {
@@ -23,10 +26,26 @@ export const useAddCommentary = ({ onAdd }) => {
             return false
         }
 
+        const formData = new FormData()
+        formData.append('Content', commentary)
+
+        if (attachedFiles && attachedFiles.length > 0) {
+            const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
+
+            if (oversizedFiles.length > 0) {
+                console.error('Файлы превышают 20MB:', oversizedFiles.map(f => f.name))
+                return false
+            }
+
+            attachedFiles.forEach((file) => {
+                formData.append('Files', file)
+            })
+        }
+
         setIsSubmitting(true)
         try {
-            await onAdd(commentary)
-            setCommentary('')
+            await onAdd(formData)
+            resetValues()
             return true
         } catch (error) {
             setErrorCommentary(error.message)
@@ -34,20 +53,23 @@ export const useAddCommentary = ({ onAdd }) => {
         } finally {
             setIsSubmitting(false)
         }
-    }, [commentary, onAdd])
+    }, [commentary, attachedFiles, onAdd, resetValues])
 
-    const resetCommentary = useCallback(() => {
+    const resetValues = useCallback(() => {
         setCommentary('')
         setErrorCommentary('')
+        setAttachedFiles([])
     }, [])
 
     return {
         commentary,
         errorCommentary,
+        attachedFiles,
         isSubmitting,
 
         onCommentaryInput,
+        setAttachedFiles,
         validateAndSubmit,
-        resetCommentary,
+        resetCommentary: resetValues,
     }
 }
