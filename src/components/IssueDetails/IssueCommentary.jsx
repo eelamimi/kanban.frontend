@@ -1,6 +1,7 @@
 import baseAvatar from '../../assets/img/default_avatar.jpg'
 import AuthService from '../../service/AuthService'
 import { formatDate } from '../../utils/dataFormatter'
+import Button from '../Button'
 import Span from '../Span'
 
 
@@ -35,9 +36,14 @@ const IssueCommentary = ({ commentary }) => {
                 {commentary.content}
             </div>
             {isAuthor &&
-                <button className='commentary__editButton'>
-                    Редактировать
-                </button>}
+                <div className='commentary_buttons'>
+                    <Button className='commentary__editButton'>
+                        Редактировать
+                    </Button>
+                    <Button className='commentary__deleteButton close'>
+                        Удалить
+                    </Button>
+                </div>}
         </div>
     )
 }
