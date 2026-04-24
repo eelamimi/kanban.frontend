@@ -9,7 +9,7 @@ const projectAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка загрузки проекта')
+                throw new Error(error.response?.message || 'Ошибка загрузки проекта')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -23,7 +23,7 @@ const projectAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка обновление проекта')
+                throw new Error(error.response?.message || 'Ошибка обновление проекта')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {

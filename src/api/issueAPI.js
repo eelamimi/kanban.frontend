@@ -13,7 +13,7 @@ const issueAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка получения проблемы')
+                throw new Error(error.response?.message || 'Ошибка получения проблемы')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -31,7 +31,7 @@ const issueAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка добавления проблемы')
+                throw new Error(error.response?.message || 'Ошибка добавления проблемы')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -45,7 +45,7 @@ const issueAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка перемещение проблемы')
+                throw new Error(error.response?.message || 'Ошибка перемещение проблемы')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -63,7 +63,7 @@ const issueAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка добавления комментария')
+                throw new Error(error.response?.message || 'Ошибка добавления комментария')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {

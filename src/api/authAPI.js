@@ -9,7 +9,7 @@ const authAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка регистрации')
+                throw new Error(error.response?.message || 'Ошибка регистрации')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -24,7 +24,7 @@ const authAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка авторизации')
+                throw new Error(error.response?.message || 'Ошибка авторизации')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -39,7 +39,7 @@ const authAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Токен недействителен')
+                throw new Error(error.response?.message || 'Токен недействителен')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {

@@ -9,7 +9,7 @@ const teamsAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка загрузки команд')
+                throw new Error(error.response?.message || 'Ошибка загрузки команд')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -23,7 +23,7 @@ const teamsAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка загрузки команды')
+                throw new Error(error.response?.message || 'Ошибка загрузки команды')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {

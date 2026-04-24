@@ -9,7 +9,7 @@ const columnAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка добавления колонки')
+                throw new Error(error.response?.message || 'Ошибка добавления колонки')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -23,7 +23,7 @@ const columnAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка обновления позиции')
+                throw new Error(error.response?.message || 'Ошибка обновления позиции')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -37,7 +37,7 @@ const columnAPI = {
             return response.data
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка обновления связи')
+                throw new Error(error.response?.message || 'Ошибка обновления связи')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -50,7 +50,7 @@ const columnAPI = {
             await axiosInstance.put(COLUMN_URL, request)
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка изменения имени колонки')
+                throw new Error(error.response?.message || 'Ошибка изменения имени колонки')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
@@ -63,7 +63,7 @@ const columnAPI = {
             await axiosInstance.delete(`${COLUMN_URL}/${id}`)
         } catch (error) {
             if (error.response) {
-                throw new Error(error.response.data?.message || 'Ошибка удаление колонки')
+                throw new Error(error.response?.message || 'Ошибка удаление колонки')
             } else if (error.request) {
                 throw new Error('Сервер не отвечает')
             } else {
