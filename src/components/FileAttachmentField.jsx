@@ -2,7 +2,7 @@ import { memo, useCallback } from 'react'
 import Button from './Button'
 import { formatFileSize } from '../utils/fileFormatter'
 
-function FileAttachmentField({ files, setFiles }) {
+function FileAttachmentField({ className, files, setFiles }) {
     const handleFileSelect = useCallback((event) => {
         const files = Array.from(event.target.files)
         setFiles(prev => [...prev, ...files])
@@ -13,7 +13,7 @@ function FileAttachmentField({ files, setFiles }) {
     }, [setFiles])
 
     return (
-        <dl className='fileAttachment__container'>
+        <dl className={`fileAttachment__container ${className}`}>
             <dt className='fileAttachment__link'>
                 <label>Прикрепить файлы
                     <input type='file' multiple onChange={handleFileSelect} hidden />

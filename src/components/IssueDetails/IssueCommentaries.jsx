@@ -40,6 +40,7 @@ const IssueCommentaries = () => {
                 />
                 <div className="row" style={{ gap: '1rem' }}>
                     <FileAttachmentField
+                        className='no-margin-bottom'
                         files={attachedFiles}
                         setFiles={setAttachedFiles}
                     />
