@@ -18,12 +18,10 @@ export const useIssue = () => {
                     projectId: projectIdFromUrl
                 })
                 setIssue(response)
+                setIsLoadingIssue(false)
             }
             catch (error) {
                 console.log(error)
-            }
-            finally {
-                setIsLoadingIssue(false)
             }
         }
 
