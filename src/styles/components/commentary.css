@@ -1,22 +1,54 @@
-.commentarties {
+.commentaries {
     display: flex;
     flex-direction: column;
-    gap: 16px;
-    /* margin: 25px 0; */
-    border: 2px solid black;
+    gap: 7px;
+    margin: 16px 0;
 }
 
-/* 
-.commentary__container {}
+.commentary__container {
+    display: flex;
+    flex-direction: column;
 
-.commentary__header {}
+    &:not(:last-child) {
+        padding-bottom: 7px;
+        border-bottom: 1px solid #777;
+    }
+}
 
-.commentary__avatar {}
+.commentary__header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    gap: 8px;
+}
 
-.commentary__fullName {}
+.commentary__avatar {
+    border-radius: 50%;
+}
 
-.commentary__edited {}
+.commentary__edited {
+    margin: 0;
+    margin-left: auto;
+}
 
-.commentary__content {}
+.commentary__content {
+    white-space: pre-line;
+    padding: 4px;
+    padding-left: 8px;
+}
 
-.commentary__editButton {} */
+.commentary_buttons {
+    display: flex;
+    flex-direction: row;
+    gap: .5rem;
+
+    &>button {
+        font-size: x-small;
+    }
+}
+
+.commentary__editButton {
+    margin-left: auto;
+}
