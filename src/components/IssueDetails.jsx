@@ -12,10 +12,13 @@ const IssueDetails = () => {
     if (isLoadingIssue)
         return (
             <>
-                <Section>
+                <Section className='eight'>
                     <Spinner />
                 </Section>
-                <Section>
+                <Section className='eight'>
+                    <Spinner />
+                </Section>
+                <Section className='eight'>
                     <Spinner />
                 </Section>
             </>
