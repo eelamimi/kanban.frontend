@@ -25,9 +25,9 @@ const IssueCommentaries = () => {
             <div className='h1'>Комментарии ({commentaries.length})</div>
             {commentaries.length > 0 &&
                 <div className='commentaries'>
-                    {commentaries.map((com) => {
-                        return <IssueCommentary key={com.id} commentary={com} />
-                    })}
+                    {commentaries.map((com) =>
+                        <IssueCommentary key={com.id} commentary={com} />
+                    )}
                 </div>}
             <div className='add-commentary'>
                 <TextareaField
