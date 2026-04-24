@@ -14,6 +14,11 @@
     flex-direction: column;
 }
 
-/* .issue-files__file {
-    margin-left: 1px;
-} */
+.issue-files__file {
+    margin: 0;
+    padding: 0;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
