@@ -14,7 +14,9 @@
 }
 
 .section.eight {
-    width: 800px;
+    min-width: 700px;
+    width: 70%;
+    max-width: 850px;
 }
 
 .subsection {
