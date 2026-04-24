@@ -46,6 +46,11 @@ const IssueDescriptionAndFiles = () => {
                         <div className='h1'>Файлы</div>
                         <div className="issue-files__files">
                             {files.map(file => (
+                                // TODO
+                                // 1. create component IssueFile
+                                // 2. create attachmentAPI.js
+                                // 3. /api/attachments/{attachmentId}
+                                // 4. refactor func downloadFile to add flag of downloading for better UX
                                 <a
                                     className='issue-files__file'
                                     key={file.id}
