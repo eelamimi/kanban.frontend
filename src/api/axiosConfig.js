@@ -34,9 +34,13 @@ axiosInstance.interceptors.response.use(
         return response
     },
     (error) => {
-        const message = error.response.data
-        if (message) {
-            showError(message);
+        if (error.code === 'ERR_NETWORK') {
+            showError('Сервер не отвечает')
+        }
+        else {
+            const message = error.response.data
+            if (message)
+                showError(message);
         }
         if (error.response?.status === 401) {
             console.log('un authorize')
