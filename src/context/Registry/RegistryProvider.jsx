@@ -1,5 +1,5 @@
-import useRegister from '../../hook/useRegister';
-import { RegistryContext } from './RegistryContext';
+import useRegister from '../../hook/useRegister'
+import { RegistryContext } from './RegistryContext'
 
 export const RegistryProvider = ({ children }) => {
     const {

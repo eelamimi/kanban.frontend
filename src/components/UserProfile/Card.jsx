@@ -1,11 +1,11 @@
 import { memo, useContext } from 'react'
 import { UserInfoContext } from '../../context/UserInfo/UserInfoContext'
-import { formatDate } from '../../utils/dataFormatter';
+import { formatDate } from '../../utils/dataFormatter'
 import UserProfileAvatar from './Avatar'
 import UserProfileInfo from './Info'
 import UserProfileFullName from './FullName'
-import Span from '../Span';
-import Section from '../Section';
+import Span from '../Span'
+import Section from '../Section'
 
 const UserProfileCard = memo(() => {
     const {

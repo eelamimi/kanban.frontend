@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router';
+import { Navigate } from 'react-router'
 import { useRequireAuth } from '../hook/useRequireAuth'
 
 const ProtectedRoute = ({ children }) => {
@@ -9,6 +9,6 @@ const ProtectedRoute = ({ children }) => {
     }
 
     return isAuthenticated ? children : <Navigate to='/auth/login' />
-};
+}
 
 export default ProtectedRoute

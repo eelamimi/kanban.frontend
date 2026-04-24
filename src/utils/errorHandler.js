@@ -1,11 +1,11 @@
-let onError = null;
+let onError = null
 
 export function setErrorHandler(callback) {
-  onError = callback;
+  onError = callback
 }
 
 export function showError(message) {
   if (onError) {
-    onError(message);
+    onError(message)
   }
 }

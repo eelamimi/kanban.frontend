@@ -1,7 +1,7 @@
 // import exitIcon from '../assets/img/icon_exit.png'
-import { Outlet } from 'react-router';
-import NavItem from './NavItem';
-// import UserInfoProvider from '../context/UserInfo/UserInfoProvider';
+import { Outlet } from 'react-router'
+import NavItem from './NavItem'
+// import UserInfoProvider from '../context/UserInfo/UserInfoProvider'
 
 const Layout = () => {
 
@@ -28,6 +28,6 @@ const Layout = () => {
             </main>
         </>
     )
-};
+}
 
 export default Layout

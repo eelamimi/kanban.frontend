@@ -5,7 +5,7 @@ const ModalSection = ({ title, children, isDisabled = false, onClick, buttonTitl
     const handleOnClick = useCallback(async () => {
         const canClose = await onClick()
         if (ref != null && canClose) {
-            ref.current?.close();
+            ref.current?.close()
         }
     }, [ref, onClick])
 

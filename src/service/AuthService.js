@@ -50,7 +50,7 @@ class AuthService {
             this.redirectToLogin()
         }
 
-        return isValid;
+        return isValid
     }
 
     static startPeriodicCheck() {
@@ -75,4 +75,4 @@ class AuthService {
     }
 }
 
-export default AuthService;
+export default AuthService

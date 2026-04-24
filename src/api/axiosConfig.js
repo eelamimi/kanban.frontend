@@ -1,6 +1,6 @@
-import axios from 'axios';
-import AuthService from '../service/AuthService';
-import { showError } from '../utils/errorHandler';
+import axios from 'axios'
+import AuthService from '../service/AuthService'
+import { showError } from '../utils/errorHandler'
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_BACKEND_API,
@@ -19,7 +19,7 @@ axiosInstance.interceptors.request.use(
         }
 
         if (config.data instanceof FormData) {
-            delete config.headers['Content-Type'];
+            delete config.headers['Content-Type']
         }
 
         return config
@@ -40,7 +40,7 @@ axiosInstance.interceptors.response.use(
         else {
             const message = error.response.data
             if (message)
-                showError(message);
+                showError(message)
         }
         if (error.response?.status === 401) {
             console.log('un authorize')

@@ -2,8 +2,8 @@ import UserProfileCard from './UserProfile/Card'
 import Section from './Section'
 import TeamsSection from './TeamsSection'
 import Spinner from './Spinner'
-import { useContext } from 'react';
-import { UserInfoContext } from '../context/UserInfo/UserInfoContext';
+import { useContext } from 'react'
+import { UserInfoContext } from '../context/UserInfo/UserInfoContext'
 
 const UserProfile = () => {
     const {
@@ -28,7 +28,7 @@ const UserProfile = () => {
             <UserProfileCard />
             <TeamsSection />
         </>
-    );
-};
+    )
+}
 
 export default UserProfile

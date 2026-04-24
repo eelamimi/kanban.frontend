@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from 'react'
 
 function useRegister() {
     const [firstName, setFirstName] = useState('')

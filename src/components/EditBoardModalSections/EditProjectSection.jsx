@@ -35,9 +35,9 @@ const EditProjectSection = ({ ref = null }) => {
         }
 
         try {
-            const trimmedName = projectName.trim();
-            const trimmedShortName = projectShortName.trim();
-            const trimmedDescription = projectDescription.trim();
+            const trimmedName = projectName.trim()
+            const trimmedShortName = projectShortName.trim()
+            const trimmedDescription = projectDescription.trim()
 
             if (project.name !== trimmedName ||
                 project.shortName !== trimmedShortName ||
