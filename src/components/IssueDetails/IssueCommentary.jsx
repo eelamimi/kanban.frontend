@@ -1,6 +1,7 @@
 import baseAvatar from '../../assets/img/default_avatar.jpg'
 import AuthService from '../../service/AuthService'
 import { formatDate } from '../../utils/dataFormatter'
+import Span from '../Span'
 
 
 const IssueCommentary = ({ commentary }) => {
@@ -24,9 +25,11 @@ const IssueCommentary = ({ commentary }) => {
                     {fullName}
                 </div>
                 {commentary.isEdited &&
-                    <div className='commentary__edited'>
-                        {`Изменено: ${formatDate(commentary.lastEditedAt)}`}
-                    </div>}
+                    <Span
+                        className='commentary__edited'
+                        label='Изменено:'
+                        value={formatDate(commentary.lastEditedAt)}
+                    />}
             </div>
             <div className='commentary__content'>
                 {commentary.content}

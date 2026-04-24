@@ -1,0 +1,22 @@
+.commentarties {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    /* margin: 25px 0; */
+    border: 2px solid black;
+}
+
+/* 
+.commentary__container {}
+
+.commentary__header {}
+
+.commentary__avatar {}
+
+.commentary__fullName {}
+
+.commentary__edited {}
+
+.commentary__content {}
+
+.commentary__editButton {} */
