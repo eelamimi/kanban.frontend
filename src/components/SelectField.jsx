@@ -69,7 +69,15 @@ const getBaseStyles = (hasError) => ({
     })
 })
 
-const SelectField = ({ id, options, value, onChange, placeholder = 'Выберите...', error }) => {
+const SelectField = ({
+    id,
+    options,
+    value,
+    onChange,
+    placeholder = 'Выберите...',
+    error,
+    withImg = false,
+}) => {
     const [isFocused, setIsFocused] = useState(false)
     const hasValue = !!value
 
@@ -92,6 +100,21 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
         zIndex: 2,
     }), [isFocused, hasValue])
 
+    const formatOptionLabel = useCallback((option) => {
+        return (
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                {withImg && (
+                    <img
+                        className={option.imgClassName}
+                        src={option.img}
+                        alt={option.label}
+                    />
+                )}
+                <span>{option.label}</span>
+            </div>
+        )
+    }, [withImg])
+
     return (
         <div className='field' style={{ flex: 1, position: 'relative' }}>
             <Select
@@ -103,6 +126,7 @@ const SelectField = ({ id, options, value, onChange, placeholder = 'Выбери
                 placeholder=''
                 onFocus={handleFocus}
                 onBlur={handleBlur}
+                formatOptionLabel={formatOptionLabel}
             />
             <label className='field__label' style={labelStyle}>
                 {placeholder}
