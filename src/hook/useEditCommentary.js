@@ -1,7 +1,7 @@
 import { useCallback, useState } from 'react'
 import { showError } from '../utils/errorHandler'
 
-export const useEditCommentary = ({ innerHandler }) => {
+export const useEditCommentary = ({ editInnerHandler, deleteInnerHandler }) => {
     const [isEditingCommentary, setIsEditingCommentary] = useState(false)
     const [isEditing, setIsEditing] = useState(false)
     const [isDeleting, setIsDeleting] = useState(false)
@@ -30,7 +30,7 @@ export const useEditCommentary = ({ innerHandler }) => {
             }
 
             try {
-                await innerHandler()
+                await editInnerHandler()
             } catch {
                 showError('Ошибка изменения комментария')
             }
@@ -38,12 +38,17 @@ export const useEditCommentary = ({ innerHandler }) => {
             setIsEditing(false)
         }
         setIsEditingCommentary(!isEditingCommentary)
-    }, [isEditingCommentary, content, innerHandler])
+    }, [isEditingCommentary, content, editInnerHandler])
 
-    const handleDeleteCommentary = useCallback(() => {
-        console.log('exit')
+    const handleDeleteCommentary = useCallback(async () => {
         setIsDeleting(true)
-    }, [])
+
+        try {
+            await deleteInnerHandler()
+        } catch {
+            showError('Ошибка удаления комментария')
+        }
+    }, [deleteInnerHandler])
 
     return {
         content,
