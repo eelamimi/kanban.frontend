@@ -19,10 +19,8 @@ const IssueFile = ({ file }) => {
             }
             const blob = new Blob([bytes], { type: file.contentType })
             saveAs(blob, file.fileName)
-        } catch (error) {
-            showError(error)
-            // console.error('Download error:', error)
-            // alert('Не удалось загрузить файл')
+        } catch {
+            showError('Ошибка получения файла')
         } finally {
             setIsLoading(false)
         }
