@@ -26,7 +26,7 @@ const IssueCommentary = ({ commentary }) => {
         isDeleting,
         handleEditCommentary,
         handleDeleteCommentary
-    } = useEditCommentary(editInnerHandler)
+    } = useEditCommentary({ editInnerHandler })
     const { author } = commentary
     const fullName = `${author.firstName} ${author.secondName}`
     const isAuthor = author.id === AuthService.getUserInfo().userProfileId
