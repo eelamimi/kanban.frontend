@@ -54,10 +54,7 @@ export const useIssue = () => {
     }, [])
 
     const deleteCommentary = useCallback(async (id) => {
-        await commentaryAPI.delete({
-            Id: id,
-            UserProfileId: AuthService.getUserInfo().userProfileId,
-        })
+        await commentaryAPI.delete(id)
 
         setIssue(prev => ({
             ...prev,

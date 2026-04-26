@@ -17,9 +17,9 @@ const commentaryAPI = {
             }
         }
     },
-    delete: async (request) => {
+    delete: async (id) => {
         try {
-            await axiosInstance.delete(COMMENTARY_URL, request)
+            await axiosInstance.delete(`${COMMENTARY_URL}/${id}`)
         } catch (error) {
             if (error.response) {
                 throw new Error(error.response?.message || 'Ошибка удаления комментария')
