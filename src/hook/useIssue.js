@@ -2,6 +2,7 @@ import { useEffect, useState, useCallback } from 'react'
 import { useParams, useSearchParams } from 'react-router'
 import issueAPI from '../api/issueAPI'
 import AuthService from '../service/AuthService'
+import commentaryAPI from '../api/commentaryAPI'
 
 export const useIssue = () => {
     const [searchParams] = useSearchParams()
@@ -37,9 +38,24 @@ export const useIssue = () => {
         setIssue(response)
     }, [issue])
 
+    const updateCommentary = useCallback(async (id, content) => {
+        const response = await commentaryAPI.updateContent({
+            Id: id,
+            Content: content
+        })
+
+        setIssue(prev => ({
+            ...prev,
+            commentaries: prev.commentaries.map(com =>
+                com.id === id ? response : com
+            )
+        }))
+    }, [])
+
     return {
         issue,
         isLoadingIssue,
-        addCommentary
+        addCommentary,
+        updateCommentary
     }
 }
