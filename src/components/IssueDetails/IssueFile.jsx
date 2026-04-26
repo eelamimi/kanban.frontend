@@ -3,14 +3,18 @@ import { saveAs } from 'file-saver';
 import { formatFileSize } from '../../utils/fileFormatter';
 import attachmentAPI from '../../api/attachmentAPI';
 import { showError } from '../../utils/errorHandler';
+import { useSearchParams } from 'react-router';
 
 const IssueFile = ({ file }) => {
+    const [searchParams] = useSearchParams()
+    const projectIdFromUrl = searchParams.get('projectId')
     const [isLoading, setIsLoading] = useState(false)
+
     const downloadFile = useCallback((file) => {
         try {
             setIsLoading(true)
 
-            const response = attachmentAPI.get({ id: file.id })
+            const response = attachmentAPI.get({ id: file.id, projectId: projectIdFromUrl })
 
             const binaryString = atob(response)
             const bytes = new Uint8Array(binaryString.length)

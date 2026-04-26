@@ -5,7 +5,11 @@ const ATTACHMENT_URL = 'api/attachments'
 const attachmentAPI = {
     get: async (request) => {
         try {
-            const response = await axiosInstance.get(`${ATTACHMENT_URL}/${request.id}`)
+            const response = await axiosInstance.get(`${ATTACHMENT_URL}/${request.id}`, {
+                headers: {
+                    'ProjectId': request.projectId
+                }
+            })
             return response.data
         } catch (error) {
             if (error.response) {
