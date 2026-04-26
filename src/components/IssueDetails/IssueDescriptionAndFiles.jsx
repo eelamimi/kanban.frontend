@@ -35,7 +35,7 @@ const IssueDescriptionAndFiles = () => {
                                 // 2. create attachmentAPI.js
                                 // 3. /api/attachments/{attachmentId}
                                 // 4. refactor func downloadFile to add flag of downloading for better UX
-                                <IssueFile file={file} />
+                                <IssueFile key={file.id} file={file} />
                             )}
                         </div>
                     </div>}
