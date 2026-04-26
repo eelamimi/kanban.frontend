@@ -5,20 +5,22 @@ import { formatDate } from '../../utils/dataFormatter'
 import Button from '../Button'
 import Span from '../Span'
 import { faCheck, faX } from '@fortawesome/free-solid-svg-icons'
-import { useCallback, useEffect } from 'react'
+import { useCallback, useContext, useEffect } from 'react'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import TextAreaField from '../TextAreaField'
 import { useEditCommentary } from '../../hook/useEditCommentary'
+import { IssueContext } from '../../context/Issue/IssueContext'
 
 
 const IssueCommentary = ({ commentary }) => {
     const { author } = commentary
     const fullName = `${author.firstName} ${author.secondName}`
     const isAuthor = author.id === AuthService.getUserInfo().userProfileId
+    const { updateCommentary } = useContext(IssueContext)
 
-    const editInnerHandler = useCallback(async () => {
-
-    }, [])
+    const editInnerHandler = useCallback(async (content) => {
+        await updateCommentary(commentary.id, content)
+    }, [commentary.id, updateCommentary])
 
     const {
         content,
