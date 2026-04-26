@@ -43,7 +43,7 @@ axiosInstance.interceptors.response.use(
                 showError(message)
         }
         if (error.response?.status === 401) {
-            console.log('un authorize')
+            showError('Вы не авторизованы')
             AuthService.clearUserInfo()
             AuthService.redirectToLogin()
         }
