@@ -1,13 +1,15 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import Section from '../Section'
 import Button from '../Button'
 import Span from '../Span'
 import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
 import { formatDate } from '../../utils/dataFormatter'
+import EditIssueModal from '../Modals/EditIssueModal'
 
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
+    const [isEditIssue, setIsEditIssue] = useState(false)
 
     return (
         <Section className='eight'>
@@ -15,20 +17,14 @@ const IssueHeader = () => {
                 <div className='h1'>{issue.title}</div>
                 <Button
                     className='left'
-                // TODO
-                //
-                // onClick={() => setIsEditBoardOpen(true)}
+                    onClick={() => setIsEditIssue(true)}
                 >
                     Редактировать
                 </Button>
-                {/*
-                TODO 
-                edit issue modal
-
-                <EditBoardModal
-                    isOpen={isEditBoardOpen}
-                    onClose={() => setIsEditBoardOpen(false)}
-                /> */}
+                <EditIssueModal
+                    isOpen={isEditIssue}
+                    onClose={() => setIsEditIssue(false)}
+                />
             </div>
             <div className='row' style={{ gap: '1rem' }}>
                 <div className='column' style={{ gap: '0' }}>
