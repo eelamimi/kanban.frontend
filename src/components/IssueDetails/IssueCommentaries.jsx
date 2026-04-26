@@ -10,6 +10,7 @@ import FileAttachmentField from '../FileAttachmentField'
 const IssueCommentaries = () => {
     const { issue, addCommentary } = useContext(IssueContext)
     const commentaries = issue.commentaries.filter((com) => !com.isDescription)
+    const hasCommentaries = commentaries.length > 0
 
     const {
         commentary,
@@ -23,13 +24,13 @@ const IssueCommentaries = () => {
     return (
         <Section className='eight'>
             <div className='h1'>Комментарии ({commentaries.length})</div>
-            {commentaries.length > 0 &&
+            {hasCommentaries &&
                 <div className='commentaries'>
                     {commentaries.map((com) =>
                         <IssueCommentary key={com.id} commentary={com} />
                     )}
                 </div>}
-            <div className='add-commentary'>
+            <div className={`add-commentary ${hasCommentaries ? `` : `margin-top`}`}>
                 <TextareaField
                     inputClassName='full-width'
                     textareaClassName='full-width'
