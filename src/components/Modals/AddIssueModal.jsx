@@ -8,21 +8,7 @@ import Modal from '../Modal'
 import Field from '../Field'
 import issueAPI from '../../api/issueAPI'
 import { ProjectContext } from '../../context/Project/ProjectContext'
-
-const issueTypeOptions = Object.freeze([
-    { value: 'Bug', label: 'Ошибка' },
-    { value: 'Story', label: 'История' },
-    { value: 'Task', label: 'Задача' },
-    { value: 'Investigation', label: 'Расследование' }
-])
-
-const issuePriorityOptions = Object.freeze([
-    { value: 'Minimal', label: 'Минимальный' },
-    { value: 'Low', label: 'Низкий' },
-    { value: 'Medium', label: 'Средний' },
-    { value: 'High', label: 'Высокий' },
-    { value: 'Critical', label: 'Критический' }
-])
+import { issuePriorityOptions, issueTypeOptions } from '../../consts/issueConsts'
 
 const userProfileId = AuthService.getUserInfo().userProfileId
 const MAX_FILE_SIZE = 20 * 1024 * 1024

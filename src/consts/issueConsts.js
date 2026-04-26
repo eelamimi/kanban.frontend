@@ -22,3 +22,18 @@ export const issuePriorityImg = {
     3: highImg,
     4: highestImg,
 }
+
+export const issueTypeOptions = Object.freeze([
+    { value: 'Bug', label: 'Ошибка' },
+    { value: 'Story', label: 'История' },
+    { value: 'Task', label: 'Задача' },
+    { value: 'Investigation', label: 'Расследование' }
+])
+
+export const issuePriorityOptions = Object.freeze([
+    { value: 'Minimal', label: 'Минимальный' },
+    { value: 'Low', label: 'Низкий' },
+    { value: 'Medium', label: 'Средний' },
+    { value: 'High', label: 'Высокий' },
+    { value: 'Critical', label: 'Критический' }
+])
