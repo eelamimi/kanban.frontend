@@ -16,12 +16,19 @@ const IssueCommentary = ({ commentary }) => {
     const { author } = commentary
     const fullName = `${author.firstName} ${author.secondName}`
     const isAuthor = author.id === AuthService.getUserInfo().userProfileId
-    const { updateCommentary } = useContext(IssueContext)
+    const {
+        updateCommentary,
+        deleteCommentary
+    } = useContext(IssueContext)
 
     const editInnerHandler = useCallback(async (content) => {
         if (commentary.content !== content)
             await updateCommentary(commentary.id, content)
     }, [commentary.id, commentary.content, updateCommentary])
+
+    const deleteInnerHandler = useCallback(async () => {
+        await deleteCommentary(commentary.id)
+    }, [commentary.id, deleteCommentary])
 
     const {
         content,
@@ -33,7 +40,7 @@ const IssueCommentary = ({ commentary }) => {
         isDeleting,
         handleEditCommentary,
         handleDeleteCommentary
-    } = useEditCommentary({ editInnerHandler })
+    } = useEditCommentary({ editInnerHandler, deleteInnerHandler })
 
     useEffect(() => {
         setContent(commentary.content)
