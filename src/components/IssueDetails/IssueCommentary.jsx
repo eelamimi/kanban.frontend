@@ -19,8 +19,9 @@ const IssueCommentary = ({ commentary }) => {
     const { updateCommentary } = useContext(IssueContext)
 
     const editInnerHandler = useCallback(async (content) => {
-        await updateCommentary(commentary.id, content)
-    }, [commentary.id, updateCommentary])
+        if (commentary.content !== content)
+            await updateCommentary(commentary.id, content)
+    }, [commentary.id, commentary.content, updateCommentary])
 
     const {
         content,
