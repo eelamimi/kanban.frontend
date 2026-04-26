@@ -6,7 +6,8 @@ const IssueProvider = ({ children }) => {
         issue,
         isLoadingIssue,
         addCommentary,
-        updateCommentary
+        updateCommentary,
+        deleteCommentary
     } = useIssue()
 
     return (
@@ -15,7 +16,8 @@ const IssueProvider = ({ children }) => {
                 issue,
                 isLoadingIssue,
                 addCommentary,
-                updateCommentary
+                updateCommentary,
+                deleteCommentary
             }}
         >
             {children}
