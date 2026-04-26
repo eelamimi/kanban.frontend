@@ -48,6 +48,8 @@ export const useEditCommentary = ({ editInnerHandler, deleteInnerHandler }) => {
         } catch {
             showError('Ошибка удаления комментария')
         }
+
+        setIsDeleting(false)
     }, [deleteInnerHandler])
 
     return {
