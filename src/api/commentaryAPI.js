@@ -17,6 +17,19 @@ const commentaryAPI = {
             }
         }
     },
+    delete: async (request) => {
+        try {
+            await axiosInstance.delete(COMMENTARY_URL, request)
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.message || 'Ошибка удаления комментария')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default commentaryAPI
