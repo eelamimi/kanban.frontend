@@ -1,3 +1,4 @@
+import baseAvatar from '../../assets/img/default_avatar.jpg'
 import { useMemo, useCallback, memo, useContext, useState, useEffect } from 'react'
 import { useAddIssueModal } from '../../hook/useAddIssueModal'
 import AuthService from '../../service/AuthService'
@@ -19,7 +20,9 @@ function AddIssueModal({ isOpen, onClose }) {
     const memberIdOptions = useMemo(() => {
         return project.members.map((member) => ({
             value: member.id,
-            label: `${member.firstName} ${member.secondName}`
+            label: `${member.firstName} ${member.secondName}`,
+            img: member.avatar === "" ? baseAvatar : member.avatar,
+            imgClassName: 'member-avatar-option'
         }))
     }, [project.members])
     const curUser = useMemo(() =>
@@ -152,6 +155,7 @@ function AddIssueModal({ isOpen, onClose }) {
                     onChange={onAssigneeInput}
                     options={memberIdOptions}
                     error={errorAssignee}
+                    withImg={true}
                 />
                 <SelectField
                     placeholder='Автор'
@@ -159,6 +163,7 @@ function AddIssueModal({ isOpen, onClose }) {
                     onChange={setAuthor}
                     options={memberIdOptions}
                     error={errorAuthor}
+                    withImg={true}
                 />
             </div>
             <div className='row' style={{ gap: '25px' }}>
@@ -168,6 +173,7 @@ function AddIssueModal({ isOpen, onClose }) {
                     onChange={onIssueTypeInput}
                     options={issueTypeOptions}
                     error={errorIssueType}
+                    withImg={true}
                 />
                 <SelectField
                     placeholder='Приоритет'
@@ -175,6 +181,7 @@ function AddIssueModal({ isOpen, onClose }) {
                     onChange={onPriorityInput}
                     options={issuePriorityOptions}
                     error={errorPriority}
+                    withImg={true}
                 />
             </div>
             <Field
