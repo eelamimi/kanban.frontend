@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import Section from '../Section'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import Span from '../Span'
@@ -44,4 +44,4 @@ const IssueDescriptionAndFiles = () => {
     )
 }
 
-export default IssueDescriptionAndFiles
+export default memo(IssueDescriptionAndFiles)

@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { memo, useCallback, useState } from 'react'
 import { saveAs } from 'file-saver';
 import { formatFileSize } from '../../utils/fileFormatter';
 import attachmentAPI from '../../api/attachmentAPI';
@@ -49,4 +49,4 @@ const IssueFile = ({ file }) => {
     )
 }
 
-export default IssueFile
+export default memo(IssueFile)

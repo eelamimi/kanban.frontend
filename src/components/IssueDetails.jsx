@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import IssueHeader from './IssueDetails/IssueHeader'
 import Spinner from './Spinner'
 import { IssueContext } from '../context/Issue/IssueContext'
@@ -33,4 +33,4 @@ const IssueDetails = () => {
     )
 }
 
-export default IssueDetails
+export default memo(IssueDetails)

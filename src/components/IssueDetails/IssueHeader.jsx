@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react'
+import { memo, useContext, useState } from 'react'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import Section from '../Section'
 import Button from '../Button'
@@ -75,4 +75,4 @@ const IssueHeader = () => {
     )
 }
 
-export default IssueHeader
+export default memo(IssueHeader)

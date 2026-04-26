@@ -5,7 +5,7 @@ import { formatDate } from '../../utils/dataFormatter'
 import Button from '../Button'
 import Span from '../Span'
 import { faCheck, faX } from '@fortawesome/free-solid-svg-icons'
-import { useCallback, useContext, useEffect } from 'react'
+import { memo, useCallback, useContext, useEffect } from 'react'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import TextAreaField from '../TextAreaField'
 import { useEditCommentary } from '../../hook/useEditCommentary'
@@ -103,4 +103,4 @@ const IssueCommentary = ({ commentary }) => {
     )
 }
 
-export default IssueCommentary
+export default memo(IssueCommentary)

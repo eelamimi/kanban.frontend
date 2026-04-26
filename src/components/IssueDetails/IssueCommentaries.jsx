@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { memo, useContext } from 'react'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import { useAddCommentary } from '../../hook/useAddCommentary'
 import Section from '../Section'
@@ -58,4 +58,4 @@ const IssueCommentaries = () => {
     )
 }
 
-export default IssueCommentaries
+export default memo(IssueCommentaries)
