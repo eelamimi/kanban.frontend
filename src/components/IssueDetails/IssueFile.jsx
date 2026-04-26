@@ -28,7 +28,7 @@ const IssueFile = ({ file }) => {
         } finally {
             setIsLoading(false)
         }
-    }, [])
+    }, [projectIdFromUrl])
 
     return (
         <a
