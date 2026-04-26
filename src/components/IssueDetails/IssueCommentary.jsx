@@ -12,6 +12,10 @@ import { useEditCommentary } from '../../hook/useEditCommentary'
 
 
 const IssueCommentary = ({ commentary }) => {
+    const { author } = commentary
+    const fullName = `${author.firstName} ${author.secondName}`
+    const isAuthor = author.id === AuthService.getUserInfo().userProfileId
+
     const editInnerHandler = useCallback(async () => {
 
     }, [])
@@ -27,9 +31,6 @@ const IssueCommentary = ({ commentary }) => {
         handleEditCommentary,
         handleDeleteCommentary
     } = useEditCommentary({ editInnerHandler })
-    const { author } = commentary
-    const fullName = `${author.firstName} ${author.secondName}`
-    const isAuthor = author.id === AuthService.getUserInfo().userProfileId
 
     useEffect(() => {
         setContent(commentary.content)
