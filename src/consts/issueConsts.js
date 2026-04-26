@@ -24,16 +24,16 @@ export const issuePriorityImg = {
 }
 
 export const issueTypeOptions = Object.freeze([
-    { value: 'Bug', label: 'Ошибка' },
-    { value: 'Story', label: 'История' },
-    { value: 'Task', label: 'Задача' },
-    { value: 'Investigation', label: 'Расследование' }
+    { value: 'Bug', label: 'Ошибка', img: bugImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Story', label: 'История', img: storyImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Task', label: 'Задача', img: taskImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Investigation', label: 'Расследование', img: investigationImg, imgClassName: 'issue-type-priority-option' },
 ])
 
 export const issuePriorityOptions = Object.freeze([
-    { value: 'Minimal', label: 'Минимальный' },
-    { value: 'Low', label: 'Низкий' },
-    { value: 'Medium', label: 'Средний' },
-    { value: 'High', label: 'Высокий' },
-    { value: 'Critical', label: 'Критический' }
+    { value: 'Critical', label: 'Критический', img: highestImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'High', label: 'Высокий', img: highImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Medium', label: 'Средний', img: mediumImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Low', label: 'Низкий', img: lowImg, imgClassName: 'issue-type-priority-option' },
+    { value: 'Minimal', label: 'Минимальный', img: lowestImg, imgClassName: 'issue-type-priority-option' },
 ])
