@@ -30,7 +30,7 @@ export const useEditCommentary = ({ editInnerHandler, deleteInnerHandler }) => {
             }
 
             try {
-                await editInnerHandler()
+                await editInnerHandler(content)
             } catch {
                 showError('Ошибка изменения комментария')
             }
