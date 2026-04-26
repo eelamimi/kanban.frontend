@@ -41,6 +41,7 @@ export const useIssue = () => {
     const updateCommentary = useCallback(async (id, content) => {
         const response = await commentaryAPI.updateContent({
             Id: id,
+            UserProfileId: AuthService.getUserInfo().userProfileId,
             Content: content
         })
 
