@@ -10,11 +10,14 @@ const IssueFile = ({ file }) => {
     const projectIdFromUrl = searchParams.get('projectId')
     const [isLoading, setIsLoading] = useState(false)
 
-    const downloadFile = useCallback((file) => {
+    const downloadFile = useCallback(async (file) => {
         try {
             setIsLoading(true)
 
-            const response = attachmentAPI.get({ id: file.id, projectId: projectIdFromUrl })
+            const response = await attachmentAPI.get({
+                id: file.id,
+                projectId: projectIdFromUrl
+            })
 
             const binaryString = atob(response)
             const bytes = new Uint8Array(binaryString.length)
