@@ -33,18 +33,12 @@ const EditIssueModal = ({ isOpen, onClose }) => {
         errorPriority,
         errorDescription,
 
-        setTitle,
         setAssignee,
         setAuthor,
-        setIssueType,
-        setPriority,
-        setDescription,
         setStoryPoints,
         setAttachedFiles,
 
         onTitleInput,
-        onAssigneeInput,
-        onAuthorInput,
         onIssueTypeInput,
         onPriorityInput,
         onDescriptionInput,
