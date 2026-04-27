@@ -66,8 +66,9 @@ const EditIssueModal = ({ isOpen, onClose }) => {
     }, [])
 
     const handleClose = useCallback(() => {
+        resetValues(issue, assigneeOption, authorOption)
         onClose()
-    }, [onClose])
+    }, [assigneeOption, authorOption, issue, resetValues, onClose])
 
     useEffect(() => {
         if (!issue || !assigneeOption || !authorOption)
