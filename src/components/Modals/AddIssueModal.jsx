@@ -1,7 +1,5 @@
-import baseAvatar from '../../assets/img/default_avatar.jpg'
-import { useMemo, useCallback, memo, useContext, useState, useEffect } from 'react'
+import { useCallback, memo, useContext, useState, useEffect } from 'react'
 import { useAddIssueModal } from '../../hook/useAddIssueModal'
-import AuthService from '../../service/AuthService'
 import FileAttachmentField from '../FileAttachmentField'
 import TextareaField from '../TextAreaField'
 import SelectField from '../SelectField'
@@ -11,23 +9,16 @@ import issueAPI from '../../api/issueAPI'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { issuePriorityOptions, issueTypeOptions } from '../../consts/issueConsts'
 
-const userProfileId = AuthService.getUserInfo().userProfileId
 const MAX_FILE_SIZE = 20 * 1024 * 1024
 
 function AddIssueModal({ isOpen, onClose }) {
-    const { project, setProject } = useContext(ProjectContext)
+    const {
+        project,
+        setProject,
+        memberIdOptions,
+        curUser
+    } = useContext(ProjectContext)
     const [isWaiting, setIsWaiting] = useState(false)
-    const memberIdOptions = useMemo(() => {
-        return project.members.map((member) => ({
-            value: member.id,
-            label: `${member.firstName} ${member.secondName}`,
-            img: member.avatar === "" ? baseAvatar : member.avatar,
-            imgClassName: 'member-avatar-option'
-        }))
-    }, [project.members])
-    const curUser = useMemo(() =>
-        memberIdOptions.find(member => member.value === userProfileId),
-        [memberIdOptions])
 
     const {
         title,
