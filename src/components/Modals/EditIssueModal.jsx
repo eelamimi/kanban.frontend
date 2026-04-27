@@ -148,6 +148,7 @@ const EditIssueModal = ({ isOpen, onClose }) => {
                 error={errorDescription}
             />
             <FileAttachmentField
+                label='Прикрепить дополнительные файлы'
                 files={attachedFiles}
                 setFiles={setAttachedFiles}
             />
