@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 import projectAPI from '../api/projectAPI'
 
 export const useProject = () => {
     const { projectId } = useParams()
+    const [searchParams] = useSearchParams()
+    const projectIdFromUrl = searchParams.get('projectId')
     const [isLoadingProject, setIsLoadingProject] = useState(true)
     const [project, setProject] = useState(null)
 
@@ -21,8 +23,8 @@ export const useProject = () => {
             }
         }
 
-        fetchProject(projectId)
-    }, [projectId])
+        fetchProject(projectId || projectIdFromUrl)
+    }, [projectId, projectIdFromUrl])
 
     return {
         project,
