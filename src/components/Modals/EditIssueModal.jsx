@@ -97,13 +97,13 @@ const EditIssueModal = ({ isOpen, onClose }) => {
             setIsWaiting(false)
         }
     }, [
-        assignee.value,
+        assignee?.value,
         attachedFiles,
-        author.value,
+        author?.value,
         description,
-        issue.id,
-        issueType.value,
-        priority.value,
+        issue?.id,
+        issueType?.value,
+        priority?.value,
         storyPoints,
         title,
         validateValues,
