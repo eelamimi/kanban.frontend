@@ -8,10 +8,13 @@ import Field from '../Field'
 import FileAttachmentField from '../FileAttachmentField'
 import SelectField from '../SelectField'
 import TextareaField from '../TextAreaField'
+import { showError } from '../../utils/errorHandler'
+
+const MAX_FILE_SIZE = 20 * 1024 * 1024
 
 const EditIssueModal = ({ isOpen, onClose }) => {
     const { memberIdOptions } = useContext(ProjectContext)
-    const { issue } = useContext(IssueContext)
+    const { issue, editIssue } = useContext(IssueContext)
     const [isWaiting, setIsWaiting] = useState(false)
     const {
         title,
@@ -60,10 +63,58 @@ const EditIssueModal = ({ isOpen, onClose }) => {
         return memberIdOptions.find(member => member.value === issue.author.id)
     }, [issue.author.id, memberIdOptions])
 
-    const editIssue = useCallback(async () => {
+    const editIssueHandler = useCallback(async () => {
+        if (!validateValues())
+            return false
+
         setIsWaiting(true)
-        setIsWaiting(false)
-    }, [])
+
+        const formData = new FormData()
+        formData.append('IssueId', issue.id)
+        formData.append('Title', title)
+        formData.append('AssigneeId', assignee.value)
+        formData.append('AuthorId', author.value)
+        formData.append('IssueType', issueType.value)
+        formData.append('IssuePriority', priority.value)
+        formData.append('Description', description)
+        formData.append('StoryPoints', storyPoints)
+
+        if (attachedFiles && attachedFiles.length > 0) {
+            const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
+
+            if (oversizedFiles.length > 0) {
+                showError(`Файлы превышают 20MB: ${oversizedFiles.map(f => f.name).join(', ')}`)
+                setIsWaiting(false)
+                return false
+            }
+
+            attachedFiles.forEach((file) => {
+                formData.append('Files', file)
+            })
+        }
+
+        try {
+            await editIssue(formData)
+            return true
+        } catch {
+            return false
+        }
+        finally {
+            setIsWaiting(false)
+        }
+    }, [
+        assignee.value,
+        attachedFiles,
+        author.value,
+        description,
+        issue.id,
+        issueType.value,
+        priority.value,
+        storyPoints,
+        title,
+        validateValues,
+        editIssue,
+    ])
 
     const handleClose = useCallback(() => {
         resetValues(issue, assigneeOption, authorOption)
@@ -81,7 +132,7 @@ const EditIssueModal = ({ isOpen, onClose }) => {
             isOpen={isOpen}
             title={'Изменить проблему'}
             actionTitle={'Изменить'}
-            onAction={editIssue}
+            onAction={editIssueHandler}
             onClose={handleClose}
             isDisabled={isWaiting}
         >
