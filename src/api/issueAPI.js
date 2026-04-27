@@ -39,6 +39,24 @@ const issueAPI = {
             }
         }
     },
+    update: async (formData) => {
+        try {
+            const response = await axiosInstance.put(ISSUE_URL, formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                }
+            })
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.message || 'Ошибка изменения проблемы')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
     moveIssue: async (request) => {
         try {
             const response = await axiosInstance.post(`${ISSUE_URL}/moveIssue`, request)
