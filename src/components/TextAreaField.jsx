@@ -1,4 +1,5 @@
-import { useRef, useEffect, useCallback, memo } from 'react'
+import { memo } from 'react'
+import TextareaAutosize from 'react-textarea-autosize'
 
 function TextareaField(props) {
     const {
@@ -14,37 +15,17 @@ function TextareaField(props) {
         rows = 3,
     } = props
 
-    const textareaRef = useRef(null)
-
-    const autoResize = useCallback(() => {
-        const textarea = textareaRef.current
-        if (textarea) {
-            textarea.style.height = 'auto'
-            textarea.style.height = `${Math.max(88, textarea.scrollHeight)}px`
-        }
-    }, [])
-
-    useEffect(() => {
-        autoResize()
-    }, [autoResize, value])
-
-    const handleInput = useCallback((e) => {
-        autoResize()
-        if (onInput) onInput(e)
-    }, [autoResize, onInput])
-
     return (
         <div className={`field ${fieldClassName}`}>
-            <textarea
-                ref={textareaRef}
+            <TextareaAutosize
                 className={`field__textarea ${error ? 'is-invalid' : ''} ${textareaClassName}`}
                 placeholder=''
                 id={id}
                 value={value}
-                onInput={handleInput}
+                onChange={onInput}
                 required={required}
                 autoComplete={autoComplete}
-                rows={rows}
+                minRows={rows}
             />
             <label className='field__label' htmlFor={id}>
                 {label}
