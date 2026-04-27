@@ -124,8 +124,8 @@ function AddIssueModal({ isOpen, onClose }) {
     return (
         <Modal
             isOpen={isOpen}
-            title={'Создать проблему'}
-            actionTitle={'Создать'}
+            title={'Добавить проблему'}
+            actionTitle={'Добавить'}
             onAction={addIssue}
             onClose={handleClose}
             isDisabled={isWaiting}

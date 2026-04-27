@@ -124,8 +124,8 @@ const EditIssueModal = ({ isOpen, onClose }) => {
     return (
         <Modal
             isOpen={isOpen}
-            title={'Изменить проблему'}
-            actionTitle={'Изменить'}
+            title={'Редактировать проблему'}
+            actionTitle={'Редактировать'}
             onAction={editIssueHandler}
             onClose={handleClose}
             isDisabled={isWaiting}

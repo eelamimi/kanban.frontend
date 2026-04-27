@@ -80,7 +80,7 @@ const EditProjectSection = ({ ref = null }) => {
         <ModalSection
             onClick={handleProjectSubmit}
             isDisabled={isWaiting}
-            buttonTitle='Обновить'
+            buttonTitle='Редактировать'
             ref={ref}
         >
             <div className='row' style={{ gap: '25px' }}>
