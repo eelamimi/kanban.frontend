@@ -32,7 +32,7 @@ const IssueCommentaries = () => {
                 </div>}
             <div className={`add-commentary ${hasCommentaries ? `` : `margin-top`}`}>
                 <TextareaField
-                    inputClassName='full-width'
+                    fieldClassName='no-margin-bottom'
                     textareaClassName='full-width'
                     label='Комментарий'
                     value={commentary}
