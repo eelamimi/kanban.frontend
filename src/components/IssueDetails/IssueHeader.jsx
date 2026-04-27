@@ -6,6 +6,7 @@ import Span from '../Span'
 import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
 import { formatDate } from '../../utils/dataFormatter'
 import EditIssueModal from '../Modals/EditIssueModal'
+import ProjectProvider from '../../context/Project/ProjectProvider'
 
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
@@ -21,10 +22,12 @@ const IssueHeader = () => {
                 >
                     Редактировать
                 </Button>
-                <EditIssueModal
-                    isOpen={isEditIssue}
-                    onClose={() => setIsEditIssue(false)}
-                />
+                <ProjectProvider>
+                    <EditIssueModal
+                        isOpen={isEditIssue}
+                        onClose={() => setIsEditIssue(false)}
+                    />
+                </ProjectProvider>
             </div>
             <div className='row' style={{ gap: '1rem' }}>
                 <div className='column' style={{ gap: '0' }}>
