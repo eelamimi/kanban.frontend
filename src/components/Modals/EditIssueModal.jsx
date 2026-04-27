@@ -64,7 +64,7 @@ const EditIssueModal = ({ isOpen, onClose }) => {
         setIsWaiting(true)
 
         const formData = new FormData()
-        formData.append('IssueId', issue.id)
+        formData.append('Id', issue.id)
         formData.append('Title', title)
         formData.append('AssigneeId', assignee.value)
         formData.append('AuthorId', author.value)
