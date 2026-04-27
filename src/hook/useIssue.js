@@ -62,11 +62,18 @@ export const useIssue = () => {
         }))
     }, [])
 
+    const editIssue = useCallback(async (form) => {
+        const response = await issueAPI.update(form)
+
+        setIssue(response)
+    }, [])
+
     return {
         issue,
         isLoadingIssue,
         addCommentary,
         updateCommentary,
-        deleteCommentary
+        deleteCommentary,
+        editIssue
     }
 }
