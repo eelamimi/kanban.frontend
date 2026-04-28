@@ -11,7 +11,7 @@ const useUserInfo = () => {
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
 
     const loadUserById = useCallback(async (userId) => {
-        const response = await userAPI.getUserInfo(userId, AuthService.getUserInfo().userProfileId)
+        const response = await userAPI.getUserInfo(userId)
         setFirstName(response.firstName)
         setSecondName(response.secondName)
         setEmail(response.email)
