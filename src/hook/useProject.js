@@ -19,7 +19,7 @@ export const useProject = () => {
         return project.members.map((member) => ({
             value: member.id,
             label: `${member.firstName} ${member.secondName}`,
-            img: member.avatar === "" ? baseAvatar : member.avatar,
+            img: !member.avatar ? baseAvatar : `data:image/jpeg;base64,${member.avatar}`,
             imgClassName: 'member-avatar-option'
         }))
     }, [project?.members])
