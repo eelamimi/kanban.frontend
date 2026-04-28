@@ -26,6 +26,7 @@
 
 .commentary__avatar {
     border-radius: 50%;
+    outline: 1px solid black;
 }
 
 .commentary__edited {
