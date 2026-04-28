@@ -12,14 +12,13 @@ const UserProfileCard = memo(() => {
         firstName,
         secondName,
         email,
-        avatar,
         createdAt,
     } = useContext(UserInfoContext)
 
     return (
         <Section>
             <div className='userProfile__card'>
-                <UserProfileAvatar avatar={avatar} />
+                <UserProfileAvatar />
                 <UserProfileInfo>
                     <UserProfileFullName
                         firstName={firstName}
