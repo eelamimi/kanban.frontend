@@ -1,6 +1,10 @@
+import { useContext } from 'react'
 import baseAvatar from '../../assets/img/default_avatar.jpg'
+import { UserInfoContext } from '../../context/UserInfo/UserInfoContext'
 
-const UserProfileAvatar = ({ avatar }) => {
+const UserProfileAvatar = () => {
+    const { avatar } = useContext(UserInfoContext)
+
     return (
         <div className='userProfile__avatar-wrapper'>
             <img
