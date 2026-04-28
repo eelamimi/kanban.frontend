@@ -7,7 +7,7 @@ const useUserInfo = () => {
     const [secondName, setSecondName] = useState('')
     const [email, setEmail] = useState('')
     const [createdAt, setCreatedAt] = useState(null)
-    const [avatar, setAvatar] = useState(null)
+    const [avatar, setAvatar] = useState('')
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
 
     const loadUserById = useCallback(async (userId) => {
@@ -28,7 +28,6 @@ const useUserInfo = () => {
         email,
         setEmail,
         avatar,
-        setAvatar,
         isUserInfoLoading,
         createdAt,
         loadUserById

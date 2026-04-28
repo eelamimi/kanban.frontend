@@ -1,6 +1,7 @@
-import { useContext } from 'react'
+import { useContext } from 'react';
 import baseAvatar from '../../assets/img/default_avatar.jpg'
 import { UserInfoContext } from '../../context/UserInfo/UserInfoContext'
+import AuthService from '../../service/AuthService'
 
 const UserProfileAvatar = () => {
     const { avatar } = useContext(UserInfoContext)
@@ -9,8 +10,9 @@ const UserProfileAvatar = () => {
         <div className='userProfile__avatar-wrapper'>
             <img
                 className='userProfile__avatar'
-                src={avatar || baseAvatar}
+                src={!avatar ? baseAvatar : `data:image/jpeg;base64,${avatar}`}
                 alt='Фото профиля'
+                loading='lazy'
             />
             <div className='userProfile__avatar-overlay'>
                 <span>Изменить фото</span>
