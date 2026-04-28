@@ -114,7 +114,7 @@ const Columns = () => {
                         className='left'
                         onClick={() => setIsAddIssueOpen(true)}
                     >
-                        Добавить проблему
+                        Добавить
                     </Button>
                     <AddIssueModal
                         isOpen={isAddIssueOpen}

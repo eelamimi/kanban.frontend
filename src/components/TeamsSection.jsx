@@ -19,7 +19,7 @@ const TeamsSection = () => {
                 <>
                     <div className='subsection'>
                         <div className='h1'>Команды</div>
-                        <Button className='left'>Создать команду</Button>
+                        <Button className='left'>Добавить</Button>
                     </div>
                     <List
                         items={teams}

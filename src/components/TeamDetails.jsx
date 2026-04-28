@@ -52,7 +52,7 @@ const TeamDetails = () => {
             <Section>
                 <div className='subsection'>
                     <div className='h1'>{team.name}</div>
-                    <Button className='left'>Редактировать команду</Button>
+                    <Button className='left'>Редактировать</Button>
                 </div>
                 <Span
                     label={`${currentUserPair.role.name}:`}
@@ -62,7 +62,7 @@ const TeamDetails = () => {
             <Section>
                 <div className='subsection'>
                     <div className='h1'>Проекты</div>
-                    <Button className='left'>Добавить проект</Button>
+                    <Button className='left'>Добавить</Button>
                 </div>
                 <List
                     items={team.projects}
