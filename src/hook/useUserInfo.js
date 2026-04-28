@@ -28,6 +28,7 @@ const useUserInfo = () => {
         email,
         setEmail,
         avatar,
+        setAvatar,
         isUserInfoLoading,
         createdAt,
         loadUserById
