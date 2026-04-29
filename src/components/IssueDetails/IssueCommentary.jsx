@@ -15,6 +15,7 @@ import { IssueContext } from '../../context/Issue/IssueContext'
 const IssueCommentary = ({ commentary }) => {
     const { author } = commentary
     const fullName = `${author.firstName} ${author.secondName}`
+    const avatar = !author?.avatar ? baseAvatar : `data:image/jpeg;base64,${author.avatar}`
     const isAuthor = author.id === AuthService.getUserInfo().userProfileId
     const {
         updateCommentary,
@@ -51,7 +52,7 @@ const IssueCommentary = ({ commentary }) => {
             <div className='commentary__header'>
                 <img
                     className='commentary__avatar'
-                    src={author.avatar || baseAvatar}
+                    src={avatar}
                     alt={fullName}
                     title={`Фото профиля ${fullName}`}
                     width='20px'
