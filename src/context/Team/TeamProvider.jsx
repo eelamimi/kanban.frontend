@@ -14,10 +14,9 @@ const TeamProvider = ({ children }) => {
             try {
                 const response = await teamsAPI.getTeam(teamId)
                 setTeam(response)
+                setIsLoadingTeam(false)
             } catch (error) {
                 console.error('Error fetching team:', error)
-            } finally {
-                setIsLoadingTeam(false)
             }
         }
 
