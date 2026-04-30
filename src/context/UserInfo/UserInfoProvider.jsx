@@ -24,6 +24,7 @@ const UserInfoProvider = ({ children }) => {
 
     const {
         teams,
+        setTeams,
         isLoadingTeams,
         loadTeamsByUserId
     } = useTeams()
@@ -54,6 +55,7 @@ const UserInfoProvider = ({ children }) => {
                 isUserInfoLoading,
                 createdAt,
                 teams,
+                setTeams,
                 isLoadingTeams
             }}
         >

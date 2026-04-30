@@ -16,5 +16,5 @@ export const useTeams = () => {
         }
     }, [])
 
-    return { teams, isLoadingTeams, loadTeamsByUserId }
+    return { teams, setTeams, isLoadingTeams, loadTeamsByUserId }
 }
