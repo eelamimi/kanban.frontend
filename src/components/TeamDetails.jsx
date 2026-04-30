@@ -12,6 +12,7 @@ const TeamDetails = () => {
         isLoadingTeam,
         team,
     } = useContext(TeamContext)
+    const { userProfileId } = AuthService.getUserInfo()
 
     if (isLoadingTeam) {
         return (
@@ -29,7 +30,6 @@ const TeamDetails = () => {
         )
     }
 
-    const { userProfileId } = AuthService.getUserInfo()
     const currentUserPair = team.userRolePairs.find(pair => pair.user.id === userProfileId)
 
     return (
@@ -47,7 +47,12 @@ const TeamDetails = () => {
             <Section>
                 <div className='subsection'>
                     <div className='h1'>Проекты</div>
-                    <Button className='left'>Добавить</Button>
+                    <Button
+                        className='left'
+                    // onClick={() => setIsAddProject(true)}
+                    >
+                        Добавить
+                    </Button>
                 </div>
                 <List
                     items={team.projects}
