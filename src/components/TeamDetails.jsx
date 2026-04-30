@@ -1,7 +1,5 @@
-import { useContext, useEffect, useState } from 'react'
+import { useContext } from 'react'
 import Section from './Section'
-import { useParams } from 'react-router'
-import teamsAPI from '../api/teamsAPI'
 import AuthService from '../service/AuthService'
 import Spinner from './Spinner'
 import Button from './Button'
