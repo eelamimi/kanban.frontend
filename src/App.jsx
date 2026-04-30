@@ -1,18 +1,30 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense, useCallback, memo } from 'react'
 import { Routes, Route } from 'react-router'
 import Layout from './components/Layout'
-import RegistryPage from './pages/RegistryPage'
-import LoginPage from './pages/LoginPage'
-import ProfilePage from './pages/ProfilePage'
-import TeamPage from './pages/TeamPage'
-import TeamsPage from './pages/TeamsPage'
-import ProjectPage from './pages/ProjectPage'
 import UserInfoProvider from './context/UserInfo/UserInfoProvider'
-import IssuePage from './pages/IssuePage'
-import ErrorToast from './components/ErrorToast'
 import { setErrorHandler } from './utils/errorHandler'
 // import { useAuthCheck } from './hook/useAuthCheck'
 // import ProtectedRoute from './components/ProtectedRoute'
+import {
+    RegistryPage,
+    LoginPage,
+    ProfilePage,
+    TeamsPage,
+    TeamPage,
+    ProjectPage,
+    IssuePage
+} from './pages/routeConfig'
+
+const PageLoader = memo(() => (
+    <div style={{
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '100vh'
+    }}>
+        <div>Загрузка...</div>
+    </div>
+))
 
 function App() {
     const [errorMessage, setErrorMessage] = useState(null)
@@ -22,7 +34,7 @@ function App() {
     }, [])
 
     const handleCloseError = useCallback(() => setErrorMessage(null), [])
-    
+
     // useAuthCheck()
 
     return (
@@ -30,40 +42,22 @@ function App() {
             {errorMessage && (
                 <ErrorToast message={errorMessage} onClose={handleCloseError} />
             )}
-            <Routes>
-                <Route path='auth'>
-                    <Route path='registry' element={<RegistryPage />} />
-                    <Route path='login' element={<LoginPage />} />
-                </Route>
-                <Route element={<Layout />}>
-                    <Route
-                        path='profile'
-                        element={
-                            <UserInfoProvider>
-                                <ProfilePage />
-                            </UserInfoProvider>
-                        } />
-                    <Route
-                        path='/teams'
-                        element={
-                            <UserInfoProvider>
-                                <TeamsPage />
-                            </UserInfoProvider>
-                        } />
-                    <Route
-                        path='/teams/:teamId'
-                        element={<TeamPage />}
-                    />
-                    <Route
-                        path='/projects/:projectId'
-                        element={<ProjectPage />}
-                    />
-                    <Route
-                        path='/issue/:issuePublicId'
-                        element={<IssuePage />}
-                    />
-                </Route>
-            </Routes>
+
+            <Suspense fallback={<PageLoader />}>
+                <Routes>
+                    <Route path='auth'>
+                        <Route path='registry' element={<RegistryPage />} />
+                        <Route path='login' element={<LoginPage />} />
+                    </Route>
+                    <Route element={<Layout />}>
+                        <Route path='/profile' element={<ProfilePage />} />
+                        <Route path='/teams' element={<TeamsPage />} />
+                        <Route path='/teams/:teamId' element={<TeamPage />} />
+                        <Route path='/projects/:projectId' element={<ProjectPage />} />
+                        <Route path='/issue/:issuePublicId' element={<IssuePage />} />
+                    </Route>
+                </Routes>
+            </Suspense>
         </>
     )
 }
