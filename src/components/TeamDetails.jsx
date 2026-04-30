@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 import Section from './Section'
 import { useParams } from 'react-router'
 import teamsAPI from '../api/teamsAPI'
@@ -7,26 +7,13 @@ import Spinner from './Spinner'
 import Button from './Button'
 import List from './List'
 import Span from './Span'
+import { TeamContext } from '../context/Team/TeamContext'
 
 const TeamDetails = () => {
-    const { teamId } = useParams()
-    const [isLoadingTeam, setIsLoadingTeam] = useState(true)
-    const [team, setTeam] = useState(null)
-
-    useEffect(() => {
-        async function fetchTeam() {
-            try {
-                const response = await teamsAPI.getTeam(teamId)
-                setTeam(response)
-            } catch (error) {
-                console.error('Error fetching team:', error)
-            } finally {
-                setIsLoadingTeam(false)
-            }
-        }
-
-        fetchTeam()
-    }, [teamId])
+    const {
+        isLoadingTeam,
+        team,
+    } = useContext(TeamContext)
 
     if (isLoadingTeam) {
         return (
