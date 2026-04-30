@@ -31,6 +31,20 @@ const teamsAPI = {
             }
         }
     },
+    addTeam: async (request) => {
+        try {
+            const response = await axiosInstance.post(TEAMS_URL, request)
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.message || 'Ошибка добавления команды')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default teamsAPI

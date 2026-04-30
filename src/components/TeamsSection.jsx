@@ -1,5 +1,6 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { UserInfoContext } from '../context/UserInfo/UserInfoContext'
+import AddTeamModal from './Modals/AddTeamModal'
 import Section from './Section'
 import Button from './Button'
 import Spinner from './Spinner'
@@ -10,6 +11,7 @@ const TeamsSection = () => {
         teams,
         isLoadingTeams
     } = useContext(UserInfoContext)
+    const [isAddTeam, setIsAddTeam] = useState(false)
 
     return (
         <Section>
@@ -19,7 +21,16 @@ const TeamsSection = () => {
                 <>
                     <div className='subsection'>
                         <div className='h1'>Команды</div>
-                        <Button className='left'>Добавить</Button>
+                        <Button
+                            className='left'
+                            onClick={() => setIsAddTeam(true)}
+                        >
+                            Добавить
+                        </Button>
+                        <AddTeamModal
+                            isOpen={isAddTeam}
+                            onClose={() => setIsAddTeam(false)}
+                        />
                     </div>
                     <List
                         items={teams}
