@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react'
 
-export const useEditProjectModalSection = () => {
+export const useEditProjectModalSection = ({ isAdd = false }) => {
     const [projectName, setProjectName] = useState('')
     const [projectShortName, setProjectShortName] = useState('')
     const [projectDescription, setProjectDescription] = useState('')
@@ -15,8 +15,11 @@ export const useEditProjectModalSection = () => {
         const hasOnlySpaces = value.length > 0 && clearValue.length === 0
 
         setProjectName(value)
-        setErrorProjectName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
-    }, [])
+        if (isAdd)
+            setErrorProjectName(hasOnlySpaces ? 'Название обязательно' : '')
+        else
+            setErrorProjectName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
+    }, [isAdd])
 
     const onProjectShortNameInput = useCallback(({ target }) => {
         const { value } = target
@@ -24,8 +27,11 @@ export const useEditProjectModalSection = () => {
         const hasOnlySpaces = value.length > 0 && clearValue.length === 0
 
         setProjectShortName(value)
-        setErrorProjectShortName(hasOnlySpaces || value.length === 0 ? 'Ключ проекта обязателен' : '')
-    }, [])
+        if (isAdd)
+            setErrorProjectShortName(hasOnlySpaces ? 'Ключ проекта обязателен' : '')
+        else
+            setErrorProjectShortName(hasOnlySpaces || value.length === 0 ? 'Ключ проекта обязателен' : '')
+    }, [isAdd])
 
     const onProjectDescriptionInput = useCallback(({ target }) => {
         const { value } = target
@@ -33,8 +39,11 @@ export const useEditProjectModalSection = () => {
         const hasOnlySpaces = value.length > 0 && clearValue.length === 0
 
         setProjectDescription(value)
-        setErrorProjectDescription(hasOnlySpaces || value.length === 0 ? 'Описание обязательно' : '')
-    }, [])
+        if (isAdd)
+            setErrorProjectDescription(hasOnlySpaces ? 'Описание обязательно' : '')
+        else
+            setErrorProjectDescription(hasOnlySpaces || value.length === 0 ? 'Описание обязательно' : '')
+    }, [isAdd])
 
     const validateValues = useCallback(() => {
         let isValid = true

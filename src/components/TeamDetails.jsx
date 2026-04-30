@@ -1,4 +1,4 @@
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import Section from './Section'
 import AuthService from '../service/AuthService'
 import Spinner from './Spinner'
@@ -6,6 +6,7 @@ import Button from './Button'
 import List from './List'
 import Span from './Span'
 import { TeamContext } from '../context/Team/TeamContext'
+import AddProjectModal from './Modals/AddProjectModal'
 
 const TeamDetails = () => {
     const {
@@ -13,6 +14,7 @@ const TeamDetails = () => {
         team,
     } = useContext(TeamContext)
     const { userProfileId } = AuthService.getUserInfo()
+    const [isAddProject, setIsAddProject] = useState(false)
 
     if (isLoadingTeam) {
         return (
@@ -49,10 +51,14 @@ const TeamDetails = () => {
                     <div className='h1'>Проекты</div>
                     <Button
                         className='left'
-                    // onClick={() => setIsAddProject(true)}
+                        onClick={() => setIsAddProject(true)}
                     >
                         Добавить
                     </Button>
+                    <AddProjectModal
+                        isOpen={isAddProject}
+                        onClose={() => setIsAddProject(false)}
+                    />
                 </div>
                 <List
                     items={team.projects}
