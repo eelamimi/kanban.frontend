@@ -67,6 +67,15 @@ export const useEditProjectModalSection = () => {
         projectDescription, setErrorProjectDescription,
     ])
 
+    const resetValues = useCallback(() => {
+        setProjectName('')
+        setErrorProjectName('')
+        setProjectShortName('')
+        setErrorProjectShortName('')
+        setProjectDescription('')
+        setErrorProjectDescription('')
+    }, [])
+
     const initValues = useCallback((project) => {
         setProjectName(project.name)
         setProjectShortName(project.shortName)
@@ -88,5 +97,6 @@ export const useEditProjectModalSection = () => {
 
         initValues,
         validateValues,
+        resetValues
     }
 }
