@@ -21,8 +21,10 @@ function App() {
         setErrorHandler(setErrorMessage)
     }, [])
 
-    const handleCloseError = () => setErrorMessage(null)
+    const handleCloseError = useCallback(() => setErrorMessage(null), [])
+    
     // useAuthCheck()
+
     return (
         <>
             {errorMessage && (
