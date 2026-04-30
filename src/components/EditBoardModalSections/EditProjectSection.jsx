@@ -21,7 +21,7 @@ const EditProjectSection = ({ ref = null }) => {
         onProjectDescriptionInput,
         initValues,
         validateValues,
-    } = useEditProjectModalSection()
+    } = useEditProjectModalSection({ isAdd: false })
 
     useEffect(() => initValues(project),
         [project, initValues])
