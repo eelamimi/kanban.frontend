@@ -44,6 +44,10 @@
 .column-button-action {
     min-height: 54.4px;
     min-width: 54.4px;
+
+    &.double {
+        width: 114.8px;
+    }
 }
 
 .section.editing-column-name {
