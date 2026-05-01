@@ -1,5 +1,5 @@
 import TeamDetails from '../components/TeamDetails'
-import TeamProvider from '../context/Team/TeamProvider'
+import TeamProvider from '../context/Team/TeamContext'
 
 const TeamPage = () => {
     return (

@@ -7,6 +7,7 @@ import { RegistryContext } from '../context/Registry/RegistryContext'
 import authAPI from '../api/authAPI'
 import { Link, useNavigate } from 'react-router'
 import AuthService from '../service/AuthService'
+import { isBlank } from '../utils/fieldValidation'
 
 function RegistryForm() {
     const {
@@ -33,26 +34,18 @@ function RegistryForm() {
 
     const onFirstNameInput = ({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setFirstName(value)
-        setFirstNameError(hasOnlySpaces ? 'Имя обязательно для заполнения' : '')
+        setFirstNameError(isBlank(value) ? 'Имя обязательно для заполнения' : '')
     }
 
     const onSecondNameInput = ({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setSecondName(value)
-        setSecondNameError(hasOnlySpaces ? 'Фамилия обязательна для заполнения' : '')
+        setSecondNameError(isBlank(value) ? 'Фамилия обязательна для заполнения' : '')
     }
 
     const onEmailInput = (event) => {
         const value = event.target.value
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
         const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/
 
         setEmail(value)
@@ -60,40 +53,32 @@ function RegistryForm() {
         if (value.length === 0) {
             setEmailError('')
         }
+        else if (isBlank(value)) {
+            setEmailError('Email обязателен для заполнения')
+        }
+        else if (!emailRegex.test(value)) {
+            setEmailError('Введите корректный email адрес')
+        }
         else {
-            if (hasOnlySpaces) {
-                setEmailError('Email обязателен для заполнения')
-            } else {
-                if (!emailRegex.test(value)) {
-                    setEmailError('Введите корректный email адрес')
-                } else {
-                    setEmailError('')
-                }
-            }
+            setEmailError('')
         }
     }
 
     const onPasswordInput = ({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setPassword(value)
-        setPasswordError(hasOnlySpaces ? 'Пароль обязателен для заполнения' : '')
+        setPasswordError(isBlank(value) ? 'Пароль обязателен для заполнения' : '')
 
         if (confirmPassword.length > 0) {
-            setConfirmPasswordError(confirmPassword !== clearValue
+            setConfirmPasswordError(confirmPassword !== value.trim()
                 ? 'Пароли не совпадают' : '')
         }
     }
 
     const onConfirmPasswordInput = ({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setConfirmPassword(value)
-        if (hasOnlySpaces) {
+        if (isBlank(value)) {
             setConfirmPasswordError('Пароли не совпадают')
         }
         else {

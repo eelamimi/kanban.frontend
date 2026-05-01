@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { isBlank } from '../utils/fieldValidation'
 
 export const useAddColumn = () => {
     const [isWaitingAddColumn, setIsWaitingAddColumn] = useState(false)
@@ -8,24 +9,16 @@ export const useAddColumn = () => {
 
     const onColumnNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setColumnName(value)
-        setErrorColumnName(hasOnlySpaces ? 'Название обязательно' : '')
+        setErrorColumnName(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const validateValues = useCallback(() => {
-        let isValid = true
-
-        const clearValue = columnName.trim()
-        const hasOnlySpaces = columnName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || columnName.length === 0) {
+        if (isBlank(columnName)) {
             setErrorColumnName('Название обязательно')
-            isValid = false
+            return false
         }
-
-        return isValid
+        return true
     }, [columnName])
 
     const resetValues = useCallback(() => {

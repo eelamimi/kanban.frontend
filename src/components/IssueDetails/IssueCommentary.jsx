@@ -8,7 +8,7 @@ import { faCheck, faX } from '@fortawesome/free-solid-svg-icons'
 import { memo, useCallback, useContext, useEffect } from 'react'
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons'
 import TextAreaField from '../TextAreaField'
-import { useEditCommentary } from '../../hook/useEditCommentary'
+import { useEditCommentary } from '../../hooks/useEditCommentary'
 import { IssueContext } from '../../context/Issue/IssueContext'
 
 

@@ -1,6 +1,7 @@
 import { useCallback, useState } from 'react';
 import teamsAPI from '../api/teamsAPI';
 import { showError } from '../utils/errorHandler';
+import { isBlank } from '../utils/fieldValidation';
 
 export const useEditTeam = () => {
     const [teamName, setTeamName] = useState('')
@@ -9,24 +10,16 @@ export const useEditTeam = () => {
 
     const onTeamNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setTeamName(value)
-        setErrorTeamName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
+        setErrorTeamName(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const validateValues = useCallback(() => {
-        let isValid = true
-
-        let clearValue = teamName.trim()
-        let hasOnlySpaces = teamName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || teamName.length === 0) {
+        if (isBlank(teamName)) {
             setErrorTeamName('Название обязательно')
-            isValid = false
+            return false
         }
-
-        return isValid
+        return true
     }, [teamName])
 
     const updateTeam = useCallback(async (team, setTeam) => {

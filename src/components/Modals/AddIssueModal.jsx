@@ -1,5 +1,5 @@
 import { useCallback, memo, useContext, useState, useEffect } from 'react'
-import { useAddIssueModal } from '../../hook/useAddIssueModal'
+import { useAddIssueModal } from '../../hooks/useAddIssueModal'
 import FileAttachmentField from '../FileAttachmentField'
 import TextareaField from '../TextAreaField'
 import SelectField from '../SelectField'
@@ -8,8 +8,7 @@ import Field from '../Field'
 import issueAPI from '../../api/issueAPI'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { issuePriorityOptions, issueTypeOptions } from '../../consts/issueConsts'
-
-const MAX_FILE_SIZE = 20 * 1024 * 1024
+import { MAX_FILE_SIZE } from '../../consts/fileConsts'
 
 function AddIssueModal({ isOpen, onClose }) {
     const {

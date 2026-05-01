@@ -5,7 +5,7 @@ import { showError } from '../../utils/errorHandler'
 import Modal from '../Modal'
 import Field from '../Field'
 import TextAreaField from '../TextAreaField'
-import { useEditProjectModalSection } from '../../hook/useEditProjectModalSection'
+import { useEditProjectModalSection } from '../../hooks/useEditProjectModalSection'
 import projectAPI from '../../api/projectAPI'
 
 function AddProjectModal({ isOpen, onClose }) {

@@ -1,5 +1,5 @@
 import IssueDetails from '../components/IssueDetails'
-import IssueProvider from '../context/Issue/IssueProvider'
+import IssueProvider from '../context/Issue/IssueContext'
 
 const IssuePage = () => {
 

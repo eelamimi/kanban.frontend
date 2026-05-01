@@ -1,6 +1,6 @@
 import { memo, useContext } from 'react'
 import { IssueContext } from '../../context/Issue/IssueContext'
-import { useAddCommentary } from '../../hook/useAddCommentary'
+import { useAddCommentary } from '../../hooks/useAddCommentary'
 import Section from '../Section'
 import TextareaField from '../TextareaField'
 import IssueCommentary from './IssueCommentary'

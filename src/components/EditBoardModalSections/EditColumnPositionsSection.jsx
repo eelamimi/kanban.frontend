@@ -23,6 +23,7 @@ import Section from '../Section'
 import Button from '../Button'
 import Field from '../Field'
 import { faCheck, faX } from '@fortawesome/free-solid-svg-icons'
+import { isBlank } from '../../utils/fieldValidation'
 
 const SortableColumn = memo(({ column }) => {
     const { project, setProject } = useContext(ProjectContext)
@@ -49,23 +50,15 @@ const SortableColumn = memo(({ column }) => {
 
     const onColumnNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setColumnName(value)
-        setErrorColumnName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
+        setErrorColumnName(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const isValid = useCallback(() => {
         if (column.name === columnName)
             return false
 
-        const clearValue = columnName.trim()
-        const hasOnlySpaces = columnName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || columnName.length === 0)
-            return false
-
-        return true
+        return !isBlank(columnName)
     }, [column.name, columnName])
 
     const handleEditColumnButton = useCallback(async () => {

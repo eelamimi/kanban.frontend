@@ -1,4 +1,5 @@
 import { useCallback, useState } from 'react'
+import { isBlank } from '../utils/fieldValidation'
 
 export const useEditProjectModalSection = ({ isAdd = false }) => {
     const [projectName, setProjectName] = useState('')
@@ -11,70 +12,45 @@ export const useEditProjectModalSection = ({ isAdd = false }) => {
 
     const onProjectNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setProjectName(value)
-        if (isAdd)
-            setErrorProjectName(hasOnlySpaces ? 'Название обязательно' : '')
-        else
-            setErrorProjectName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
+        const isEmptyOrSpaces = isAdd ? (value.length > 0 && isBlank(value)) : isBlank(value)
+        setErrorProjectName(isEmptyOrSpaces ? 'Название обязательно' : '')
     }, [isAdd])
 
     const onProjectShortNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setProjectShortName(value)
-        if (isAdd)
-            setErrorProjectShortName(hasOnlySpaces ? 'Ключ проекта обязателен' : '')
-        else
-            setErrorProjectShortName(hasOnlySpaces || value.length === 0 ? 'Ключ проекта обязателен' : '')
+        const isEmptyOrSpaces = isAdd ? (value.length > 0 && isBlank(value)) : isBlank(value)
+        setErrorProjectShortName(isEmptyOrSpaces ? 'Ключ проекта обязателен' : '')
     }, [isAdd])
 
     const onProjectDescriptionInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setProjectDescription(value)
-        if (isAdd)
-            setErrorProjectDescription(hasOnlySpaces ? 'Описание обязательно' : '')
-        else
-            setErrorProjectDescription(hasOnlySpaces || value.length === 0 ? 'Описание обязательно' : '')
+        const isEmptyOrSpaces = isAdd ? (value.length > 0 && isBlank(value)) : isBlank(value)
+        setErrorProjectDescription(isEmptyOrSpaces ? 'Описание обязательно' : '')
     }, [isAdd])
 
     const validateValues = useCallback(() => {
         let isValid = true
 
-        let clearValue = projectName.trim()
-        let hasOnlySpaces = projectName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || projectName.length === 0) {
+        if (isBlank(projectName)) {
             setErrorProjectName('Название обязательно')
             isValid = false
         }
 
-        clearValue = projectShortName.trim()
-        hasOnlySpaces = projectShortName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || projectShortName.length === 0) {
+        if (isBlank(projectShortName)) {
             setErrorProjectShortName('Ключ проекта обязателен')
             isValid = false
         }
 
-        clearValue = projectDescription.trim()
-        hasOnlySpaces = projectDescription.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || projectDescription.length === 0) {
+        if (isBlank(projectDescription)) {
             setErrorProjectDescription('Описание обязательно')
             isValid = false
         }
 
         return isValid
-    }, [
-        projectName, setErrorProjectName,
-        projectShortName, setErrorProjectShortName,
-        projectDescription, setErrorProjectDescription,
-    ])
+    }, [projectName, projectShortName, projectDescription])
 
     const resetValues = useCallback(() => {
         setProjectName('')

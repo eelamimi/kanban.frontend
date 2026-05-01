@@ -2,20 +2,19 @@ import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'rea
 import Modal from '../Modal'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { IssueContext } from '../../context/Issue/IssueContext'
-import { useEditIssueModal } from '../../hook/useEditIssueModal'
+import { useEditIssueModal } from '../../hooks/useEditIssueModal'
 import {
     issueTypeOptions,
     issuePriorityOptions,
     issuePrioritiesValue,
     issueTypesValue
 } from '../../consts/issueConsts'
+import { MAX_FILE_SIZE } from '../../consts/fileConsts'
 import Field from '../Field'
 import FileAttachmentField from '../FileAttachmentField'
 import SelectField from '../SelectField'
 import TextareaField from '../TextAreaField'
 import { showError } from '../../utils/errorHandler'
-
-const MAX_FILE_SIZE = 20 * 1024 * 1024
 
 const EditIssueModal = ({ isOpen, onClose }) => {
     const { memberIdOptions } = useContext(ProjectContext)
@@ -58,12 +57,12 @@ const EditIssueModal = ({ isOpen, onClose }) => {
     const assigneeOption = useMemo(() => {
         if (!issue?.assignee?.id || !memberIdOptions.length) return null
         return memberIdOptions.find(member => member.value === issue.assignee.id)
-    }, [issue.assignee.id, memberIdOptions])
+    }, [issue?.assignee?.id, memberIdOptions])
 
     const authorOption = useMemo(() => {
         if (!issue?.author?.id || !memberIdOptions.length) return null
         return memberIdOptions.find(member => member.value === issue.author.id)
-    }, [issue.author.id, memberIdOptions])
+    }, [issue?.author?.id, memberIdOptions])
 
     const editIssueHandler = useCallback(async () => {
         if (!validateValues())
@@ -74,8 +73,8 @@ const EditIssueModal = ({ isOpen, onClose }) => {
         try {
             const hasNoChanges = title === issue.title &&
                 description === initDescription &&
-                assignee.value === issue.assignee.id &&
-                author.value === issue.author.id &&
+                assignee?.value === issue?.assignee?.id &&
+                author?.value === issue?.author?.id &&
                 priority.value === issuePrioritiesValue[issue.issuePriority] &&
                 issueType.value === issueTypesValue[issue.issueType] &&
                 attachedFiles.length === 0
@@ -119,8 +118,8 @@ const EditIssueModal = ({ isOpen, onClose }) => {
         validateValues,
         title,
         issue.title,
-        issue.assignee.id,
-        issue.author.id,
+        issue?.assignee?.id,
+        issue?.author?.id,
         issue.issuePriority,
         issue.issueType,
         issue.id,

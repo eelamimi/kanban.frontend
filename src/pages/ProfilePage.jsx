@@ -1,5 +1,5 @@
 import UserProfile from '../components/UserProfile'
-import UserInfoProvider from '../context/UserInfo/UserInfoProvider'
+import UserInfoProvider from '../context/UserInfo/UserInfoContext'
 
 const ProfilePage = () => {
     return (

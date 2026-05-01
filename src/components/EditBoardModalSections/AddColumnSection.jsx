@@ -2,10 +2,10 @@ import { useCallback, useContext, useState } from 'react'
 import ModalSection from '../ModalSection'
 import Field from '../Field'
 import { ProjectContext } from '../../context/Project/ProjectContext'
-import { useAddColumn } from '../../hook/useAddColumn'
+import { useAddColumn } from '../../hooks/useAddColumn'
 import columnAPI from '../../api/columnAPI'
 
-const AddColumnSection = ({ ref }) => {
+const AddColumnSection = ({ onClose }) => {
     const { project, setProject } = useContext(ProjectContext)
     const [maxPosition, setMaxPosition] = useState(project.columns.length - 1)
     const {
@@ -79,7 +79,7 @@ const AddColumnSection = ({ ref }) => {
             onClick={handleAddColumnSubmit}
             isDisabled={isWaitingAddColumn}
             buttonTitle='Добавить'
-            ref={ref}
+            onClose={onClose}
         >
             <div className='row' style={{ gap: '25px' }}>
                 <Field

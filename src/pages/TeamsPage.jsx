@@ -1,5 +1,5 @@
 import TeamsSection from '../components/TeamsSection'
-import UserInfoProvider from '../context/UserInfo/UserInfoProvider'
+import UserInfoProvider from '../context/UserInfo/UserInfoContext'
 
 const TeamsPage = () => {
     return (

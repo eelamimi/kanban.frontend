@@ -1,5 +1,5 @@
 import Board from '../components/Board'
-import ProjectProvider from '../context/Project/ProjectProvider'
+import ProjectProvider from '../context/Project/ProjectContext'
 
 const ProjectPage = () => {
     return (
