@@ -24,6 +24,7 @@ const getBaseStyles = (hasError) => ({
     singleValue: () => ({
         color: 'black',
         whiteSpace: 'nowrap',
+        fontWeight: '200',
     }),
     valueContainer: (base) => ({
         ...base,
@@ -32,7 +33,7 @@ const getBaseStyles = (hasError) => ({
         display: 'flex',
         alignItems: 'center',
         flexDirection: 'row',
-        flexWrap: 'nowrap'
+        flexWrap: 'nowrap',
     }),
     indicatorsContainer: () => ({
         height: '36px',
@@ -49,6 +50,7 @@ const getBaseStyles = (hasError) => ({
     }),
     menuList: () => ({
         padding: '0',
+        fontWeight: '200',
     }),
     option: (base, state) => ({
         ...base,
@@ -74,9 +76,11 @@ const SelectField = ({
     options,
     value,
     onChange,
+    fieldClassName = '',
     placeholder = 'Выберите...',
     error,
     withImg = false,
+    isForEditUserRolesSection = false,
 }) => {
     const [isFocused, setIsFocused] = useState(false)
     const hasValue = !!value
@@ -116,7 +120,11 @@ const SelectField = ({
     }, [withImg])
 
     return (
-        <div className='field' style={{ flex: 1, position: 'relative' }}>
+        <div className={`field ${fieldClassName}`} style={{
+            flex: isForEditUserRolesSection ? '1 1 100%' : 1,
+            position: 'relative',
+            width: isForEditUserRolesSection ? '100%' : 'auto'
+        }}>
             <Select
                 id={id}
                 styles={styles}

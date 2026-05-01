@@ -2,6 +2,7 @@ import { memo, useCallback, useRef } from 'react'
 import Modal from '../Modal'
 import EditTeamSection from '../EditTeamModalSections/EditTeamSection'
 import EditRolesSection from '../EditTeamModalSections/EditRolesSection'
+import EditUserRolesSection from '../EditTeamModalSections/EditUserRolesSection'
 
 const EditTeamModal = ({ isOpen, onClose }) => {
     const dialogRef = useRef(null)
@@ -18,6 +19,7 @@ const EditTeamModal = ({ isOpen, onClose }) => {
         >
             <EditTeamSection ref={dialogRef} />
             <EditRolesSection />
+            <EditUserRolesSection />
         </Modal>
     )
 }
