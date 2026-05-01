@@ -8,6 +8,21 @@ import taskImg from '../assets/img/issueType/task.png'
 import storyImg from '../assets/img/issueType/story.png'
 import investigationImg from '../assets/img/issueType/investigation.png'
 
+export const issueTypesValue = {
+    0: 'Bug',
+    1: 'Story',
+    2: 'Task',
+    3: 'Investigation',
+};
+
+export const issuePrioritiesValue = {
+    0: 'Minimal',
+    1: 'Low',
+    2: 'Medium',
+    3: 'High',
+    4: 'Critical',
+}
+
 export const issueTypesImg = {
     0: bugImg,
     1: storyImg,

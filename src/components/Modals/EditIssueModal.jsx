@@ -3,7 +3,12 @@ import Modal from '../Modal'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import { IssueContext } from '../../context/Issue/IssueContext'
 import { useEditIssueModal } from '../../hook/useEditIssueModal'
-import { issueTypeOptions, issuePriorityOptions } from '../../consts/issueConsts'
+import {
+    issueTypeOptions,
+    issuePriorityOptions,
+    issuePrioritiesValue,
+    issueTypesValue
+} from '../../consts/issueConsts'
 import Field from '../Field'
 import FileAttachmentField from '../FileAttachmentField'
 import SelectField from '../SelectField'
@@ -16,6 +21,9 @@ const EditIssueModal = ({ isOpen, onClose }) => {
     const { memberIdOptions } = useContext(ProjectContext)
     const { issue, editIssue } = useContext(IssueContext)
     const [isWaiting, setIsWaiting] = useState(false)
+    const initDescription = useMemo(() => {
+        return issue?.commentaries.find(com => com.isDescription).content
+    }, [issue])
     const {
         title,
         assignee,
@@ -63,31 +71,42 @@ const EditIssueModal = ({ isOpen, onClose }) => {
 
         setIsWaiting(true)
 
-        const formData = new FormData()
-        formData.append('Id', issue.id)
-        formData.append('Title', title)
-        formData.append('AssigneeId', assignee.value)
-        formData.append('AuthorId', author.value)
-        formData.append('IssueType', issueType.value)
-        formData.append('IssuePriority', priority.value)
-        formData.append('Description', description)
-        formData.append('StoryPoints', storyPoints)
+        try {
+            const hasNoChanges = title === issue.title &&
+                description === initDescription &&
+                assignee.value === issue.assignee.id &&
+                author.value === issue.author.id &&
+                priority.value === issuePrioritiesValue[issue.issuePriority] &&
+                issueType.value === issueTypesValue[issue.issueType] &&
+                attachedFiles.length === 0
 
-        if (attachedFiles && attachedFiles.length > 0) {
-            const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
+            if (hasNoChanges)
+                return true
 
-            if (oversizedFiles.length > 0) {
-                showError(`Файлы превышают 20MB: ${oversizedFiles.map(f => f.name).join(', ')}`)
-                setIsWaiting(false)
-                return false
+            const formData = new FormData()
+            formData.append('Id', issue.id)
+            formData.append('Title', title)
+            formData.append('AssigneeId', assignee.value)
+            formData.append('AuthorId', author.value)
+            formData.append('IssueType', issueType.value)
+            formData.append('IssuePriority', priority.value)
+            formData.append('Description', description)
+            formData.append('StoryPoints', storyPoints)
+
+            if (attachedFiles && attachedFiles.length > 0) {
+                const oversizedFiles = attachedFiles.filter(file => file.size > MAX_FILE_SIZE)
+
+                if (oversizedFiles.length > 0) {
+                    showError(`Файлы превышают 20MB: ${oversizedFiles.map(f => f.name).join(', ')}`)
+                    setIsWaiting(false)
+                    return false
+                }
+
+                attachedFiles.forEach((file) => {
+                    formData.append('Files', file)
+                })
             }
 
-            attachedFiles.forEach((file) => {
-                formData.append('Files', file)
-            })
-        }
-
-        try {
             await editIssue(formData)
             return true
         } catch {
@@ -97,29 +116,47 @@ const EditIssueModal = ({ isOpen, onClose }) => {
             setIsWaiting(false)
         }
     }, [
-        assignee?.value,
-        attachedFiles,
-        author?.value,
-        description,
-        issue?.id,
-        issueType?.value,
-        priority?.value,
-        storyPoints,
-        title,
         validateValues,
-        editIssue,
+        title,
+        issue.title,
+        issue.assignee.id,
+        issue.author.id,
+        issue.issuePriority,
+        issue.issueType,
+        issue.id,
+        description,
+        initDescription,
+        assignee?.value,
+        author?.value,
+        priority?.value,
+        issueType?.value,
+        attachedFiles,
+        storyPoints,
+        editIssue
     ])
 
     const handleClose = useCallback(() => {
-        resetValues(issue, assigneeOption, authorOption)
+        resetValues(issue, assigneeOption, authorOption, initDescription)
         onClose()
-    }, [assigneeOption, authorOption, issue, resetValues, onClose])
+    }, [
+        assigneeOption,
+        authorOption,
+        issue,
+        initDescription,
+        resetValues,
+        onClose
+    ])
 
     useEffect(() => {
         if (!issue || !assigneeOption || !authorOption)
             return
-        resetValues(issue, assigneeOption, authorOption)
-    }, [assigneeOption, authorOption, issue, resetValues])
+        resetValues(issue, assigneeOption, authorOption, initDescription)
+    }, [assigneeOption,
+        authorOption,
+        issue,
+        initDescription,
+        resetValues,
+    ])
 
     return (
         <Modal

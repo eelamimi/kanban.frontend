@@ -102,14 +102,14 @@ export const useEditIssueModal = () => {
         description
     ])
 
-    const resetValues = useCallback((issue, assignee, author) => {
+    const resetValues = useCallback((issue, assignee, author, issueDescription) => {
         setTitle(issue.title)
         setAssignee(assignee)
         setAuthor(author)
         setIssueType(issueTypeOptions[issue.issueType])
         setPriority(issuePriorityOptions[4 - issue.issuePriority])
         setStoryPoints(issue.storyPoints)
-        setDescription(issue.commentaries.find(com => com.isDescription).content)
+        setDescription(issueDescription)
         setAttachedFiles([])
 
         setErrorTitle('')
