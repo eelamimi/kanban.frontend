@@ -7,6 +7,7 @@ import List from './List'
 import Span from './Span'
 import { TeamContext } from '../context/Team/TeamContext'
 import AddProjectModal from './Modals/AddProjectModal'
+import EditTeamModal from './Modals/EditTeamModal'
 
 const TeamDetails = () => {
     const {
@@ -15,6 +16,7 @@ const TeamDetails = () => {
     } = useContext(TeamContext)
     const { userProfileId } = AuthService.getUserInfo()
     const [isAddProject, setIsAddProject] = useState(false)
+    const [isEditTeamOpen, setIsEditTeamOpen] = useState(false)
 
     if (isLoadingTeam) {
         return (
@@ -39,7 +41,15 @@ const TeamDetails = () => {
             <Section>
                 <div className='subsection'>
                     <div className='h1'>{team.name}</div>
-                    <Button className='left'>Редактировать</Button>
+                    <Button
+                        className='left'
+                        onClick={() => setIsEditTeamOpen(true)}
+                    >
+                        Редактировать</Button>
+                    <EditTeamModal
+                        isOpen={isEditTeamOpen}
+                        onClose={() => setIsEditTeamOpen(false)}
+                    />
                 </div>
                 <Span
                     label={`${currentUserPair.role.name}:`}
