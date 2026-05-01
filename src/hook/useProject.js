@@ -4,6 +4,7 @@ import { useParams, useSearchParams } from 'react-router'
 import projectAPI from '../api/projectAPI'
 import { ProjectContext } from '../context/Project/ProjectContext'
 import AuthService from '../service/AuthService'
+import { showError } from '../utils/errorHandler'
 
 const userProfileId = AuthService.getUserInfo().userProfileId
 
@@ -22,7 +23,7 @@ export const useProject = () => {
             img: !member.avatar ? baseAvatar : `data:image/jpeg;base64,${member.avatar}`,
             imgClassName: 'member-avatar-option'
         }))
-    }, [project?.members])
+    }, [project.members])
 
     const curUser = useMemo(() => {
         if (!memberIdOptions.length) return null
@@ -34,12 +35,10 @@ export const useProject = () => {
             try {
                 const response = await projectAPI.get(projectId)
                 setProject(response)
+                setIsLoadingProject(false)
             }
             catch (error) {
-                console.log(error)
-            }
-            finally {
-                setIsLoadingProject(false)
+                showError(error.message)
             }
         }
 
