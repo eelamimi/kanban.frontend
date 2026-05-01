@@ -45,6 +45,20 @@ const teamsAPI = {
             }
         }
     },
+    update: async (request) => {
+        try {
+            const response = await axiosInstance.put(TEAMS_URL, request)
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.message || 'Ошибка изменения команды')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default teamsAPI
