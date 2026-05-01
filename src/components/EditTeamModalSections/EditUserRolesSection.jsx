@@ -9,11 +9,13 @@ import Button from '../Button'
 import rolesAPI from '../../api/rolesAPI'
 import { showError } from '../../utils/errorHandler'
 import AuthService from '../../service/AuthService'
+import teamsAPI from '../../api/teamsAPI'
 
 const Pair = ({ pair, options }) => {
-    const { setTeam } = useContext(TeamContext)
+    const { team, setTeam } = useContext(TeamContext)
     const fullName = `${pair.user.firstName} ${pair.user.secondName}`
     const [role, setRole] = useState({ value: pair.role.id, label: pair.role.name })
+    const [isWaitingDeleteUser, setIsWaitingDeleteUser] = useState(false)
 
     const onChange = useCallback(async (selected) => {
         const previousRole = { value: pair.role.id, label: pair.role.name }
@@ -48,6 +50,29 @@ const Pair = ({ pair, options }) => {
         }
     }, [pair, setTeam])
 
+    const handleDeleteUser = useCallback(async () => {
+        const prevPairs = team.userRolePairs
+
+        setTeam(prev => ({
+            ...prev,
+            userRolePairs: prev.userRolePairs.filter(p =>
+                p.user.id !== pair.user.id)
+        }))
+
+        try {
+            setIsWaitingDeleteUser(true)
+            await teamsAPI.deleteUser(team.id, pair.user.id)
+        } catch (err) {
+            setTeam(prev => ({
+                ...prev,
+                userRolePairs: prevPairs
+            }))
+            showError(err?.message || 'Ошибка исключения пользователя')
+        } finally {
+            setIsWaitingDeleteUser(false)
+        }
+    }, [pair.user.id, setTeam, team.id, team.userRolePairs])
+
     return (
         <div className='row' style={{ gap: '6px' }}>
             <Section className='column-position'>
@@ -66,8 +91,9 @@ const Pair = ({ pair, options }) => {
             </Section>
             <Button
                 className='close column-button-action double'
-            // onClick={handleDeleteRoleButton}
-            // isDisabled={isWaitingDeleteRole || team.roles.length < 2}
+                onClick={handleDeleteUser}
+                isDisabled={isWaitingDeleteUser ||
+                    pair.user.id === AuthService.getUserInfo().userProfileId}
             >
                 Исключить&nbsp;<FontAwesomeIcon icon={faX} />
             </Button>

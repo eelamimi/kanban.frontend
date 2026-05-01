@@ -59,6 +59,20 @@ const teamsAPI = {
             }
         }
     },
+    deleteUser: async (teamId, userProfileId) => {
+        try {
+            const response = await axiosInstance.delete(`${TEAMS_URL}/${teamId}/${userProfileId}`)
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.message || 'Ошибка изменения команды')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default teamsAPI
