@@ -4,74 +4,24 @@ const TEAMS_URL = 'api/teams'
 
 const teamsAPI = {
     getTeams: async (userId) => {
-        try {
-            const response = await axiosInstance.get(`${TEAMS_URL}?personUserId=${userId}`)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка загрузки команд')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.get(`${TEAMS_URL}?personUserId=${userId}`)
+        return response.data
     },
     getTeam: async (teamId) => {
-        try {
-            const response = await axiosInstance.get(`${TEAMS_URL}/${teamId}`)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка загрузки команды')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.get(`${TEAMS_URL}/${teamId}`)
+        return response.data
     },
     addTeam: async (request) => {
-        try {
-            const response = await axiosInstance.post(TEAMS_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка добавления команды')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(TEAMS_URL, request)
+        return response.data
     },
     update: async (request) => {
-        try {
-            const response = await axiosInstance.put(TEAMS_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка изменения команды')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(TEAMS_URL, request)
+        return response.data
     },
     deleteUser: async (teamId, userProfileId) => {
-        try {
-            const response = await axiosInstance.delete(`${TEAMS_URL}/${teamId}/${userProfileId}`)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка изменения команды')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.delete(`${TEAMS_URL}/${teamId}/${userProfileId}`)
+        return response.data
     },
 }
 

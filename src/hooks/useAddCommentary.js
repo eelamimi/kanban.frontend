@@ -1,6 +1,6 @@
 import { useState, useCallback } from 'react'
-
-const MAX_FILE_SIZE = 20 * 1024 * 1024
+import { MAX_FILE_SIZE } from '../consts/fileConsts'
+import { isBlank } from '../utils/fieldValidation'
 
 export const useAddCommentary = ({ onAdd }) => {
     const [commentary, setCommentary] = useState('')
@@ -10,11 +10,8 @@ export const useAddCommentary = ({ onAdd }) => {
 
     const onCommentaryInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setCommentary(value)
-        setErrorCommentary(hasOnlySpaces ? 'Комментарий обязателен' : '')
+        setErrorCommentary(isBlank(value) ? 'Комментарий обязателен' : '')
     }, [])
 
     const resetValues = useCallback(() => {
@@ -24,10 +21,7 @@ export const useAddCommentary = ({ onAdd }) => {
     }, [])
 
     const validateAndSubmit = useCallback(async () => {
-        const clearValue = commentary.trim()
-        const hasOnlySpaces = commentary.length > 0 && clearValue.length === 0
-
-        if (hasOnlySpaces || commentary.length === 0) {
+        if (isBlank(commentary)) {
             setErrorCommentary('Комментарий обязателен')
             return false
         }

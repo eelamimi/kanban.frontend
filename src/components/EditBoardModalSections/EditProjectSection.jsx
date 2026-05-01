@@ -2,11 +2,11 @@ import { memo, useCallback, useContext, useEffect, useState } from 'react'
 import Field from '../Field'
 import TextAreaField from '../TextAreaField'
 import { ProjectContext } from '../../context/Project/ProjectContext'
-import { useEditProjectModalSection } from '../../hook/useEditProjectModalSection'
+import { useEditProjectModalSection } from '../../hooks/useEditProjectModalSection'
 import ModalSection from '../ModalSection'
 import projectAPI from '../../api/projectAPI'
 
-const EditProjectSection = ({ ref = null }) => {
+const EditProjectSection = ({ onClose }) => {
     const { project, setProject } = useContext(ProjectContext)
     const [isWaiting, setIsWaiting] = useState(false)
     const {
@@ -81,7 +81,7 @@ const EditProjectSection = ({ ref = null }) => {
             onClick={handleProjectSubmit}
             isDisabled={isWaiting}
             buttonTitle='Редактировать'
-            ref={ref}
+            onClose={onClose}
         >
             <div className='row' style={{ gap: '25px' }}>
                 <Field

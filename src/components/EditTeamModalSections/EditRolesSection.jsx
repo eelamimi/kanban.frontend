@@ -9,6 +9,7 @@ import Section from '../Section'
 import Button from '../Button'
 import Field from '../Field'
 import rolesAPI from '../../api/rolesAPI'
+import { isBlank } from '../../utils/fieldValidation'
 
 const Role = ({ role }) => {
     const { team, setTeam } = useContext(TeamContext)
@@ -20,24 +21,16 @@ const Role = ({ role }) => {
 
     const onRoleNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setRoleName(value)
-        setErrorRoleName(hasOnlySpaces || value.length === 0 ? 'Название обязательно' : '')
+        setErrorRoleName(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const validateValues = useCallback(() => {
-        let isValid = true
-
-        let clearValue = roleName.trim()
-        let hasOnlySpaces = roleName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || roleName.length === 0) {
+        if (isBlank(roleName)) {
             setErrorRoleName('Название обязательно')
-            isValid = false
+            return false
         }
-
-        return isValid
+        return true
     }, [roleName])
 
     const handleEditRoleButton = useCallback(async () => {
@@ -142,24 +135,16 @@ const AddRole = () => {
 
     const onRoleNameInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setRoleName(value)
-        setErrorRoleName(hasOnlySpaces ? 'Название обязательно' : '')
+        setErrorRoleName(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const validateValues = useCallback(() => {
-        let isValid = true
-
-        let clearValue = roleName.trim()
-        let hasOnlySpaces = roleName.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || roleName.length === 0) {
+        if (isBlank(roleName)) {
             setErrorRoleName('Название обязательно')
-            isValid = false
+            return false
         }
-
-        return isValid
+        return true
     }, [roleName])
 
     const handleAddRoleButton = useCallback(async () => {

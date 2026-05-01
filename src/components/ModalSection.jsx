@@ -1,13 +1,13 @@
 import { useCallback } from 'react'
 import Button from './Button'
 
-const ModalSection = ({ title, children, isDisabled = false, onClick, buttonTitle, ref = null }) => {
+const ModalSection = ({ title, children, isDisabled = false, onClick, buttonTitle, onClose }) => {
     const handleOnClick = useCallback(async () => {
         const canClose = await onClick()
-        if (ref != null && canClose) {
-            ref.current?.close()
+        if (onClose && canClose) {
+            onClose()
         }
-    }, [ref, onClick])
+    }, [onClose, onClick])
 
     return (
         <div className='modal-section'>

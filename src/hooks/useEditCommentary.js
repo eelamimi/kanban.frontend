@@ -1,5 +1,6 @@
 import { useCallback, useState } from 'react'
 import { showError } from '../utils/errorHandler'
+import { isBlank } from '../utils/fieldValidation'
 
 export const useEditCommentary = ({ editInnerHandler, deleteInnerHandler }) => {
     const [isEditingCommentary, setIsEditingCommentary] = useState(false)
@@ -10,21 +11,15 @@ export const useEditCommentary = ({ editInnerHandler, deleteInnerHandler }) => {
 
     const onContentInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setContent(value)
-        setError(hasOnlySpaces || clearValue.length === 0 ? 'Комментарий обязателен' : '')
+        setError(isBlank(value) ? 'Комментарий обязателен' : '')
     }, [])
 
     const handleEditCommentary = useCallback(async () => {
         if (isEditingCommentary) {
             setIsEditing(true)
 
-            const clearValue = content.trim()
-            const hasOnlySpaces = content.length > 0 && clearValue.length === 0
-
-            if (hasOnlySpaces || clearValue.length === 0) {
+            if (isBlank(content)) {
                 setError('Комментарий обязателен')
                 return
             }

@@ -1,5 +1,5 @@
 import RegistryForm from '../components/RegistryForm'
-import { RegistryProvider } from '../context/Registry/RegistryProvider'
+import { RegistryProvider } from '../context/Registry/RegistryContext'
 
 const RegistryPage = () => {
     return (

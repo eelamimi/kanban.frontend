@@ -1,5 +1,5 @@
 import LoginForm from '../components/LoginForm'
-import { LoginProvider } from '../context/Login/LoginProvider'
+import { LoginProvider } from '../context/Login/LoginContext'
 
 const LoginPage = () => {
     return (

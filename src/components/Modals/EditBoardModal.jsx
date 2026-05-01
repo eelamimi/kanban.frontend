@@ -1,4 +1,4 @@
-import { memo, useCallback, useRef } from 'react'
+import { memo, useCallback } from 'react'
 import Modal from '../Modal'
 import EditProjectSection from '../EditBoardModalSections/EditProjectSection'
 import EditColumnRelationsSection from '../EditBoardModalSections/EditColumnRelationsSection'
@@ -6,8 +6,6 @@ import AddColumnSection from '../EditBoardModalSections/AddColumnSection'
 import EditColumnPositionsSection from '../EditBoardModalSections/EditColumnPositionsSection'
 
 function EditBoardModal({ isOpen, onClose }) {
-    const dialogRef = useRef(null)
-
     const handleClose = useCallback(
         () => onClose(), [onClose])
 
@@ -17,10 +15,9 @@ function EditBoardModal({ isOpen, onClose }) {
             title={'Редактирование доски'}
             actionTitle={'Обновить'}
             onClose={handleClose}
-            ref={dialogRef}
         >
-            <EditProjectSection ref={dialogRef} />
-            <AddColumnSection ref={dialogRef} />
+            <EditProjectSection onClose={handleClose} />
+            <AddColumnSection onClose={handleClose} />
             <EditColumnPositionsSection />
             <EditColumnRelationsSection />
         </Modal>

@@ -7,6 +7,7 @@ import authAPI from '../api/authAPI'
 import { LoginContext } from '../context/Login/LoginContext'
 import { useNavigate, Link } from 'react-router'
 import AuthService from '../service/AuthService'
+import { isBlank } from '../utils/fieldValidation'
 
 function LoginForm() {
     const {
@@ -24,8 +25,6 @@ function LoginForm() {
 
     const onEmailInput = (event) => {
         const value = event.target.value
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
         const emailRegex = /^[^\s@]+@([^\s@]+\.)+[^\s@]+$/
 
         setEmail(value)
@@ -33,26 +32,21 @@ function LoginForm() {
         if (value.length === 0) {
             setEmailError('')
         }
+        else if (isBlank(value)) {
+            setEmailError('Email обязателен для заполнения')
+        }
+        else if (!emailRegex.test(value)) {
+            setEmailError('Введите корректный email адрес')
+        }
         else {
-            if (hasOnlySpaces) {
-                setEmailError('Email обязателен для заполнения')
-            } else {
-                if (!emailRegex.test(value)) {
-                    setEmailError('Введите корректный email адрес')
-                } else {
-                    setEmailError('')
-                }
-            }
+            setEmailError('')
         }
     }
 
     const onPasswordInput = ({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setPassword(value)
-        setPasswordError(hasOnlySpaces ? 'Пароль обязателен для заполнения' : '')
+        setPasswordError(isBlank(value) ? 'Пароль обязателен для заполнения' : '')
     }
 
     const validateForm = () => {

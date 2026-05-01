@@ -1,10 +1,10 @@
 import { memo, useCallback, useContext, useEffect } from 'react'
 import { TeamContext } from '../../context/Team/TeamContext'
-import { useEditTeam } from '../../hook/useEditTeam'
+import { useEditTeam } from '../../hooks/useEditTeam'
 import ModalSection from '../ModalSection'
 import Field from '../Field'
 
-const EditTeamSection = ({ ref = null }) => {
+const EditTeamSection = ({ onClose }) => {
     const { team, setTeam } = useContext(TeamContext)
     const {
         teamName,
@@ -30,7 +30,7 @@ const EditTeamSection = ({ ref = null }) => {
             onClick={handleUpdateTeam}
             isDisabled={isWaiting}
             buttonTitle='Редактировать'
-            ref={ref}
+            onClose={onClose}
         >
             <Field
                 id='editTeamName'

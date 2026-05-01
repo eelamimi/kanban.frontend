@@ -4,9 +4,6 @@ import { useParams, useSearchParams } from 'react-router'
 import projectAPI from '../api/projectAPI'
 import { ProjectContext } from '../context/Project/ProjectContext'
 import AuthService from '../service/AuthService'
-import { showError } from '../utils/errorHandler'
-
-const userProfileId = AuthService.getUserInfo().userProfileId
 
 export const useProject = () => {
     const { projectId } = useParams()
@@ -14,6 +11,10 @@ export const useProject = () => {
     const projectIdFromUrl = searchParams.get('projectId')
     const [isLoadingProject, setIsLoadingProject] = useState(true)
     const [project, setProject] = useState(null)
+    const userProfileId = useMemo(() => {
+        const info = AuthService.getUserInfo()
+        return info?.userProfileId ?? null
+    }, [])
 
     const memberIdOptions = useMemo(() => {
         if (!project?.members) return []
@@ -26,9 +27,9 @@ export const useProject = () => {
     }, [project.members])
 
     const curUser = useMemo(() => {
-        if (!memberIdOptions.length) return null
+        if (!memberIdOptions.length || !userProfileId) return null
         return memberIdOptions.find(member => member.value === userProfileId)
-    }, [memberIdOptions])
+    }, [memberIdOptions, userProfileId])
 
     useEffect(() => {
         async function fetchProject(projectId) {
@@ -38,7 +39,7 @@ export const useProject = () => {
                 setIsLoadingProject(false)
             }
             catch (error) {
-                showError(error.message)
+                console.error('Error fetching project:', error)
             }
         }
 

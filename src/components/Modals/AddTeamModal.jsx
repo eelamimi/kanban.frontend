@@ -4,6 +4,7 @@ import Modal from '../Modal'
 import Field from '../Field'
 import { showError } from '../../utils/errorHandler'
 import teamsAPI from '../../api/teamsAPI'
+import { isBlank } from '../../utils/fieldValidation'
 
 function AddTeamModal({ isOpen, onClose }) {
     const { setTeams } = useContext(UserInfoContext)
@@ -13,17 +14,12 @@ function AddTeamModal({ isOpen, onClose }) {
 
     const onTitleInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setTitle(value)
-        setErrorTitle(hasOnlySpaces ? 'Название обязательно' : '')
+        setErrorTitle(isBlank(value) ? 'Название обязательно' : '')
     }, [])
 
     const addTeam = useCallback(async () => {
-        const clearValue = title.trim()
-        const hasOnlySpaces = title.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || title.length === 0) {
+        if (isBlank(title)) {
             setErrorTitle('Название обязательно')
             return false
         }

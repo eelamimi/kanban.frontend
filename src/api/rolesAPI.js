@@ -4,59 +4,19 @@ const ROLES_URL = 'api/roles'
 
 const rolesAPI = {
     add: async (request) => {
-        try {
-            const response = await axiosInstance.post(ROLES_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка добавления роли')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(ROLES_URL, request)
+        return response.data
     },
     update: async (request) => {
-        try {
-            const response = await axiosInstance.put(ROLES_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка изменения роли')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(ROLES_URL, request)
+        return response.data
     },
     delete: async (id) => {
-        try {
-            await axiosInstance.delete(`${ROLES_URL}/${id}`)
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.data || 'Ошибка удаления роли')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        await axiosInstance.delete(`${ROLES_URL}/${id}`)
     },
     updateUserRole: async (request) => {
-        try {
-            const response = await axiosInstance.put(`${ROLES_URL}/updateUserRole`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.data || 'Ошибка изменения роли пользователя')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(`${ROLES_URL}/updateUserRole`, request)
+        return response.data
     },
 }
 

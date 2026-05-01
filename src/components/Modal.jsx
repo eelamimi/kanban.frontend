@@ -1,7 +1,7 @@
-import { useRef, useEffect, useState, useCallback, memo } from 'react'
+import { useRef, useEffect, useState, useCallback, memo, forwardRef } from 'react'
 import Button from './Button'
 
-function Modal({ isOpen, onAction, actionTitle, onClose, isDisabled = false, ref, title, children }) {
+const Modal = memo(forwardRef(function Modal({ isOpen, onAction, actionTitle, onClose, isDisabled = false, title, children }, ref) {
     const [isOverlayClick, setIsOverlayClick] = useState(false)
     const internalDialogRef = useRef(null)
     const dialogRef = ref || internalDialogRef
@@ -74,6 +74,6 @@ function Modal({ isOpen, onAction, actionTitle, onClose, isDisabled = false, ref
             </div>
         </dialog>
     )
-}
+}))
 
-export default memo(Modal)
+export default Modal

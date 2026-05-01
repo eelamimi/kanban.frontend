@@ -1,29 +1,39 @@
 import { useState, useCallback } from 'react'
-import { issuePriorityOptions, issueTypeOptions } from '../consts/issueConsts'
+import { isBlank } from '../utils/fieldValidation'
 
-export const useEditIssueModal = () => {
-    const [title, setTitle] = useState('')
-    const [assignee, setAssignee] = useState(null)
-    const [author, setAuthor] = useState(null)
-    const [issueType, setIssueType] = useState(null)
-    const [priority, setPriority] = useState(null)
-    const [description, setDescription] = useState('')
-    const [storyPoints, setStoryPoints] = useState(1)
+const TEXT_FIELD_MESSAGES = {
+    title: 'Название обязательно',
+    description: 'Описание обязательно',
+}
+
+const SELECT_FIELD_MESSAGES = {
+    assignee: 'Исполнитель обязателен',
+    author: 'Автор обязателен',
+    issueType: 'Тип проблемы обязателен',
+    priority: 'Приоритет проблемы обязателен',
+}
+
+export const useIssueFormFields = ({ initialValues = {} } = {}) => {
+    const [title, setTitle] = useState(initialValues.title ?? '')
+    const [assignee, setAssignee] = useState(initialValues.assignee ?? null)
+    const [author, setAuthor] = useState(initialValues.author ?? null)
+    const [issueType, setIssueType] = useState(initialValues.issueType ?? null)
+    const [priority, setPriority] = useState(initialValues.priority ?? null)
+    const [description, setDescription] = useState(initialValues.description ?? '')
+    const [storyPoints, setStoryPoints] = useState(initialValues.storyPoints ?? 1)
+    const [attachedFiles, setAttachedFiles] = useState([])
+
     const [errorTitle, setErrorTitle] = useState('')
     const [errorAssignee, setErrorAssignee] = useState('')
     const [errorAuthor, setErrorAuthor] = useState('')
     const [errorIssueType, setErrorIssueType] = useState('')
     const [errorPriority, setErrorPriority] = useState('')
     const [errorDescription, setErrorDescription] = useState('')
-    const [attachedFiles, setAttachedFiles] = useState([])
 
     const onTitleInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setTitle(value)
-        setErrorTitle(hasOnlySpaces ? 'Название обязательно' : '')
+        setErrorTitle(isBlank(value) ? TEXT_FIELD_MESSAGES.title : '')
     }, [])
 
     const onAssigneeInput = useCallback((selected) => {
@@ -33,7 +43,7 @@ export const useEditIssueModal = () => {
 
     const onAuthorInput = useCallback((selected) => {
         setAuthor(selected)
-        setErrorAssignee('')
+        setErrorAuthor('')
     }, [])
 
     const onIssueTypeInput = useCallback((selected) => {
@@ -48,77 +58,61 @@ export const useEditIssueModal = () => {
 
     const onDescriptionInput = useCallback(({ target }) => {
         const { value } = target
-        const clearValue = value.trim()
-        const hasOnlySpaces = value.length > 0 && clearValue.length === 0
-
         setDescription(value)
-        setErrorDescription(hasOnlySpaces ? 'Описание обязательно' : '')
+        setErrorDescription(isBlank(value) ? TEXT_FIELD_MESSAGES.description : '')
     }, [])
 
     const validateValues = useCallback(() => {
         let isValid = true
 
-        let clearValue = title.trim()
-        let hasOnlySpaces = title.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || title.length === 0) {
-            setErrorTitle('Название обязательно')
+        if (isBlank(title)) {
+            setErrorTitle(TEXT_FIELD_MESSAGES.title)
             isValid = false
         }
-
         if (assignee === null) {
-            setErrorAssignee('Исполнитель обязателен')
+            setErrorAssignee(SELECT_FIELD_MESSAGES.assignee)
             isValid = false
         }
-
         if (author == null) {
-            setErrorAuthor('Автор обязателен')
+            setErrorAuthor(SELECT_FIELD_MESSAGES.author)
             isValid = false
         }
-
         if (issueType === null) {
-            setErrorIssueType('Тип проблемы обязателен')
+            setErrorIssueType(SELECT_FIELD_MESSAGES.issueType)
             isValid = false
         }
-
         if (priority === null) {
-            setErrorPriority('Приоритет проблемы обязателен')
+            setErrorPriority(SELECT_FIELD_MESSAGES.priority)
             isValid = false
         }
-
-        clearValue = description.trim()
-        hasOnlySpaces = description.length > 0 && clearValue.length === 0
-        if (hasOnlySpaces || description.length === 0) {
-            setErrorDescription('Описание обязательно')
+        if (isBlank(description)) {
+            setErrorDescription(TEXT_FIELD_MESSAGES.description)
             isValid = false
         }
 
         return isValid
-    }, [
-        title,
-        assignee,
-        author,
-        issueType,
-        priority,
-        description
-    ])
+    }, [title, assignee, author, issueType, priority, description])
 
-    const resetValues = useCallback((issue, assignee, author, issueDescription) => {
-        setTitle(issue.title)
-        setAssignee(assignee)
-        setAuthor(author)
-        setIssueType(issueTypeOptions[issue.issueType])
-        setPriority(issuePriorityOptions[4 - issue.issuePriority])
-        setStoryPoints(issue.storyPoints)
-        setDescription(issueDescription)
-        setAttachedFiles([])
-
+    const clearErrors = useCallback(() => {
         setErrorTitle('')
         setErrorAssignee('')
         setErrorAuthor('')
-        setErrorDescription('')
         setErrorIssueType('')
         setErrorPriority('')
+        setErrorDescription('')
     }, [])
+
+    const resetValues = useCallback((values) => {
+        setTitle(values.title ?? '')
+        setAssignee(values.assignee ?? null)
+        setAuthor(values.author ?? null)
+        setIssueType(values.issueType ?? null)
+        setPriority(values.priority ?? null)
+        setStoryPoints(values.storyPoints ?? 1)
+        setDescription(values.description ?? '')
+        setAttachedFiles([])
+        clearErrors()
+    }, [clearErrors])
 
     return {
         title,
