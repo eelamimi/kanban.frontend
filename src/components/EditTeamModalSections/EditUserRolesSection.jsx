@@ -1,4 +1,4 @@
-import { memo, useContext, useMemo, useState } from 'react'
+import { memo, useCallback, useContext, useMemo, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TeamContext } from '../../context/Team/TeamContext'
 import { faX } from '@fortawesome/free-solid-svg-icons'
@@ -6,11 +6,47 @@ import ModalSection from '../ModalSection'
 import SelectField from '../SelectField'
 import Section from '../Section'
 import Button from '../Button'
+import rolesAPI from '../../api/rolesAPI'
+import { showError } from '../../utils/errorHandler'
+import AuthService from '../../service/AuthService'
 
 const Pair = ({ pair, options }) => {
+    const { setTeam } = useContext(TeamContext)
     const fullName = `${pair.user.firstName} ${pair.user.secondName}`
     const [role, setRole] = useState({ value: pair.role.id, label: pair.role.name })
-    console.log(role);
+
+    const onChange = useCallback(async (selected) => {
+        const previousRole = { value: pair.role.id, label: pair.role.name }
+
+        setRole(selected)
+
+        setTeam(prev => ({
+            ...prev,
+            userRolePairs: prev.userRolePairs.map(p =>
+                p.user.id === pair.user.id
+                    ? { ...p, role: { id: selected.value, name: selected.label } }
+                    : p
+            )
+        }))
+
+        try {
+            await rolesAPI.updateUserRole({
+                UserProfileId: pair.user.id,
+                RoleId: selected.value
+            })
+        } catch (err) {
+            setRole(previousRole)
+            setTeam(prev => ({
+                ...prev,
+                userRolePairs: prev.userRolePairs.map(p =>
+                    p.user.id === pair.user.id
+                        ? { ...p, role: { id: previousRole.value, name: previousRole.label } }
+                        : p
+                )
+            }))
+            showError(err?.message || 'Ошибка изменения роли пользователя')
+        }
+    }, [pair, setTeam])
 
     return (
         <div className='row' style={{ gap: '6px' }}>
@@ -23,7 +59,7 @@ const Pair = ({ pair, options }) => {
                     fieldClassName='no-margin-bottom'
                     value={role}
                     options={options}
-                    onChange={setRole}
+                    onChange={onChange}
                     placeholder='Роль'
                     isForEditUserRolesSection
                 />

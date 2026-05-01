@@ -44,6 +44,20 @@ const rolesAPI = {
             }
         }
     },
+    updateUserRole: async (request) => {
+        try {
+            const response = await axiosInstance.put(`${ROLES_URL}/updateUserRole`, request)
+            return response.data
+        } catch (error) {
+            if (error.response) {
+                throw new Error(error.response?.data || 'Ошибка изменения роли пользователя')
+            } else if (error.request) {
+                throw new Error('Сервер не отвечает')
+            } else {
+                throw new Error(error.message)
+            }
+        }
+    },
 }
 
 export default rolesAPI
