@@ -8,6 +8,7 @@ import Span from './Span'
 import { TeamContext } from '../context/Team/TeamContext'
 import AddProjectModal from './Modals/AddProjectModal'
 import EditTeamModal from './Modals/EditTeamModal'
+import InviteUserModal from './Modals/InviteUserModal'
 
 const TeamDetails = () => {
     const {
@@ -17,6 +18,7 @@ const TeamDetails = () => {
     const { userProfileId } = AuthService.getUserInfo()
     const [isAddProject, setIsAddProject] = useState(false)
     const [isEditTeamOpen, setIsEditTeamOpen] = useState(false)
+    const [isInviteUser, setIsInviteUser] = useState(false)
 
     if (isLoadingTeam) {
         return (
@@ -80,7 +82,16 @@ const TeamDetails = () => {
             <Section>
                 <div className='subsection'>
                     <div className='h1'>Пользователи</div>
-                    <Button className='left'>Пригласить</Button>
+                    <Button
+                        className='left'
+                        onClick={() => setIsInviteUser(true)}
+                    >
+                        Пригласить
+                    </Button>
+                    <InviteUserModal
+                        isOpen={isInviteUser}
+                        onClose={() => setIsInviteUser(false)}
+                    />
                 </div>
                 <List
                     items={team.userRolePairs}
