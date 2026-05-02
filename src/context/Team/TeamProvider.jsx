@@ -1,5 +1,5 @@
 import { useParams } from 'react-router'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { TeamContext } from './TeamContext'
 import AuthService from '../../service/AuthService'
 import teamsAPI from '../../api/teamsAPI'
@@ -8,6 +8,13 @@ const TeamProvider = ({ children }) => {
     const { teamId } = useParams()
     const [isLoadingTeam, setIsLoadingTeam] = useState(true)
     const [team, setTeam] = useState(null)
+    const roleOptions = useMemo(() => {
+        if (!team?.roles) return []
+        return team.roles.map((r) => ({
+            value: r.id,
+            label: r.name
+        }))
+    }, [team.roles])
 
     useEffect(() => {
         async function fetchTeam() {
@@ -28,7 +35,8 @@ const TeamProvider = ({ children }) => {
             value={{
                 isLoadingTeam,
                 team,
-                setTeam
+                setTeam,
+                roleOptions
             }}
         >
             {children}

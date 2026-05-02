@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext, useMemo, useState } from 'react'
+import { memo, useCallback, useContext, useState } from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { TeamContext } from '../../context/Team/TeamContext'
 import { faX } from '@fortawesome/free-solid-svg-icons'
@@ -102,14 +102,7 @@ const Pair = ({ pair, options }) => {
 }
 
 const EditUserRolesSection = () => {
-    const { team } = useContext(TeamContext)
-    const roleOptions = useMemo(() => {
-        if (!team?.roles) return []
-        return team.roles.map((r) => ({
-            value: r.id,
-            label: r.name
-        }))
-    }, [team.roles])
+    const { team, roleOptions } = useContext(TeamContext)
 
     return (
         <ModalSection title='Редактирование пользователей'>
