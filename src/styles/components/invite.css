@@ -1,0 +1,8 @@
+.invite-section {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -60%);
+    margin: 0;
+    width: 200px;
+}

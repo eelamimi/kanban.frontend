@@ -1,10 +1,14 @@
 import { memo } from 'react'
+import Section from './Section'
+import Button from './Button'
 
 const InviteSection = () => {
     return (
-        <>
-            hello world
-        </>
+        <Section className='invite-section'>
+            <Button>
+                Принять приглашение
+            </Button>
+        </Section>
     )
 }
 
