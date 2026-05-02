@@ -16,7 +16,7 @@ const InviteUserModal = ({ isOpen, onClose }) => {
             TeamId: team.id,
             RoleId: selectedRole.value
         })
-        await navigator.clipboard.writeText(`${window.location.origin}?invite=${inviteToken}`)
+        await navigator.clipboard.writeText(`${window.location.origin}/invite?token=${inviteToken}`)
         setIsWaiting(false)
         showError('Ссылка скопирована')
         return true
