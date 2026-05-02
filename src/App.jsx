@@ -12,7 +12,8 @@ import {
     TeamsPage,
     TeamPage,
     ProjectPage,
-    IssuePage
+    IssuePage,
+    InvitePage,
 } from './pages/routeConfig'
 
 const PageLoader = memo(() => (
@@ -46,6 +47,7 @@ function App() {
 
             <Suspense fallback={<PageLoader />}>
                 <Routes>
+                    <Route path='invite' element={<InvitePage />} />
                     <Route path='auth'>
                         <Route path='registry' element={<RegistryPage />} />
                         <Route path='login' element={<LoginPage />} />
