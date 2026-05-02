@@ -2,37 +2,37 @@
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    padding: 8px;
+    padding: var(--spacing-sm);
     color: whitesmoke;
-    background-color: black;
-    border: 2px solid black;
-    border-radius: 10px;
+    background-color: var(--color-text);
+    border: var(--border-thick);
+    border-radius: var(--radius-lg);
     cursor: pointer;
-    font-size: 16px;
+    font-size: var(--font-size-md);
 
     &:not(:disabled) {
         &:hover {
-            color: black;
+            color: var(--color-text);
             background-color: transparent;
         }
     }
 }
 
 .button.close {
-    background-color: red;
-    border-color: red;
+    background-color: var(--color-error);
+    border-color: var(--color-error);
 
     &:not(:disabled) {
         &:hover {
-            color: black;
+            color: var(--color-text);
             background-color: transparent;
-            border-color: red;
+            border-color: var(--color-error);
         }
     }
 }
 
 .button:disabled {
-    background-color: #777;
-    border-color: #777;
+    background-color: var(--color-disabled);
+    border-color: var(--color-disabled);
     cursor: not-allowed;
 }

@@ -1,7 +1,7 @@
 .transition-matrix {
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    border: 2px solid black;
+    border: var(--border-thick);
 }
 
 .matrix-table {
@@ -11,9 +11,9 @@
 
 .matrix-table th,
 .matrix-table td {
-    border: 1px solid black;
+    border: var(--border-thin);
     padding: 12px;
-    border-radius: 4px;
+    border-radius: var(--radius-md);
     text-align: center;
 }
 
@@ -23,12 +23,12 @@
 }
 
 .matrix-table tr:last-child th {
-    border-bottom: 2px solid black;
+    border-bottom: var(--border-thick);
 }
 
 .matrix-table tr th,
 .matrix-table tr td {
-    border-right: 2px solid black;
+    border-right: var(--border-thick);
 }
 
 .matrix-table tr th:not(:first-child),
@@ -63,17 +63,17 @@
     width: 20px;
     height: 20px;
     border: 1px solid #999;
-    border-radius: 4px;
-    background-color: white;
+    border-radius: var(--radius-md);
+    background-color: var(--color-bg);
     cursor: pointer;
     position: relative;
-    transition: all 0.2s;
+    transition: var(--transition-fast);
     margin: 0;
 }
 
 .transition-checkbox:checked {
-    background-color: #4caf50;
-    border-color: #4caf50;
+    background-color: var(--color-success);
+    border-color: var(--color-success);
 }
 
 .transition-checkbox:checked::after {
@@ -82,23 +82,23 @@
     top: 40%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: white;
+    color: var(--color-bg);
     font-size: 14px;
     font-weight: bold;
 }
 
 .transition-checkbox:hover {
-    border-color: #4caf50;
+    border-color: var(--color-success);
 }
 
 .self-transition {
-    color: black;
+    color: var(--color-text);
 }
 
 .matrix-cell {
-    background-color: white;
+    background-color: var(--color-bg);
 }
 
 .matrix-cell:has(.transition-checkbox:checked) {
-    background-color: white;
+    background-color: var(--color-bg);
 }

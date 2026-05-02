@@ -1,24 +1,24 @@
 .issue {
-    padding: .5rem;
-    border-bottom: 1px solid gray;
+    padding: 0.5rem;
+    border-bottom: 1px solid var(--color-border-gray);
 
     &:hover {
-        background-color: #acacac;
+        background-color: var(--color-bg-hover);
         cursor: pointer;
     }
 
     &:first-child {
-        border-radius: 2px 2px 0 0;
+        border-radius: var(--radius-sm) var(--radius-sm) 0 0;
     }
 
     &:last-child {
         border-bottom: none;
-        border-radius: 0 0 2px 2px;
+        border-radius: 0 0 var(--radius-sm) var(--radius-sm);
     }
 
     &:only-child {
         border-bottom: none;
-        border-radius: 2px;
+        border-radius: var(--radius-sm);
     }
 }
 
@@ -34,21 +34,21 @@
 }
 
 .issue_img-container {
-    width: 14x;
+    width: 14px;
     height: 14px;
     display: flex;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     align-items: center;
 
     & img {
-        border-radius: 3px;
+        border-radius: var(--radius-sm);
     }
 }
 
 .issue_publicId {
-    font-size: 13px;
-    height: 13px;
+    font-size: var(--font-size-sm);
+    height: var(--font-size-sm);
     padding: 0;
     margin: 0;
 
@@ -62,29 +62,29 @@
 }
 
 .issue_title {
-    font-size: 16px;
+    font-size: var(--font-size-md);
 }
 
 .issue_storyPoints {
-    font-size: 13px;
+    font-size: var(--font-size-sm);
     align-items: center;
-    border: 1px solid gray;
+    border: 1px solid var(--color-border-gray);
     background-color: lightgray;
     padding: 0 2px;
-    border-radius: 2px;
+    border-radius: var(--radius-sm);
     height: 12px;
     display: flex;
 }
 
 .issue-details_img-container {
-    width: 18.4x;
+    width: 18.4px;
     height: 18.4px;
     display: flex;
     justify-content: center;
-    border-radius: 3px;
+    border-radius: var(--radius-sm);
     align-items: center;
 
     & img {
-        border-radius: 3px;
+        border-radius: var(--radius-sm);
     }
 }

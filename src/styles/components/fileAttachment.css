@@ -1,6 +1,6 @@
 .fileAttachment__container {
     margin: 0;
-    margin-bottom: 25px;
+    margin-bottom: var(--spacing-25);
 }
 
 .fileAttachment__link {
@@ -17,13 +17,13 @@
 .fileAttachment__remove {
     background: none;
     border: none;
-    color: red;
+    color: var(--color-error);
     margin: 0;
     padding: 0 5px;
 
     &:not(:disabled) {
         &:hover {
-            color: rgb(125, 0, 0);
+            color: var(--color-error-dark);
         }
     }
 }

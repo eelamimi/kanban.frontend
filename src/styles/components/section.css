@@ -1,16 +1,16 @@
 .section {
-    border: 1px solid black;
-    border-radius: 10px;
+    border: var(--border-thin);
+    border-radius: var(--radius-lg);
     display: flex;
     flex-direction: column;
-    margin: 2rem auto;
-    padding: 2rem;
+    margin: var(--spacing-xl) auto;
+    padding: var(--spacing-xl);
     width: 600px;
-    background-color: white;
+    background-color: var(--color-bg);
 }
 
 .section.full-width {
-    margin: 2rem;
+    margin: var(--spacing-xl);
     width: auto;
 }
 

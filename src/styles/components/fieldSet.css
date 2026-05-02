@@ -4,15 +4,15 @@
     align-items: center;
     width: 100%;
     max-width: 400px;
-    border: 1px solid black;
-    border-radius: 10px;
+    border: var(--border-thin);
+    border-radius: var(--radius-lg);
     padding: 20px;
-    background-color: #fff;
+    background-color: var(--color-bg);
 
     & legend {
-        background-color: #fff;
-        border-radius: 10px;
+        background-color: var(--color-bg);
+        border-radius: var(--radius-lg);
         padding: 1px 5px;
-        border: 1px solid black;
+        border: var(--border-thin);
     }
 }
