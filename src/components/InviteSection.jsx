@@ -1,5 +1,6 @@
 import { useSearchParams } from 'react-router'
 import { memo, useCallback } from 'react'
+import { showError } from '../utils/errorHandler'
 import AuthService from '../service/AuthService'
 import inviteAPI from '../api/inviteAPI'
 import Section from './Section'
@@ -10,6 +11,10 @@ const InviteSection = () => {
     const token = searchParams.get('token')
 
     const handleInviteUser = useCallback(async () => {
+        if (!token) {
+            showError('Приглашение недействительно')
+            return
+        }
         const teamId = await inviteAPI.sendToken({
             Token: token
         })
