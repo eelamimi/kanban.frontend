@@ -4,48 +4,16 @@ const AUTH_URL = 'api/auth'
 
 const authAPI = {
     registerUser: async (request) => {
-        try {
-            const response = await axiosInstance.post(`${AUTH_URL}/register`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка регистрации')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(`${AUTH_URL}/register`, request)
+        return response.data
     },
-
     loginUser: async (request) => {
-        try {
-            const response = await axiosInstance.post(`${AUTH_URL}/login`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка авторизации')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(`${AUTH_URL}/login`, request)
+        return response.data
     },
-
     verifyToken: async (request) => {
-        try {
-            const response = await axiosInstance.post(`${AUTH_URL}/verify`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Токен недействителен')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(`${AUTH_URL}/verify`, request)
+        return response.data
     },
 }
 

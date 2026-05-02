@@ -4,46 +4,16 @@ const PROJECT_URL = 'api/projects'
 
 const projectAPI = {
     get: async (projectId) => {
-        try {
-            const response = await axiosInstance.get(`${PROJECT_URL}/${projectId}`)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка загрузки проекта')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.get(`${PROJECT_URL}/${projectId}`)
+        return response.data
     },
     update: async (request) => {
-        try {
-            const response = await axiosInstance.put(`${PROJECT_URL}`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка обновление проекта')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(`${PROJECT_URL}`, request)
+        return response.data
     },
     add: async (request) => {
-        try {
-            const response = await axiosInstance.post(PROJECT_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.data || 'Ошибка добавления проекта')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(PROJECT_URL, request)
+        return response.data
     },
 }
 

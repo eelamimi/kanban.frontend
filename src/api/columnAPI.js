@@ -4,72 +4,22 @@ const COLUMN_URL = 'api/columns'
 
 const columnAPI = {
     add: async (request) => {
-        try {
-            const response = await axiosInstance.post(COLUMN_URL, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка добавления колонки')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.post(COLUMN_URL, request)
+        return response.data
     },
     updatePosition: async (request) => {
-        try {
-            const response = await axiosInstance.put(`${COLUMN_URL}/updatePosition`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка обновления позиции')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(`${COLUMN_URL}/updatePosition`, request)
+        return response.data
     },
     updateRelation: async (request) => {
-        try {
-            const response = await axiosInstance.put(`${COLUMN_URL}/updateRelation`, request)
-            return response.data
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка обновления связи')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        const response = await axiosInstance.put(`${COLUMN_URL}/updateRelation`, request)
+        return response.data
     },
     update: async (request) => {
-        try {
-            await axiosInstance.put(COLUMN_URL, request)
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка изменения имени колонки')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        await axiosInstance.put(COLUMN_URL, request)
     },
     delete: async (id) => {
-        try {
-            await axiosInstance.delete(`${COLUMN_URL}/${id}`)
-        } catch (error) {
-            if (error.response) {
-                throw new Error(error.response?.message || 'Ошибка удаление колонки')
-            } else if (error.request) {
-                throw new Error('Сервер не отвечает')
-            } else {
-                throw new Error(error.message)
-            }
-        }
+        await axiosInstance.delete(`${COLUMN_URL}/${id}`)
     },
 }
 
