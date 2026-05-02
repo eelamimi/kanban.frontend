@@ -7,6 +7,10 @@ const inviteAPI = {
         const response = await axiosInstance.post(INVITE_URL, request)
         return response.data
     },
+    sendToken: async (request) => {
+        const response = await axiosInstance.post(`${INVITE_URL}/inviteUser`, request)
+        return response.data
+    },
 }
 
 export default inviteAPI
