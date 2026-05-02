@@ -48,11 +48,10 @@ function AddIssueModal({ isOpen, onClose }) {
     } = useAddIssueModal({ curUser })
 
     const addIssue = useCallback(async () => {
-        setIsWaiting(true)
-        if (!validateValues()) {
-            setIsWaiting(false)
+        if (!validateValues())
             return false
-        }
+
+        setIsWaiting(true)
 
         const formData = new FormData()
         formData.append('ProjectId', project.id)
