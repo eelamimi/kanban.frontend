@@ -5,7 +5,7 @@
 }
 
 dialog {
-    border: 1px solid #777;
+    border: 1px solid black;
     border-radius: 10px;
     padding: 0;
     min-width: 600px;
