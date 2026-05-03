@@ -6,7 +6,8 @@ function Button(props) {
         type = 'button',
         isDisabled,
         onClick,
-        children
+        children,
+        title
     } = props
 
     return (
@@ -15,6 +16,7 @@ function Button(props) {
             type={type}
             disabled={isDisabled}
             onClick={onClick}
+            title={title}
         >
             {children}
         </button>
