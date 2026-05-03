@@ -52,20 +52,27 @@ const getBaseStyles = (hasError) => ({
         padding: '0',
         fontWeight: '200',
     }),
-    option: (base, state) => ({
-        ...base,
-        padding: '.5rem 1rem',
-        backgroundColor: state.isSelected ? 'dimgray' : 'transparent',
-        '&:first-of-type': {
-            borderRadius: '4px 4px 0 0',
-        },
-        '&:last-child': {
-            borderRadius: '0 0 4px 4px',
-        },
-        '&:hover': {
-            backgroundColor: state.isSelected ? 'gray' : 'lightgray',
-        },
-    }),
+    option: (base, state) => {
+        const option = state.selectProps?.options
+            ?.flatMap(t => t?.options)
+            ?.find(p => p?.value === state?.value)
+        const isOnly = !option ? false : option.isOnly
+
+        return {
+            ...base,
+            padding: '.5rem 1rem',
+            backgroundColor: state.isSelected ? 'dimgray' : 'transparent',
+            '&:first-of-type': {
+                borderRadius: isOnly ? '4px' : '4px 4px 0 0',
+            },
+            '&:last-child': {
+                borderRadius: isOnly ? '4px' : '0 0 4px 4px',
+            },
+            '&:hover': {
+                backgroundColor: state.isSelected ? 'gray' : 'lightgray',
+            },
+        }
+    },
     placeholder: () => ({
         display: 'none',
     })

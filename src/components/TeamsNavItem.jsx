@@ -30,7 +30,8 @@ const TeamsNavItem = () => {
             label: team.name,
             options: team.projects.map(project => ({
                 value: project.id,
-                label: project.name
+                label: project.name,
+                isOnly: team.projects.length === 1
             }))
         }))
     }, [teams])
