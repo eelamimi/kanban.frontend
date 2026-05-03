@@ -1,6 +1,6 @@
-import { useEffect, useState, useCallback } from 'react'
+import { memo, useEffect, useState, useCallback } from 'react'
 
-export default function ErrorToast({ message, onClose }) {
+const ErrorToast = ({ message, onClose }) => {
   const [isClosing, setIsClosing] = useState(false)
 
   const handleClose = useCallback(() => {
@@ -19,3 +19,5 @@ export default function ErrorToast({ message, onClose }) {
     </div>
   )
 }
+
+export default memo(ErrorToast)
