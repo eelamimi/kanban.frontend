@@ -1,5 +1,5 @@
 import baseAvatar from '../assets/img/default_avatar.jpg'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useEffect, useMemo, useCallback } from 'react'
 import { useParams, useSearchParams } from 'react-router'
 import projectAPI from '../api/projectAPI'
 import { ProjectContext } from '../context/Project/ProjectContext'
@@ -12,6 +12,9 @@ export const useProject = () => {
     const { projectId } = useParams()
     const [searchParams] = useSearchParams()
     const projectIdFromUrl = searchParams.get('projectId')
+    const assigneeId = searchParams.get('assignee')
+    const authorId = searchParams.get('author')
+    const [isLoadingFilters, setIsLoadingFilters] = useState(false)
     const [isLoadingProject, setIsLoadingProject] = useState(true)
     const [project, setProject] = useState(null)
 
@@ -23,17 +26,34 @@ export const useProject = () => {
             img: !member.avatar ? baseAvatar : `data:image/jpeg;base64,${member.avatar}`,
             imgClassName: 'member-avatar-option'
         }))
-    }, [project.members])
+    }, [project?.members])
 
     const curUser = useMemo(() => {
         if (!memberIdOptions.length) return null
         return memberIdOptions.find(member => member.value === userProfileId)
     }, [memberIdOptions])
 
+    const updateIssues = useCallback(async () => {
+        setIsLoadingFilters(true)
+        try {
+            const response = await projectAPI.get(projectId, authorId, assigneeId)
+            setProject(prev => ({
+                ...prev,
+                columns: response.columns
+            }))
+        }
+        catch (error) {
+            showError(error.message)
+        }
+        finally {
+            setIsLoadingFilters(false)
+        }
+    }, [assigneeId, authorId, projectId])
+
     useEffect(() => {
-        async function fetchProject(projectId) {
+        async function fetchProject(projectId, authorId, assigneeId) {
             try {
-                const response = await projectAPI.get(projectId)
+                const response = await projectAPI.get(projectId, authorId, assigneeId)
                 setProject(response)
                 setIsLoadingProject(false)
             }
@@ -42,8 +62,8 @@ export const useProject = () => {
             }
         }
 
-        fetchProject(projectId || projectIdFromUrl)
-    }, [projectId, projectIdFromUrl])
+        fetchProject(projectId || projectIdFromUrl, authorId || '', assigneeId || '')
+    }, [assigneeId, authorId, projectId, projectIdFromUrl])
 
     return {
         project,
@@ -51,5 +71,7 @@ export const useProject = () => {
         isLoadingProject,
         memberIdOptions,
         curUser,
+        isLoadingFilters,
+        updateIssues,
     }
 }
