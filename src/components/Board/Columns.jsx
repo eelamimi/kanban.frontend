@@ -6,9 +6,10 @@ import Column from './Column'
 import AddIssueModal from '../Modals/AddIssueModal'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import issueAPI from '../../api/issueAPI'
+import Spinner from '../Spinner'
 
 const Columns = () => {
-    const { project, setProject } = useContext(ProjectContext)
+    const { project, setProject, isLoadingFilters } = useContext(ProjectContext)
     const [allowedColumnIds, setAllowedColumnIds] = useState([])
     const [isAddIssueOpen, setIsAddIssueOpen] = useState(false)
 
@@ -100,6 +101,13 @@ const Columns = () => {
             setProject(prevProject)
         }
     }, [project, setProject, allowedColumnIds, findColumnByIssueId])
+
+    if (isLoadingFilters)
+        return (
+            <Section className='full-width'>
+                <Spinner />
+            </Section>
+        )
 
     return (
         <DndContext
