@@ -1,12 +1,33 @@
 .filtersContainer {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     gap: var(--spacing-md);
-    margin-top: var(--spacing-md);
+
+    & span {
+        font-weight: bold;
+        font-size: large;
+    }
 }
 
-.filters {
+.membersContainer {
     display: flex;
     flex-direction: row;
-    gap: 0.5rem;
+    gap: var(--spacing-sm);
+}
+
+.filter {
+    background-color: white;
+    color: black;
+    border: none;
+    margin: 0;
+    padding: 1px 3px;
+
+    &:hover {
+        text-decoration: underline;
+    }
+
+    &.activated {
+        outline: var(--border-thin);
+        border-radius: var(--radius-lg);
+    }
 }
