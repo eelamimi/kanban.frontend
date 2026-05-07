@@ -7,7 +7,9 @@ const ProjectProvider = ({ children }) => {
         setProject,
         isLoadingProject,
         memberIdOptions,
-        curUser
+        curUser,
+        isLoadingFilters,
+        updateIssues,
     } = useProject()
 
     return (
@@ -17,7 +19,9 @@ const ProjectProvider = ({ children }) => {
                 setProject,
                 isLoadingProject,
                 memberIdOptions,
-                curUser
+                curUser,
+                isLoadingFilters,
+                updateIssues,
             }}
         >
             {children}
