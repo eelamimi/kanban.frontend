@@ -95,3 +95,16 @@ body {
 .margin-top {
     margin-top: var(--spacing-25) !important;
 }
+
+.no-margin-top {
+    margin-top: 0 !important;
+}
+
+.color-black {
+    color: black !important;
+}
+
+.bold {
+    font-weight: bold;
+    font-size: large;
+}
