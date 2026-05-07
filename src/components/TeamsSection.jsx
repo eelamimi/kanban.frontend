@@ -1,3 +1,4 @@
+import { useSearchParams } from 'react-router'
 import { useContext, useState } from 'react'
 import { UserInfoContext } from '../context/UserInfo/UserInfoContext'
 import AddTeamModal from './Modals/AddTeamModal'
@@ -9,9 +10,13 @@ import List from './List'
 const TeamsSection = () => {
     const {
         teams,
-        isLoadingTeams
+        isLoadingTeams,
+        user
     } = useContext(UserInfoContext)
     const [isAddTeam, setIsAddTeam] = useState(false)
+    const [searchParams] = useSearchParams()
+    const userId = searchParams.get('userId')
+    const canAddTeam = (userId && userId === user.id) || !userId
 
     return (
         <Section>
@@ -21,16 +26,17 @@ const TeamsSection = () => {
                 <>
                     <div className='subsection'>
                         <div className='h1'>Команды</div>
-                        <Button
-                            className='left'
-                            onClick={() => setIsAddTeam(true)}
-                        >
-                            Добавить
-                        </Button>
-                        <AddTeamModal
-                            isOpen={isAddTeam}
-                            onClose={() => setIsAddTeam(false)}
-                        />
+                        {canAddTeam &&
+                            <>
+                                <Button
+                                    className='left'
+                                    onClick={() => setIsAddTeam(true)}
+                                >
+                                    Добавить
+                                </Button><AddTeamModal
+                                    isOpen={isAddTeam}
+                                    onClose={() => setIsAddTeam(false)} />
+                            </>}
                     </div>
                     <List
                         items={teams}
