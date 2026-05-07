@@ -3,8 +3,17 @@ import axiosInstance from './axiosConfig'
 const PROJECT_URL = 'api/projects'
 
 const projectAPI = {
-    get: async (projectId) => {
-        const response = await axiosInstance.get(`${PROJECT_URL}/${projectId}`)
+    get: async (projectId, author = '', assignee = '') => {
+        const params = new URLSearchParams()
+        if (author) params.append('author', author)
+        if (assignee) params.append('assignee', assignee)
+
+        const queryString = params.toString()
+        const url = queryString
+            ? `${PROJECT_URL}/${projectId}?${queryString}`
+            : `${PROJECT_URL}/${projectId}`
+
+        const response = await axiosInstance.get(url)
         return response.data
     },
     update: async (request) => {
