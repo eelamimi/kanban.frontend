@@ -3,10 +3,10 @@ import axiosInstance from './axiosConfig'
 const PROJECT_URL = 'api/projects'
 
 const projectAPI = {
-    get: async (projectId, author = '', assignee = '') => {
+    get: async (projectId, authorId = '', assigneeId = '') => {
         const params = new URLSearchParams()
-        if (author) params.append('author', author)
-        if (assignee) params.append('assignee', assignee)
+        if (authorId) params.append('authorId', authorId)
+        if (assigneeId) params.append('assigneeId', assigneeId)
 
         const queryString = params.toString()
         const url = queryString
