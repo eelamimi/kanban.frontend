@@ -20,7 +20,7 @@ const Issue = ({ issue }) => {
     }, [issue.assignee.avatar])
     const assigneeImgTitle = useMemo(() => {
         return `Исполнитель: ${issue.assignee.firstName} ${issue.assignee.secondName}`
-    }, [])
+    }, [issue.assignee.firstName, issue.assignee.secondName])
 
     const style = useMemo(() => {
         return {
