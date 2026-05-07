@@ -6,6 +6,8 @@ header {
     align-items: center;
     padding: .5rem 1rem;
     gap: 1rem;
+    background-color: white;
+    border-radius: 0 0 var(--radius-lg) var(--radius-lg);
 }
 
 .nav-teams {
@@ -45,6 +47,8 @@ header {
     font-size: xx-large;
     width: 26.5px;
     height: 26.5px;
+    position: relative;
+    top: -3px;
 
     &:not(:disabled) {
         &:hover {
