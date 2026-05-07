@@ -48,7 +48,7 @@ const TeamsNavItem = () => {
         <div className='nav-item nav-teams'>
             <SelectField
                 fieldClassName='no-margin-bottom'
-                placeholder=''
+                placeholder='Перейти в'
                 options={options}
                 value={link}
                 onChange={handleLinkChange}
