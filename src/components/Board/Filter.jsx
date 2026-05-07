@@ -1,13 +1,13 @@
 import { memo } from 'react'
 import Button from '../Button'
 
-const Filter = ({ children, title }) => {
+const Filter = ({ member }) => {
     return (
         <Button
             className='filter'
-            title={title}
+            title={`${member.firstName} ${member.secondName}`}
         >
-            {children}
+            {member.firstName}
         </Button>
     )
 }

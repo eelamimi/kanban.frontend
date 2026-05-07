@@ -20,11 +20,9 @@ const Filters = () => {
                 {project.members.map((member) =>
                     <Filter
                         key={member.id}
-                        title={`${member.firstName} ${member.secondName}`}
+                        member={member}
                         isAssignee
-                    >
-                        {member.firstName}
-                    </Filter>
+                    />
                 )}
             </div>
             <div className='membersContainer'>
@@ -35,10 +33,8 @@ const Filters = () => {
                 {project.members.map((member) =>
                     <Filter
                         key={member.id}
-                        title={`${member.firstName} ${member.secondName}`}
-                    >
-                        {member.firstName}
-                    </Filter>
+                        member={member}
+                    />
                 )}
             </div>
         </div>
