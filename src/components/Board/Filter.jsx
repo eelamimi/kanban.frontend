@@ -1,5 +1,5 @@
 import { useNavigate, useSearchParams } from 'react-router'
-import { memo, useCallback, useContext } from 'react'
+import { memo, useCallback, useContext, useMemo } from 'react'
 import { ProjectContext } from '../../context/Project/ProjectContext'
 import Button from '../Button'
 
@@ -7,6 +7,13 @@ const Filter = ({ member, isAssignee = false }) => {
     const { updateIssues } = useContext(ProjectContext)
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
+
+    const isActive = useMemo(() => {
+        const paramValue = isAssignee
+            ? searchParams.get('assignee')
+            : searchParams.get('author')
+        return paramValue === member.id
+    }, [searchParams, member.id, isAssignee])
 
     const updateParams = useCallback(async () => {
         const currentAuthor = searchParams.get('author')
@@ -30,7 +37,7 @@ const Filter = ({ member, isAssignee = false }) => {
 
     return (
         <Button
-            className='filter'
+            className={`filter ${isActive ? 'activated' : ''}`}
             title={`${member.firstName} ${member.secondName}`}
             onClick={updateParams}
         >
