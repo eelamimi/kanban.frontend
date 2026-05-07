@@ -15,6 +15,18 @@ const Filters = () => {
             <div className='membersContainer'>
                 <Span
                     className='no-margin-top'
+                    label='По автору:'
+                />
+                {project.members.map((member) =>
+                    <Filter
+                        key={member.id}
+                        member={member}
+                    />
+                )}
+            </div>
+            <div className='membersContainer'>
+                <Span
+                    className='no-margin-top'
                     label='По исполнителю:'
                 />
                 {project.members.map((member) =>
@@ -22,18 +34,6 @@ const Filters = () => {
                         key={member.id}
                         member={member}
                         isAssignee
-                    />
-                )}
-            </div>
-            <div className='membersContainer'>
-                <Span
-                    className='no-margin-top'
-                    label='По автору:'
-                />
-                {project.members.map((member) =>
-                    <Filter
-                        key={member.id}
-                        member={member}
                     />
                 )}
             </div>
