@@ -9,7 +9,8 @@ const UserInfoProvider = ({ children }) => {
     const [searchParams] = useSearchParams()
     const userIdFromUrl = searchParams.get('userId')
 
-    const { firstName,
+    const {
+        firstName,
         setFirstName,
         secondName,
         setSecondName,
@@ -19,7 +20,8 @@ const UserInfoProvider = ({ children }) => {
         setAvatar,
         isUserInfoLoading,
         createdAt,
-        loadUserById
+        loadUserById,
+        user,
     } = useUserInfo()
 
     const {
@@ -56,7 +58,8 @@ const UserInfoProvider = ({ children }) => {
                 createdAt,
                 teams,
                 setTeams,
-                isLoadingTeams
+                isLoadingTeams,
+                user,
             }}
         >
             {children}

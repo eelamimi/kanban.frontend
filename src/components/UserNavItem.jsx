@@ -1,4 +1,4 @@
-import { memo, useCallback, useContext } from 'react'
+import { memo, useCallback, useContext, useMemo } from 'react'
 import { UserInfoContext } from '../context/UserInfo/UserInfoContext'
 import baseAvatar from '../assets/img/default_avatar.jpg'
 import Button from './Button'
@@ -6,11 +6,11 @@ import { Link } from 'react-router'
 import AuthService from '../service/AuthService'
 
 const UserNavItem = () => {
-    const {
-        firstName,
-        secondName,
-        avatar
-    } = useContext(UserInfoContext)
+    const { user } = useContext(UserInfoContext)
+    const avatar = useMemo(() => user?.avatar,
+        [user?.avatar])
+    const fullName = useMemo(() => `${user?.firstName} ${user?.secondName}`,
+        [user.firstName, user.secondName])
 
     const handleExit = useCallback(() => {
         AuthService.clearUserInfo()
@@ -31,7 +31,7 @@ const UserNavItem = () => {
                 className='user-nav-item__name'
                 to='/profile'
             >
-                {`${firstName} ${secondName}`}
+                {fullName}
             </Link>
             <Button
                 className='exit-button'

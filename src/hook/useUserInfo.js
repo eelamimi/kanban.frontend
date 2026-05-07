@@ -9,6 +9,11 @@ const useUserInfo = () => {
     const [createdAt, setCreatedAt] = useState(null)
     const [avatar, setAvatar] = useState('')
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
+    const [user, setUser] = useState({
+        avatar: '',
+        firstName: '',
+        secondName: '',
+    })
 
     const loadUserById = useCallback(async (userId) => {
         const response = await userAPI.getUserInfo(userId)
@@ -17,6 +22,15 @@ const useUserInfo = () => {
         setEmail(response.email)
         setCreatedAt(response.createdAt)
         setAvatar(response.avatar)
+
+        const curUserId = AuthService.getUserInfo().userProfileId
+        if (userId === curUserId) {
+            setUser(response)
+        } else {
+            const curUser = await userAPI.getUserInfo(curUserId)
+            setUser(curUser)
+        }
+
         setIsUserInfoLoading(false)
     }, [])
 
@@ -31,7 +45,8 @@ const useUserInfo = () => {
         setAvatar,
         isUserInfoLoading,
         createdAt,
-        loadUserById
+        loadUserById,
+        user,
     }
 }
 
