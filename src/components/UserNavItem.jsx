@@ -24,8 +24,8 @@ const UserNavItem = () => {
                 src={!avatar ? baseAvatar : `data:image/jpeg;base64,${avatar}`}
                 alt='Фото профиля'
                 loading='lazy'
-                width={52}
-                height={52}
+                width={32}
+                height={32}
             />
             <Link
                 className='user-nav-item__name'

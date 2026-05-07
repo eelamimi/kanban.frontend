@@ -32,8 +32,8 @@ header {
 }
 
 .user-nav-item__avatar {
-    width: 52px;
-    height: 52px;
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
     outline: 1px solid black;
 }
