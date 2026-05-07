@@ -88,3 +88,10 @@
         border-radius: var(--radius-sm);
     }
 }
+
+.issue-assignee-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    outline: 1px solid black;
+}
