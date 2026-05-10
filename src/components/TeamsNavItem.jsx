@@ -4,7 +4,7 @@ import { UserInfoContext } from '../context/UserInfo/UserInfoContext'
 import { useParams, useSearchParams } from 'react-router'
 
 const TeamsNavItem = () => {
-    const { teams } = useContext(UserInfoContext)
+    const { navTeams } = useContext(UserInfoContext)
     const { projectId } = useParams()
     const [searchParams] = useSearchParams()
     const projectIdFromUrl = searchParams.get('projectId')
@@ -12,8 +12,8 @@ const TeamsNavItem = () => {
     const [link, setLink] = useState(null)
 
     const defaultProject = useMemo(() => {
-        if (!teams || !effectiveProjectId) return null
-        const foundProject = teams
+        if (!navTeams || !effectiveProjectId) return null
+        const foundProject = navTeams
             .flatMap(team => team.projects)
             .find(p => p.id === effectiveProjectId)
 
@@ -21,12 +21,12 @@ const TeamsNavItem = () => {
             label: foundProject.name,
             value: foundProject.id,
         } : null
-    }, [teams, effectiveProjectId])
+    }, [navTeams, effectiveProjectId])
 
     const options = useMemo(() => {
-        if (!teams) return []
+        if (!navTeams) return []
 
-        return teams.map(team => ({
+        return navTeams.map(team => ({
             label: team.name,
             options: team.projects.map(project => ({
                 value: project.id,
@@ -34,7 +34,7 @@ const TeamsNavItem = () => {
                 isOnly: team.projects.length === 1
             }))
         }))
-    }, [teams])
+    }, [navTeams])
 
     const handleLinkChange = useCallback((selected) => {
         window.location.href = `/projects/${selected.value}`

@@ -28,7 +28,8 @@ const UserInfoProvider = ({ children }) => {
         teams,
         setTeams,
         isLoadingTeams,
-        loadTeamsByUserId
+        loadTeamsByUserId,
+        navTeams,
     } = useTeams()
 
     useEffect(() => {
@@ -60,6 +61,7 @@ const UserInfoProvider = ({ children }) => {
                 setTeams,
                 isLoadingTeams,
                 user,
+                navTeams,
             }}
         >
             {children}
