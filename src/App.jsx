@@ -54,12 +54,12 @@ function App() {
 
             <Suspense fallback={<PageLoader />}>
                 <Routes>
-                    <Route path='invite' element={<InvitePage />} />
                     <Route path='auth'>
                         <Route path='registry' element={<RegistryPage />} />
                         <Route path='login' element={<LoginPage />} />
                     </Route>
                     <Route element={<Layout />}>
+                        <Route path='/invite' element={<InvitePage />} />
                         <Route path='/profile' element={<ProfilePage />} />
                         <Route path='/teams' element={<TeamsPage />} />
                         <Route path='/teams/:teamId' element={<TeamPage />} />
