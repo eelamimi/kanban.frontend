@@ -5,6 +5,7 @@ header {
     border-bottom: 1px solid black;
     align-items: center;
     padding: .5rem 1rem;
+    padding-top: .7rem;
     gap: 1rem;
     background-color: white;
     border-radius: 0 0 var(--radius-lg) var(--radius-lg);
