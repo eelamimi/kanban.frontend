@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router'
 
 const UserProfileAvatar = () => {
     const [searchParams] = useSearchParams()
-    const userIdFromUrl = searchParams.get('userId')
+    const userIdFromUrl = searchParams.get('userId') || AuthService.getUserInfo().userProfileId
     const { avatar, setAvatar } = useContext(UserInfoContext)
     const [isUploading, setIsUploading] = useState(false)
 
