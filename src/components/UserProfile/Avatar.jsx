@@ -1,13 +1,20 @@
-import { useCallback, useContext, useState } from 'react'
+import { useCallback, useContext, useMemo, useState } from 'react'
 import baseAvatar from '../../assets/img/default_avatar.jpg'
 import { UserInfoContext } from '../../context/UserInfo/UserInfoContext'
 import AuthService from '../../service/AuthService'
 import { showError } from '../../utils/errorHandler'
 import userAPI from '../../api/userAPI'
+import { useSearchParams } from 'react-router'
 
 const UserProfileAvatar = () => {
+    const [searchParams] = useSearchParams()
+    const userIdFromUrl = searchParams.get('userId')
     const { avatar, setAvatar } = useContext(UserInfoContext)
     const [isUploading, setIsUploading] = useState(false)
+
+    const canEditAvatar = useMemo(() =>
+        userIdFromUrl === AuthService.getUserInfo().userProfileId,
+        [userIdFromUrl])
 
     const handleFileChange = useCallback(async (event) => {
         const file = event.target.files[0]
@@ -40,34 +47,36 @@ const UserProfileAvatar = () => {
     }, [setAvatar])
 
     return (
-        <div className='userProfile__avatar-wrapper'>
+        <div className={`userProfile__avatar-wrapper ${!canEditAvatar
+            ? '--disabled' : ''}`}>
             <img
                 className='userProfile__avatar'
                 src={!avatar ? baseAvatar : `data:image/jpeg;base64,${avatar}`}
                 alt='Фото профиля'
                 loading='lazy'
             />
-            <div className='userProfile__avatar-overlay'>
-                <label style={{
-                    cursor: 'pointer',
-                    width: '100%',
-                    height: '100%',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    color: 'white'
-                }}>
-                    {isUploading ? 'Загрузка...' : 'Изменить фото'}
-                    <input
-                        type="file"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                        disabled={isUploading}
-                    />
-                </label>
-            </div>
-        </div>
+            {canEditAvatar &&
+                < div className='userProfile__avatar-overlay'>
+                    <label style={{
+                        cursor: 'pointer',
+                        width: '100%',
+                        height: '100%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white'
+                    }}>
+                        {isUploading ? 'Загрузка...' : 'Изменить фото'}
+                        <input
+                            type="file"
+                            accept="image/*"
+                            onChange={handleFileChange}
+                            style={{ display: 'none' }}
+                            disabled={isUploading}
+                        />
+                    </label>
+                </div>}
+        </div >
     )
 }
 
