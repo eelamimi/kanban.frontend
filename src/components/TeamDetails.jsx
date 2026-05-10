@@ -9,6 +9,7 @@ import { TeamContext } from '../context/Team/TeamContext'
 import AddProjectModal from './Modals/AddProjectModal'
 import EditTeamModal from './Modals/EditTeamModal'
 import InviteUserModal from './Modals/InviteUserModal'
+import { usePageTitle } from '../hook/usePageTitle'
 
 const TeamDetails = () => {
     const {
@@ -19,6 +20,7 @@ const TeamDetails = () => {
     const [isAddProject, setIsAddProject] = useState(false)
     const [isEditTeamOpen, setIsEditTeamOpen] = useState(false)
     const [isInviteUser, setIsInviteUser] = useState(false)
+    usePageTitle(team?.name ? `${team.name} | Команда` : document.title)
 
     if (isLoadingTeam) {
         return (

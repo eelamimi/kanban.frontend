@@ -6,6 +6,7 @@ import UserProfileInfo from './Info'
 import UserProfileFullName from './FullName'
 import Span from '../Span'
 import Section from '../Section'
+import { usePageTitle } from '../../hook/usePageTitle'
 
 const UserProfileCard = memo(() => {
     const {
@@ -14,6 +15,8 @@ const UserProfileCard = memo(() => {
         email,
         createdAt,
     } = useContext(UserInfoContext)
+
+    usePageTitle(`${firstName} ${secondName} | Профиль`)
 
     return (
         <Section>

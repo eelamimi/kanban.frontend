@@ -1,5 +1,5 @@
 import { useState, useEffect, Suspense, useCallback, memo } from 'react'
-import { Routes, Route } from 'react-router'
+import { Routes, Route, useLocation } from 'react-router'
 import Layout from './components/Layout'
 import ErrorToast from './components/ErrorToast'
 import { setErrorHandler } from './utils/errorHandler'
@@ -38,6 +38,13 @@ function App() {
     const handleCloseError = useCallback(() => setErrorMessage(null), [])
 
     // useAuthCheck()
+
+    const location = useLocation()
+
+    useEffect(() => {
+        if (location.pathname === '/teams')
+            document.title = 'Команды'
+    }, [location])
 
     return (
         <>

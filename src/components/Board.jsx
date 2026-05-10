@@ -7,6 +7,7 @@ import Span from './Span'
 import Button from './Button'
 import EditBoardModal from './Modals/EditBoardModal'
 import { ProjectContext } from '../context/Project/ProjectContext'
+import { usePageTitle } from '../hook/usePageTitle'
 
 const Board = () => {
     const {
@@ -14,6 +15,8 @@ const Board = () => {
         isLoadingProject
     } = useContext(ProjectContext)
     const [isEditBoardOpen, setIsEditBoardOpen] = useState(false)
+
+    usePageTitle(project?.name ? `${project.name}(${project.shortName}) | ${project.teamName}` : document.title)
 
     if (isLoadingProject) {
         return (

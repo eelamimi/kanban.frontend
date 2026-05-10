@@ -7,10 +7,13 @@ import { issuePriorityImg, issueTypesImg } from '../../consts/issueConsts'
 import { formatDate } from '../../utils/dataFormatter'
 import EditIssueModal from '../Modals/EditIssueModal'
 import ProjectProvider from '../../context/Project/ProjectProvider'
+import { usePageTitle } from '../../hook/usePageTitle'
 
 const IssueHeader = () => {
     const { issue } = useContext(IssueContext)
     const [isEditIssue, setIsEditIssue] = useState(false)
+
+    usePageTitle(`${issue.projectShortName}-${issue.numberInProject} | ${issue.projectName}`)
 
     return (
         <Section className='eight'>
