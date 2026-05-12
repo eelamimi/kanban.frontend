@@ -6,9 +6,7 @@ import { Link } from 'react-router'
 import AuthService from '../service/AuthService'
 
 const UserNavItem = () => {
-    const { user } = useContext(UserInfoContext)
-    const avatar = useMemo(() => user?.avatar,
-        [user?.avatar])
+    const { user, navAvatar: avatar } = useContext(UserInfoContext)
     const fullName = useMemo(() => `${user?.firstName} ${user?.secondName}`,
         [user.firstName, user.secondName])
 

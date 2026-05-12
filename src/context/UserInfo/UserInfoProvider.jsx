@@ -22,6 +22,8 @@ const UserInfoProvider = ({ children }) => {
         createdAt,
         loadUserById,
         user,
+        navAvatar,
+        setNavAvatar,
     } = useUserInfo()
 
     const {
@@ -62,6 +64,8 @@ const UserInfoProvider = ({ children }) => {
                 isLoadingTeams,
                 user,
                 navTeams,
+                navAvatar,
+                setNavAvatar,
             }}
         >
             {children}

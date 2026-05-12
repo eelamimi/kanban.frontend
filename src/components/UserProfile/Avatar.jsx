@@ -9,7 +9,7 @@ import { useSearchParams } from 'react-router'
 const UserProfileAvatar = () => {
     const [searchParams] = useSearchParams()
     const userIdFromUrl = searchParams.get('userId') || AuthService.getUserInfo().userProfileId
-    const { avatar, setAvatar } = useContext(UserInfoContext)
+    const { avatar, setAvatar, setNavAvatar } = useContext(UserInfoContext)
     const [isUploading, setIsUploading] = useState(false)
 
     const canEditAvatar = useMemo(() =>
@@ -38,13 +38,14 @@ const UserProfileAvatar = () => {
 
             const bytes = await userAPI.updateAvatar(form)
             setAvatar(bytes)
+            setNavAvatar(bytes)
         } catch (error) {
             console.error('Ошибка загрузки:', error)
             showError('Не удалось загрузить фото')
         } finally {
             setIsUploading(false)
         }
-    }, [setAvatar])
+    }, [setAvatar, setNavAvatar])
 
     return (
         <div className={`userProfile__avatar-wrapper ${!canEditAvatar

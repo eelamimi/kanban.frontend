@@ -5,14 +5,12 @@ import UserInfoProvider from '../context/UserInfo/UserInfoProvider'
 
 const Layout = () => {
     return (
-        <>
-            <UserInfoProvider>
-                <Header />
-            </UserInfoProvider>
+        <UserInfoProvider>
+            <Header />
             <main>
                 <Outlet />
             </main>
-        </>
+        </UserInfoProvider>
     )
 }
 

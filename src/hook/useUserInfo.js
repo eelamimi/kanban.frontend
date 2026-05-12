@@ -9,8 +9,8 @@ const useUserInfo = () => {
     const [createdAt, setCreatedAt] = useState(null)
     const [avatar, setAvatar] = useState('')
     const [isUserInfoLoading, setIsUserInfoLoading] = useState(true)
+    const [navAvatar, setNavAvatar] = useState('')
     const [user, setUser] = useState({
-        avatar: '',
         firstName: '',
         secondName: '',
     })
@@ -26,9 +26,11 @@ const useUserInfo = () => {
         const curUserId = AuthService.getUserInfo().userProfileId
         if (userId === curUserId) {
             setUser(response)
+            setNavAvatar(response.avatar)
         } else {
             const curUser = await userAPI.getUserInfo(curUserId)
             setUser(curUser)
+            setNavAvatar(curUser.avatar)
         }
 
         setIsUserInfoLoading(false)
@@ -47,6 +49,8 @@ const useUserInfo = () => {
         createdAt,
         loadUserById,
         user,
+        navAvatar,
+        setNavAvatar,
     }
 }
 
