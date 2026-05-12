@@ -11,7 +11,7 @@
 
     & legend {
         background-color: var(--color-bg);
-        border-radius: var(--radius-lg);
+        border-radius: var(--radius-md);
         padding: 1px 5px;
         border: var(--border-thin);
     }
